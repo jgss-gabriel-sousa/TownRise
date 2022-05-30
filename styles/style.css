@@ -1,8 +1,16 @@
+* {
+    cursor: url("../img/cursor.png"), auto;
+}
+
 body {
     display: flex;
     background: #67B26F;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.interface {
+    margin: auto;
 }
 
 .container {
@@ -28,12 +36,6 @@ body {
     text-align: center;
 }
 
-.map-item {
-    margin: 2px;
-    text-shadow: 2px 2px 4px #777;
-    color: black;
-}
-
 .btn {
     background-color: #04AA6D;
     border: none;
@@ -42,7 +44,12 @@ body {
     text-decoration: none;
     font-weight: bold;
     margin: 4px;
-    cursor: pointer;
+}
+
+.btn:hover{
+    background-color: #04AA6D;
+    transform: translateY(-2px);
+    box-shadow: 0px 1px 4px 2px black;
 }
 
 .small-btn {
@@ -53,24 +60,63 @@ body {
     text-decoration: none;
     font-weight: bold;
     margin: 2px;
-    cursor: pointer;
+}
+
+.btn-active {
+    background-color: #005e3b;
+}
+
+.container.data p {
+    font-weight: bold;
+    margin: 10px;
 }
 
 #map {
     display: flex;
     width: 100%;
     justify-items: center;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     align-content: center;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    background: rgb(107,155,30);
-    background: radial-gradient(circle, rgba(107,155,30,1) 0%, rgba(141,191,57,1) 100%);
+    background-repeat: repeat;
     border: 2px solid black;
+    background: rgb(45, 155, 30);
+    background: radial-gradient(circle, rgb(45, 155, 30) 0%, rgb(58, 141, 37) 100%); 
 }
 
-.container.data p {
-    font-weight: bold;
-    margin: 10px;
+.map-div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.map-item {
+    text-shadow: 2px 2px 4px #777;
+    color: black;
+}
+
+.map-item-sm img {
+    height: 32px;
+    width: 32px;
+}
+
+.map-item-md img {
+    height: 48px;
+    width: 48px;
+}
+
+.map-item-lg img {
+    height: 64px;
+    width: 64px;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        flex-direction: column;
+    }
+    #map {
+        width: auto;
+    }
 }

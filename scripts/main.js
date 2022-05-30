@@ -10,8 +10,13 @@ let foodProduction;
 let foodLimit = 10;
 let resources = 10;
 let fertilityRate = 60;
+
 let house = 0;
 let farm = 0;
+let warehouse = 0;
+
+let warehouseStorage = 20;
+
 let totalDays = 0;
 let hungry = 0;
 
@@ -19,7 +24,7 @@ let score = 0;
 let maxPop = population;
 
 let season = "spring";
-let day = 1;
+let day = 0;
 let weather = "sun";
 
 
@@ -60,47 +65,61 @@ function buildConstruction(obj){
     console.log(mapObj);
 
     if(obj == "house" && resources >= 1){
-        mapObj = '<div class="map-item"><span><i class="fa-solid fa-house"></i></span></div>';
+        const variation = rand(0,2);
+        if(variation == 0)  document.getElementById("map-houses").innerHTML += '<div class="map-item map-item-sm"><img src="./img/house0.png"></div>';
+        if(variation == 1)  document.getElementById("map-houses").innerHTML += '<div class="map-item map-item-sm"><img src="./img/house1.png"></div>';
+
         house++;
         resources--;
     }
     if(obj == "farm" && resources >= 3){
-        mapObj = '<div class="map-item"><span><i class="fa-solid fa-wheat-awn"></i></span></div>';
+        const variation = rand(0,2);
+        if(variation == 0)  document.getElementById("map-farms").innerHTML += '<div class="map-item map-item-md"><img src="./img/farm.png"></div>';
+        if(variation == 1)  document.getElementById("map-farms").innerHTML += '<div class="map-item map-item-md"><img src="./img/farm.png"></div>';
+
+        //document.getElementById("map-farms").innerHTML += '<div class="map-item map-farm"><img src="./img/farm.png"></div>';
+
         farm++;
         resources -= 3;
     }
     if(obj == "warehouse" && resources >= 6){
-        mapObj = '<div class="map-item"><span><i class="fa-solid fa-warehouse"></i></span></div>';
-        farm++;
+        document.getElementById("map-buildings").innerHTML += '<div class="map-item map-item-md"><img src="./img/warehouse.png"></div>';
+        
+        warehouse++;
         resources -= 6;
-        foodLimit += 10;
     }
-
-    if(mapObj)
-        document.getElementById("map").innerHTML += mapObj;
 
     updateDataInfo();
 }
 
 function advanceDay(){
+    totalDays++;
     if(day < 20){
         day++;
-        totalDays++;
     }
     else{
         day = 1;
         advanceMonth();
 
-        if(season == "spring")  season = "summer";
-        else if(season == "summer")  season = "autumn";
-        else if(season == "autumn")  season = "winter";
+        if(season == "spring"){
+            season = "summer";
+        }
+        else if(season == "summer"){
+            season = "autumn";
+        }  
+        else if(season == "autumn"){
+            season = "winter";
+        }  
         else if(season == "winter"){
             season = "spring";
+
             advanceYear();
         }
     }
 
-    foodProduction = (farm*4)/(population == 0 ? 1 : population+1);
+    //FOOD PRODUCTION
+    foodProduction = population/4;
+    if(foodProduction > farm) foodProduction = farm;
 
     if(weather == "rain"){
         foodProduction *= 1.5;
@@ -108,24 +127,23 @@ function advanceDay(){
     else if(weather == "snow"){
         foodProduction *= 0;
     }
-
     food += foodProduction;
 
+    //FOOD CONSUMPTION
     foodConsumption = (population*0.05) + (childrens*0.0375);
     food -= foodConsumption;
 
-    if(food > foodLimit){
-        food = foodLimit;
-    }
+    //FOOD LIMIT
+    foodLimit = (1+warehouse) * warehouseStorage;
+    if(food > foodLimit)    food = foodLimit;
 
+    //HUNGRY
     if(food < foodConsumption)
         hungry++;
     else
         hungry--;
-
-    if(hungry < 0) hungry = 0;
-    if(food < 0) food = 0;
-
+    if(hungry < 0)  hungry = 0;
+    if(food < 0)    food = 0;
     if(hungry > 0){
         population -= rand(0,hungry);
         childrens -= rand(0,hungry);
@@ -152,13 +170,14 @@ function updateDataInfo(){
 }
 
 function advanceMonth(){
-    resources++;
+    resources += Math.round(population/4)+1;
+    if(resources > population) resources = population;
     
     let homes = house+1 / Math.round(population/4);
     if(homes > 1) homes = 1;
     if(population == 0) homes = 0;
 
-    const newChild = (1+(rand(0,fertilityRate)/100))*homes;
+    const newChild = ((1+(rand(0,fertilityRate)/100))*homes)*(population/4);
     childrens += newChild;
 }
 
@@ -178,10 +197,9 @@ function checkGameOver(){
     if(population == 0 && childrens == 0){
         gameOver = true;
 
-        score = maxPop/(totalDays/2);
+        score = Math.floor((maxPop-10)/(totalDays/1000));
 
-        alert("Game Over");
-        alert("Score: "+score);
+        alert("Game Over \n\nScore: "+score);
     }
 }
 
@@ -210,6 +228,22 @@ window.onclick = e => {
 
 
     else if(e.target.id == "pause") gameTimer.pause();
-    else if(e.target.id == "1x")    gameSpeed = 800;
-    else if(e.target.id == "10x")   gameSpeed = 80;
+    else if(e.target.id == "1x"){
+        gameSpeed = 1500;
+        document.getElementById("1x").classList.add("btn-active");
+        document.getElementById("5x").classList.remove("btn-active");
+        document.getElementById("10x").classList.remove("btn-active");
+    }    
+    else if(e.target.id == "5x"){
+        gameSpeed = 300;
+        document.getElementById("1x").classList.remove("btn-active");
+        document.getElementById("5x").classList.add("btn-active");
+        document.getElementById("10x").classList.remove("btn-active");
+    }    
+    else if(e.target.id == "10x"){
+        gameSpeed = 150;
+        document.getElementById("1x").classList.remove("btn-active");
+        document.getElementById("5x").classList.remove("btn-active");
+        document.getElementById("10x").classList.add("btn-active");
+    }   
 }

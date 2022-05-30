@@ -10,10 +10,11 @@
     <title>My Village</title>
 </head>
 <body>
-    <div>
+    <div class="interface">
         <div class="container data">
             <div class="time">
-                <input type="button" class="small-btn" value=">" id="1x">
+                <input type="button" class="small-btn btn-active" value=">" id="1x">
+                <input type="button" class="small-btn" value=">>" id="5x">
                 <input type="button" class="small-btn" value=">>>" id="10x">
                 <br>
                 <br>
@@ -30,12 +31,15 @@
         </div>
         <div class="container menu">
             <p><b>Construções</b></p>
-            <input type="button" class="btn" value="Casa" id="add-house">
-            <input type="button" class="btn" value="Fazenda" id="add-farm">
-            <input type="button" class="btn" value="Armazem" id="add-warehouse">
+            <input type="button" class="btn" value="Casa (1)" id="add-house">
+            <input type="button" class="btn" value="Fazenda (3)" id="add-farm">
+            <input type="button" class="btn" value="Armazem (6)" id="add-warehouse">
         </div>
     </div>
-    <div class="container" id="map">
+    <div class="container grass-spring" id="map">
+        <div class="map-div" id="map-houses"></div>
+        <div class="map-div" id="map-farms"></div>
+        <div class="map-div" id="map-buildings"></div>
     </div>
 </body>
 </html>
