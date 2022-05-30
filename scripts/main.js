@@ -15,6 +15,9 @@ let farm = 0;
 let totalDays = 0;
 let hungry = 0;
 
+let score = 0;
+let maxPop = population;
+
 let season = "spring";
 let day = 1;
 let weather = "sun";
@@ -97,7 +100,7 @@ function advanceDay(){
         }
     }
 
-    foodProduction = (farm*4)/population;
+    foodProduction = (farm*4)/(population == 0 ? 1 : population+1);
 
     if(weather == "rain"){
         foodProduction *= 1.5;
@@ -108,12 +111,12 @@ function advanceDay(){
 
     food += foodProduction;
 
+    foodConsumption = (population*0.05) + (childrens*0.0375);
+    food -= foodConsumption;
+
     if(food > foodLimit){
         food = foodLimit;
     }
-
-    foodConsumption = (population*0.05) + (childrens*0.0375);
-    food -= foodConsumption;
 
     if(food < foodConsumption)
         hungry++;
@@ -130,6 +133,8 @@ function advanceDay(){
         if(population < 0) population = 0;
         if(childrens < 0) childrens = 0;
     }
+
+    if(population > maxPop) maxPop = population;
 
     updateDataInfo();
 }
@@ -148,7 +153,6 @@ function updateDataInfo(){
 
 function advanceMonth(){
     resources++;
-
     
     let homes = house+1 / Math.round(population/4);
     if(homes > 1) homes = 1;
@@ -173,16 +177,21 @@ function advanceYear(){
 function checkGameOver(){
     if(population == 0 && childrens == 0){
         gameOver = true;
+
+        score = maxPop/(totalDays/2);
+
         alert("Game Over");
+        alert("Score: "+score);
     }
 }
 
 let gameOver = false;
 let gameSpeed = 1000;
 function newTurn(){
+    checkGameOver();
+
     advanceDay();
     newWeather();
-    checkGameOver();
 
     if(!gameOver)
         window.setTimeout(newTurn, gameSpeed);
