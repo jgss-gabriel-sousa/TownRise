@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/style.css">
+    <script src="./scripts/main.js" type="module" defer></script>
+    <script src="https://kit.fontawesome.com/893953f084.js" crossorigin="anonymous"></script>
+    <title>Banished</title>
+</head>
+<body>
+    <div>
+        <div class="container menu">
+            <p><b>Construções</b></p>
+            <input type="button" class="btn" value="Casa" id="add-house">
+            <input type="button" class="btn" value="Fazenda" id="add-farm">
+            <input type="button" class="btn" value="Armazem" id="add-warehouse">
+        </div>
+        <div class="container data">
+            <div class="time">
+                <p><span id="totalDays">1</span> <span>Dias</span></p>
+                <p><span id="day">1</span> - <span id="season">Primavera</span></p>
+                <span id="day-weather"><i class="fa-solid fa-sun"></i></span>
+                <br>
+                <br>
+                <input type="button" class="small-btn" value="=" id="pause">
+                <br>
+                <input type="button" class="small-btn" value=">" id="1x">
+                <input type="button" class="small-btn" value=">>>" id="10x">
+            </div>
+
+            <p>População: <span id="pop-stat"></span></p>
+            <p>Crianças: <span id="childrens-stat"></span></p>
+
+            <p>Comida: <span id="food-stat"></span> (<span id="food-prod-stat"></span>)</p>
+            <p>Recursos: <span id="resources-stat"></span></p>
+        </div>
+    </div>
+    <div class="container" id="map">
+    </div>
+</body>
+</html>
