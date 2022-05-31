@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 * {
     cursor: url("../img/cursor.png"), auto;
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -7,6 +10,11 @@ body {
     background: #67B26F;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+p {
+    margin: 10px;
+    font-size: 14px;
 }
 
 .interface {
@@ -18,7 +26,7 @@ body {
     flex-direction: column;
     border: 1px solid;
     margin: 10px;
-    padding: 10px;
+    padding: 2px;
     background-color: rgb(240, 240, 240);
 }
 
@@ -43,16 +51,16 @@ body {
     background-color: #04AA6D;
     border: none;
     color: white;
-    padding: 16px;
+    padding: 8px;
     text-decoration: none;
     font-weight: bold;
     margin: 4px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .btn:hover{
-    background-color: #04AA6D;
-    transform: translateY(-2px);
-    box-shadow: 0px 1px 4px 2px black;
+    background-color: #005e3b;
+    box-shadow: 0px 1px 2px 1px black;
 }
 
 .small-btn {
@@ -71,7 +79,10 @@ body {
 
 .container.data p {
     font-weight: bold;
-    margin: 10px;
+}
+
+.hidden {
+    display: none;
 }
 
 #map {
