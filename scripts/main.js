@@ -13,7 +13,7 @@ let foodConsumption = 0;
 let foodProduction = 0;
 let foodLimit = 10;
 let resources = 10;
-let fertilityRate = 40;
+let fertilityRate = 20;
 let workforce;
 let jobs;
 let productivity;
@@ -163,7 +163,7 @@ function advanceDay(){
     foodProduction += (farm*0.25)*productivity*weatherProductivity;
 
     //FOOD CONSUMPTION ############################################################################
-    foodConsumption = (population*0.05) + (childrens*0.0375);
+    foodConsumption = (population*0.05) + (childrens*0.0250);
     food -= foodConsumption;
 
     //FOOD LIMIT ##################################################################################
@@ -322,3 +322,14 @@ window.onclick = e => {
         document.getElementById("10x").classList.add("btn-active");
     }   
 }
+/*
+document.addEventListener('mousemove', function(e) {
+    let box = document.getElementById('floating-box');
+    box.style.left =  e.pageX + 'px';
+    box.style.top = e.pageY + 'px';
+});
+
+document.getElementById("add-house").addEventListener("mouseover", function(e) {
+    document.getElementById('floating-box').hidden = false;
+}, false);
+*/
