@@ -129,6 +129,7 @@ function advanceDay(){
 
     //Pop Deaths ###################################################################################
     sheltered = house*4;
+    if(sheltered > population) sheltered = population;
 
     const WINTER_HOMELESS_DEATH_CHANCE = 12;
     const NORMAL_HOMELESS_DEATH_CHANCE = 5;
