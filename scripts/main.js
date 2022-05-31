@@ -76,16 +76,16 @@ function buildConstruction(obj){
 
     if(obj == "house" && resources >= 1){
         const variation = rand(0,1);
-        if(variation == 0)  document.getElementById("map-houses").innerHTML += '<div class="map-item map-item-md"><img src="./img/house0.png"></div>';
+        if(variation == 0)  document.getElementById("map-houses").innerHTML += '<div class="map-item map-item-md"><img src="./img/house0.gif"></div>';
         //if(variation == 1)  document.getElementById("map-houses").innerHTML += '<div class="map-item map-item-sm"><img src="./img/house1.png"></div>';
 
         house++;
         resources--;
     }
     if(obj == "farm" && resources >= 3){
-        const variation = rand(0,2);
-        if(variation == 0)  document.getElementById("map-farms").innerHTML += '<div class="map-item map-item-sm"><img src="./img/farm.png"></div>';
-        if(variation == 1)  document.getElementById("map-farms").innerHTML += '<div class="map-item map-item-sm"><img src="./img/farm.png"></div>';
+        const variation = rand(0,1);
+        if(variation == 0)  document.getElementById("map-farms").innerHTML += '<div class="map-item map-item-sm"><img src="./img/farm.gif"></div>';
+        //if(variation == 1)  document.getElementById("map-farms").innerHTML += '<div class="map-item map-item-sm"><img src="./img/farm.gif"></div>';
 
         //document.getElementById("map-farms").innerHTML += '<div class="map-item map-farm"><img src="./img/farm.png"></div>';
 
@@ -93,7 +93,7 @@ function buildConstruction(obj){
         resources -= 3;
     }
     if(obj == "warehouse" && resources >= 6){
-        document.getElementById("map-buildings").innerHTML += '<div class="map-item map-item-md"><img src="./img/warehouse.png"></div>';
+        document.getElementById("map-buildings").innerHTML += '<div class="map-item map-item-md"><img src="./img/warehouse.gif"></div>';
         
         warehouse++;
         resources -= 6;
