@@ -280,6 +280,7 @@ window.onclick = e => {
         gameStarted = true;
         gamePaused = false;
         document.getElementById("start").remove();
+        document.getElementById("game-version").remove();
         document.getElementById("1x").classList.add("btn-active");
         document.getElementById("pause").classList.remove("hidden");
         document.getElementById("1x").classList.remove("hidden");
