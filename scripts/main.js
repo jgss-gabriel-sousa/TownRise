@@ -30,6 +30,7 @@ let season = "spring";
 let day = 0;
 let weather = "sun";
 
+let playSong = false;
 
 function newWeather(){
     weather = "sun";
@@ -222,10 +223,19 @@ function newTurn(){
     advanceDay();
     newWeather();
 
+    if(!playSong){
+        soundtrack();
+        playSong = true;
+    } 
+
     if(!gameOver)
         window.setTimeout(newTurn, gameSpeed);
 }
 
+function soundtrack(){
+    var audio = new Audio("../songs/1.ogg");
+    audio.play();
+}
 
 window.onclick = e => {
     //console.log(e);
