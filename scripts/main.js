@@ -3,13 +3,15 @@ import Buildings from "./pop.js"
 import { rand, numberFormatted, translateSeason } from "./funcs.js"
 
 let population = 10;
+let sheltered;
 let childrens = 0;
 let food = 10;
 let foodConsumption;
 let foodProduction;
 let foodLimit = 10;
 let resources = 10;
-let fertilityRate = 60;
+let fertilityRate = 40;
+let workforce;
 
 let house = 0;
 let farm = 0;
@@ -21,7 +23,8 @@ let totalDays = 0;
 let hungry = 0;
 
 let score = 0;
-let maxPop = population;
+let popRecord = population;
+let timeToReachPopRecord;
 
 let season = "spring";
 let day = 0;
@@ -61,21 +64,18 @@ function newWeather(){
 }
 
 function buildConstruction(obj){
-    let mapObj;
-    console.log(mapObj);
-
     if(obj == "house" && resources >= 1){
-        const variation = rand(0,2);
-        if(variation == 0)  document.getElementById("map-houses").innerHTML += '<div class="map-item map-item-sm"><img src="./img/house0.png"></div>';
-        if(variation == 1)  document.getElementById("map-houses").innerHTML += '<div class="map-item map-item-sm"><img src="./img/house1.png"></div>';
+        const variation = rand(0,1);
+        if(variation == 0)  document.getElementById("map-houses").innerHTML += '<div class="map-item map-item-md"><img src="./img/house0.png"></div>';
+        //if(variation == 1)  document.getElementById("map-houses").innerHTML += '<div class="map-item map-item-sm"><img src="./img/house1.png"></div>';
 
         house++;
         resources--;
     }
     if(obj == "farm" && resources >= 3){
         const variation = rand(0,2);
-        if(variation == 0)  document.getElementById("map-farms").innerHTML += '<div class="map-item map-item-md"><img src="./img/farm.png"></div>';
-        if(variation == 1)  document.getElementById("map-farms").innerHTML += '<div class="map-item map-item-md"><img src="./img/farm.png"></div>';
+        if(variation == 0)  document.getElementById("map-farms").innerHTML += '<div class="map-item map-item-sm"><img src="./img/farm.png"></div>';
+        if(variation == 1)  document.getElementById("map-farms").innerHTML += '<div class="map-item map-item-sm"><img src="./img/farm.png"></div>';
 
         //document.getElementById("map-farms").innerHTML += '<div class="map-item map-farm"><img src="./img/farm.png"></div>';
 
@@ -117,7 +117,7 @@ function advanceDay(){
         }
     }
 
-    //FOOD PRODUCTION
+    //FOOD PRODUCTION #############################################################################
     foodProduction = population/4;
     if(foodProduction > farm) foodProduction = farm;
 
@@ -129,15 +129,15 @@ function advanceDay(){
     }
     food += foodProduction;
 
-    //FOOD CONSUMPTION
+    //FOOD CONSUMPTION ############################################################################
     foodConsumption = (population*0.05) + (childrens*0.0375);
     food -= foodConsumption;
 
-    //FOOD LIMIT
+    //FOOD LIMIT ##################################################################################
     foodLimit = (1+warehouse) * warehouseStorage;
     if(food > foodLimit)    food = foodLimit;
 
-    //HUNGRY
+    //HUNGRY ######################################################################################
     if(food < foodConsumption)
         hungry++;
     else
@@ -152,7 +152,12 @@ function advanceDay(){
         if(childrens < 0) childrens = 0;
     }
 
-    if(population > maxPop) maxPop = population;
+    //#############################################################################################
+
+    if(population > popRecord){
+        popRecord = population;
+        timeToReachPopRecord = totalDays;
+    }
 
     updateDataInfo();
 }
@@ -171,14 +176,18 @@ function updateDataInfo(){
 
 function advanceMonth(){
     resources += Math.round(population/4)+1;
+    resources -= farm;
     if(resources > population) resources = population;
+    if(resources < 0) resources = 1;
     
     let homes = house+1 / Math.round(population/4);
     if(homes > 1) homes = 1;
     if(population == 0) homes = 0;
 
-    const newChild = ((1+(rand(0,fertilityRate)/100))*homes)*(population/4);
-    childrens += newChild;
+    if(!hungry){
+        const newChild = ((1+(rand(0,fertilityRate)/100))*homes)*(population/8);
+        childrens += newChild;
+    }
 }
 
 function advanceYear(){
@@ -197,7 +206,9 @@ function checkGameOver(){
     if(population == 0 && childrens == 0){
         gameOver = true;
 
-        score = Math.floor((maxPop-10)/(totalDays/1000));
+        score = Math.floor((popRecord-10)/((timeToReachPopRecord+1)/1000));
+        if(!score)
+            score = 0;
 
         alert("Game Over \n\nScore: "+score);
     }
@@ -215,8 +226,6 @@ function newTurn(){
         window.setTimeout(newTurn, gameSpeed);
 }
 
-newTurn();
-
 
 window.onclick = e => {
     //console.log(e);
@@ -227,7 +236,11 @@ window.onclick = e => {
     else if(e.target.id == "add-warehouse")     buildConstruction("warehouse");
 
 
-    else if(e.target.id == "pause") gameTimer.pause();
+    else if(e.target.id == "start"){
+        newTurn();
+        document.getElementById("start").remove();
+        document.getElementById("1x").classList.add("btn-active");
+    } 
     else if(e.target.id == "1x"){
         gameSpeed = 1500;
         document.getElementById("1x").classList.add("btn-active");

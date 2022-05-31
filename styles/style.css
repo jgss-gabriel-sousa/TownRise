@@ -17,10 +17,13 @@ body {
     display: flex;
     flex-direction: column;
     border: 1px solid;
-    text-align: center;
     margin: 10px;
     padding: 10px;
     background-color: rgb(240, 240, 240);
+}
+
+.container h3 {
+    text-align: center;
 }
 
 .data {
@@ -118,5 +121,20 @@ body {
     }
     #map {
         width: auto;
+    }
+    
+    .map-item-sm img {
+        height: 16px;
+        width: 16px;
+    }
+
+    .map-item-md img {
+        height: 24px;
+        width: 24px;
+    }
+
+    .map-item-lg img {
+        height: 32px;
+        width: 32x;
     }
 }
