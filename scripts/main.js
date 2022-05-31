@@ -29,7 +29,6 @@ let hungry = 0;
 
 let score = 0;
 let popRecord = population;
-let timeToReachPopRecord;
 
 var gameTick;
 let gameStarted = false;
@@ -188,10 +187,7 @@ function advanceDay(){
 
     //#############################################################################################
 
-    if(population > popRecord){
-        popRecord = population;
-        timeToReachPopRecord = totalDays;
-    }
+    if(population > popRecord) popRecord = population;
 
     updateDataInfo();
 }
@@ -245,9 +241,7 @@ function checkGameOver(){
     if(population == 0 && childrens == 0){
         gameOver = true;
 
-        score = Math.floor((popRecord-10)/((timeToReachPopRecord+1)/1000));
-        if(!score)
-            score = 0;
+        score = popRecord * totalDays;
 
         alert("Game Over \n\nScore: "+score);
 
