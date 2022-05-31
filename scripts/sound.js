@@ -1,4 +1,4 @@
-import { rand } from "./funcs.JS"
+import { rand } from "./funcs.js"
 
 var audio = new Audio();
 const NUMBER_OF_SONGS = 8;
