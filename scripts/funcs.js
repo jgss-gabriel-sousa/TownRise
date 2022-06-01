@@ -14,3 +14,35 @@ export function translateSeason(season){
     if(season == "autumn")  return "Outono";
     if(season == "winter")  return "Inverno";
 }
+
+export function average(array){
+    let total = 0;
+    let count = 0;
+
+    array.forEach(function(item, index) {
+        total += item;
+        count++;
+    });
+
+    return total / count;
+}
+
+
+if(localStorage.getItem("game-version") != document.getElementById("game-version").innerText){
+    localStorage.setItem("highscore", "0");
+    localStorage.setItem("game-version", document.getElementById("game-version").innerText);
+}
+
+let highscore = localStorage.getItem("highscore");
+if(highscore == null) highscore = 0;
+
+
+export function highScoreHTML(){
+    document.getElementById("highscore").innerText = "Recorde: "+highscore;
+}
+
+export function checkHighScore(value){
+    if(value > highscore){
+        localStorage.setItem("highscore", value.toString());
+    }
+}
