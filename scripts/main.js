@@ -1,42 +1,48 @@
 import { rand, numberFormatted, translateSeason, average, highScoreHTML, checkHighScore } from "./funcs.js"
 import { soundtrack } from "./sound.js"
-import { buildingsUI } from "./ui.js"
+import { buildingsUI, resourcesUI } from "./ui.js"
 
-import { buildingHTML, destroyBuildingHTML, qtyToDestroy } from "./buildings.js"
+import { buildingHTML, destroyBuildingHTML } from "./buildings.js"
 import { logPush } from "./log.js";
 
 let population = 10;
 let sheltered = 0;
 let educated = 0;
-let students = 0;
 let childrens = 0;
 let fertilityRate = 20;
 let homelessRate = 100;
 
-let food = 50;
-let foodConsumption = 0;
-let foodProduction = 0;
-let foodLimit = 10;
+let resourceLimit = 10;
 
-let wood = 16;
-let stone = 8;
-let iron = 4;
+let food = 50;
+let crop = 0;
+let leather = 0;
+let wood = 20;
+let firewood = 10;
+let stone = 20;
+let iron = 0;
+let coal = 0;
+let steel = 0;
+let clothes = 20;
+let tools = 20;
 
 let workforce;
-let manpower;
 let jobs;
 let productivity;
 
 let house = 0;
+let school = 0;
+let cropField = 0;
 let farm = 0;
-let warehouse = 0;
+let tailor = 0;
+let blacksmith = 0;
 let lumbermill = 0;
+let sawmill = 0;
+let warehouse = 0;
 let quarry = 0;
 let mine = 0;
-let builder = 0;
 
 let warehouseStorage = 50;
-let farmHarvest = 0;
 
 let totalDays = 0;
 let hungry = 0;
@@ -88,48 +94,79 @@ function buildConstruction(buildingID){
     if(!gameStarted) return;
 
     if(buildingID == "house"){
-        if(manpower >= 1 && wood >= 1){
+        if(wood >= 5 && stone >= 2){
             house++;
-            wood--;
+            wood -= 5;
+            stone -= 2;
+        }
+        else return;
+    }
+    else if(buildingID == "school"){
+        if(wood >= 20 && stone >= 40 && iron >= 20){
+            school++;
+            wood -= 20;
+            stone -= 40;
+            iron -= 20;
+        }
+        else return;
+    }
+    else if(buildingID == "cropField"){
+        if(season != "winter"){
+            cropField++;
         }
         else return;
     }
     else if(buildingID == "farm"){
-        if(wood >= 2 && season != "winter"){
+        if(wood >= 10){
             farm++;
-            wood -= 2;
-        }
-        else return;
-    }
-    else if(buildingID == "warehouse"){
-        if(manpower >= 6 && wood >= 10){
-            warehouse++;
             wood -= 10;
         }
         else return;
     }
-    else if(buildingID == "lumbermill"){
-        if(manpower >= 3){
-            lumbermill++;
+    else if(buildingID == "tailor"){
+        if(wood >= 30){
+            tailor++;
+            wood -= 30;
         }
         else return;
     }
-    else if(buildingID == "builder"){
-        if(manpower >= 3 && wood >= 3){
-            builder++;
-            wood -= 3;
+    else if(buildingID == "blacksmith"){
+        if(stone >= 30){
+            blacksmith++;
+            stone -= 30;
+        }
+        else return;
+    }
+    else if(buildingID == "lumbermill"){
+        lumbermill++;
+    }
+    else if(buildingID == "sawmill"){
+        if(wood >= 20 && stone >= 20){
+            sawmill++;
+            wood -= 20;
+            stone -= 20;
+        }
+        else return;
+    }
+    else if(buildingID == "warehouse"){
+        if(wood >= 40){
+            warehouse++;
+            wood -= 40;
         }
         else return;
     }
     else if(buildingID == "quarry"){
-        if(manpower >= 20 && wood >= 20){
+        if(wood >= 50){
             quarry++;
+            wood -= 50;
         }
         else return;
     }
     else if(buildingID == "mine"){
-        if(manpower >= 30 && wood >= 30 && stone >= 30){
+        if(wood >= 100 && stone >= 50){
             mine++;
+            wood -= 100;
+            stone -= 50;
         }
         else return;
     }
@@ -139,8 +176,22 @@ function buildConstruction(buildingID){
 
     buildingHTML(buildingID);
 
+    checkToActivateResources();
     updateDataInfo();
 }
+
+
+function checkToActivateResources(){
+    if(document.getElementById("crop").classList.contains("hidden") && (crop || cropField))
+        document.getElementById("crop").classList.remove("hidden");
+
+    if(document.getElementById("leather").classList.contains("hidden") && (leather || farm || tailor))
+        document.getElementById("leather").classList.remove("hidden");
+
+    if(document.getElementById("iron").classList.contains("hidden") && (iron || school || blacksmith || sawmill || mine))
+        document.getElementById("iron").classList.remove("hidden");
+}
+
 
 function advanceDay(){
     totalDays++;
@@ -169,14 +220,13 @@ function advanceDay(){
             document.getElementById("map").classList.add("map-winter");
 
             //Harvest
-            food += farmHarvest;
-            foodProduction = farmHarvest;
+            food += crop;
 
-            if(farmHarvest > 0) logPush("A colheita rendeu "+Math.round(farmHarvest)+" de comida",totalDays);
+            if(crop > 0) logPush("A colheita rendeu "+Math.round(crop)+" de comida",totalDays);
             
-            farmHarvest = 0;
-            destroyBuildingHTML("farm",farm);
-            farm = 0;
+            crop = 0;
+            destroyBuildingHTML("cropField",cropField);
+            cropField = 0;
         }  
         else if(season == "winter"){
             season = "spring";
@@ -224,52 +274,93 @@ function advanceDay(){
 
     //Workforce ###################################################################################
     workforce = (population-educated)+(educated*1.5);
-    jobs = (farm*4)+(warehouse*5)+(lumbermill*2)+(builder*3)+(quarry*20)+(mine*30);
-    
-    manpower = workforce - jobs + (builder*6);
-    if(manpower < 0) manpower = 0;
+    jobs = (cropField*4)+(farm*8)+(lumbermill*5)+(sawmill*5)+(tailor*3)+(blacksmith*3)+(warehouse*5)+(quarry*10)+(mine*20);
 
     //PRODUCTIVITY ################################################################################
 
     let jobAssignment = workforce/jobs;
-    if(jobs == 0) jobAssignment = 0;
+    if(jobs == 0) jobAssignment = 1;
     if(jobAssignment > 1) jobAssignment = 1;
 
-    productivity = average([jobAssignment]);
+    let toolsAccess = tools/population;
+    if(tools == 0) toolsAccess = 0;
+    if(toolsAccess > 1) toolsAccess = 1;
+
+    let clothesAccess = clothes/population;
+    if(clothes == 0) clothesAccess = 0;
+    if(clothesAccess > 1) clothesAccess = 1;
+
+    productivity = average([jobAssignment,toolsAccess,clothesAccess]);
 
     if(productivity > 1) productivity = 1;
 
+    // Buildings Consumption ######################################################################
+
+    wood -= (house*0.25)+(farm*0.25)+(warehouse);
+    firewood -= (season == "winter" ? (house*0.1) : 0)+(blacksmith*0.25);
+    stone -= 0;
+    iron -= (sawmill*0.25)+(blacksmith*0.25);
+    leather -= (tailor);
+    tools -= (quarry*0.1)+(mine*0.5)+(tailor*0.1);
+    clothes -= population*0.0125;
+    tools -= population*0.0125;
+
+    if(wood < 0) wood = 0;
+    if(stone < 0) stone = 0;
+    if(iron < 0) iron = 0;
+    if(tools < 0) tools = 0;
+    if(leather < 0) leather = 0;
+    if(clothes < 0) clothes = 0;
+    if(tools < 0) tools = 0;
+    if(firewood < 0) firewood = 0;
+    
     //RESOURCES PRODUCTION ########################################################################
 
+    food += (farm)*productivity;
+    leather += (farm*0.5)*productivity;
     iron += mine*productivity;
     stone += quarry*productivity;
-    wood += (0.5*lumbermill)*productivity;
+    wood += (lumbermill)*productivity;
+    clothes += (tailor)*productivity;
+    tools += (blacksmith)*productivity;
 
     //FOOD PRODUCTION #############################################################################
     let weatherFoodProductivity = 1;
 
     if(weather == "rain"){
-        weatherFoodProductivity = 2;
+        weatherFoodProductivity = 4;
     }
     if(season == "winter"){
         weatherFoodProductivity = 0;
     }
 
-    farmHarvest += (farm*0.5)*productivity*weatherFoodProductivity;
+    crop += (cropField*0.5)*productivity*weatherFoodProductivity;
 
     //FOOD CONSUMPTION ############################################################################
-    foodConsumption = (population*0.05) + (childrens*0.0250);
+
+    const foodDifficulty = 75;
+    const foodConsumption = ((population*0.05) + (childrens*0.0250))*(foodDifficulty/100);
     food -= foodConsumption;
 
-    //FOOD LIMIT ##################################################################################
-    foodLimit = (1+warehouse) * warehouseStorage;
-    if(food > foodLimit) food = foodLimit;
+    //RESOURCE LIMIT ##############################################################################
+
+    resourceLimit = (1+warehouse) * warehouseStorage;
+
+    if(food > resourceLimit)        food = resourceLimit;
+    if(wood > resourceLimit)        wood = resourceLimit;
+    if(stone > resourceLimit)       stone = resourceLimit;
+    if(iron > resourceLimit)        iron = resourceLimit;
+    if(firewood > resourceLimit)    firewood = resourceLimit;
+    if(tools > resourceLimit)       tools = resourceLimit;
+    if(clothes > resourceLimit)     clothes = resourceLimit;
+    if(leather > resourceLimit)     leather = resourceLimit;
 
     //HUNGRY ######################################################################################
+
     if(food < foodConsumption)
         hungry++;
     else
-        hungry--;
+        hungry = 0;
     if(hungry < 0)  hungry = 0;
     if(food < 0)    food = 0;
     if(hungry > 0){
@@ -292,6 +383,7 @@ function advanceDay(){
 
     if(population > popRecord) popRecord = population;
 
+    checkToActivateResources();
     updateDataInfo();
 }
 
@@ -299,18 +391,25 @@ function updateDataInfo(){
     document.getElementById("totalDays").innerText = totalDays;
     document.getElementById("pop-stat").innerText = numberFormatted(population);
     document.getElementById("childrens-stat").innerText = numberFormatted(Math.round(childrens));
+    document.getElementById("educated-stat").innerText = numberFormatted(Math.round(educated));
+    document.getElementById("max-educated-stat").innerText = numberFormatted(Math.round(school*4));
     document.getElementById("homeless-stat").innerText = Math.round(homelessRate*100);
-    document.getElementById("food-stat").innerText = numberFormatted(Math.round(food));
-    document.getElementById("max-food-stat").innerText = numberFormatted(foodLimit);
-    document.getElementById("food-prod-stat").innerText = numberFormatted((-foodConsumption).toFixed(1));
     document.getElementById("workforce-stat").innerText = workforce;
     document.getElementById("jobs-stat").innerText = jobs;
-    document.getElementById("wood-stat").innerText = numberFormatted(Math.round(wood));
-    document.getElementById("stone-stat").innerText = numberFormatted(Math.round(stone));
-    document.getElementById("iron-stat").innerText = numberFormatted(Math.round(iron));
-    document.getElementById("manpower-stat").innerText = manpower;
-    document.getElementById("harvest-stat").innerText = numberFormatted(Math.round(farmHarvest));
-    document.getElementById("productivity-stat").innerText = (productivity*100).toFixed(1);
+    document.getElementById("productivity-stat").innerText = Math.round(productivity*100);
+    document.getElementById("resource-limit-stat").innerText = numberFormatted(resourceLimit);
+
+    document.getElementById("food-stat").innerText = numberFormatted(Math.floor(food));
+    document.getElementById("crop-stat").innerText = numberFormatted(Math.floor(crop));
+    document.getElementById("leather-stat").innerText = numberFormatted(Math.floor(leather));
+    document.getElementById("wood-stat").innerText = numberFormatted(Math.floor(wood));
+    document.getElementById("firewood-stat").innerText = numberFormatted(Math.floor(firewood));
+    document.getElementById("stone-stat").innerText = numberFormatted(Math.floor(stone));
+    document.getElementById("iron-stat").innerText = numberFormatted(Math.floor(iron));
+    document.getElementById("coal-stat").innerText = numberFormatted(Math.floor(coal));
+    document.getElementById("steel-stat").innerText = numberFormatted(Math.floor(steel));
+    document.getElementById("clothes-stat").innerText = numberFormatted(Math.floor(clothes));
+    document.getElementById("tools-stat").innerText = numberFormatted(Math.floor(tools));
 
     document.getElementById("day").innerText = day;
     document.getElementById("season").innerText = translateSeason(season);
@@ -325,38 +424,8 @@ function advanceMonth(){
         const newChildrens = Math.round(((1+(rand(0,fertilityRate)/100)))*Math.round(population/8)*homes);
         childrens += newChildrens;
 
-        if(newChildrens > 1)    logPush(newChildrens+" crianças nasceram",totalDays);
-        if(newChildrens == 1)   logPush(newChildrens+" criança nasceu",totalDays);
-    }
-
-    // Buildings Consumption
-    const builderStoneConsumption = builder*0.5;
-    const builderWoodConsumption = builder*0.5;
-
-    if(stone < builderWoodConsumption){
-        const toDestroy = qtyToDestroy(wood,builderWoodConsumption,builder);
-        builder -= toDestroy;
-        wood = 0;
-        destroyBuildingHTML("builder",toDestroy);
-        
-        if(toDestroy > 1)    logPush(toDestroy+" Carpintarias se destruiram por falta de Madeira",totalDays);
-        if(toDestroy == 1)   logPush(toDestroy+" Carpintaria se destruiu por falta de Madeira",totalDays);
-    }
-    else{
-        wood -= builderWoodConsumption;
-    }
-
-    if(stone < builderStoneConsumption){
-        const toDestroy = qtyToDestroy(stone,builderStoneConsumption,builder);
-        builder -= toDestroy;
-        stone = 0;
-        destroyBuildingHTML("builder",toDestroy);
-        
-        if(toDestroy > 1)    logPush(toDestroy+" Carpintarias se destruiram por falta de Pedra",totalDays);
-        if(toDestroy == 1)   logPush(toDestroy+" Carpintaria se destruiu por falta de Pedra",totalDays);
-    }
-    else{
-        stone -= builderStoneConsumption;
+        if(newChildrens > 1)    logPush(newChildrens+" crianças nasceram no ultimo mês",totalDays-1);
+        if(newChildrens == 1)   logPush(newChildrens+" criança nasceu no ultimo mês",totalDays-1);
     }
 }
 
@@ -365,44 +434,23 @@ function advanceYear(){
         childrens--;
         population++;
 
-        logPush("1 criança se tornou adulta",totalDays);
+        if(educated < (school*4))
+            educated++;
+
+        logPush("1 criança se tornou adulta",totalDays-1);
     }
     else if(childrens > 0){
-        const newPops = Math.floor(childrens * 0.5);
+        const newPops = childrens;
         childrens -= newPops;
         population += newPops;
 
+        if(educated < (school*4))
+            educated *= school;
+
+        if(educated > (school*4))   educated = (school*4);
+
         if(newPops > 0)
-            logPush(newPops+" crianças se tornaram adultas",totalDays);
-    }
-
-    // Buildings Consumption
-    const houseWoodConsumption = house;
-    if(wood < houseWoodConsumption){
-        const toDestroy = qtyToDestroy(wood,houseWoodConsumption,house);
-        house -= toDestroy;
-        wood = 0;
-        destroyBuildingHTML("house",toDestroy);
-
-        if(toDestroy > 1)    logPush(toDestroy+" Casas se destruiram por falta de Madeira",totalDays);
-        if(toDestroy == 1)   logPush(toDestroy+" Casas se destruiu por falta de Madeira",totalDays);
-    }
-    else{
-        wood -= house;
-    }
-    
-    const lumbermillIronConsumption = lumbermill;
-    if(iron < lumbermillIronConsumption){
-        const toDestroy = qtyToDestroy(iron,lumbermillIronConsumption,lumbermill);
-        lumbermill -= toDestroy;
-        iron = 0;
-        destroyBuildingHTML("lumbermill",toDestroy);
-        
-        if(toDestroy > 1)    logPush(toDestroy+" Serrarias se destruiram por falta de Ferro",totalDays);
-        if(toDestroy == 1)   logPush(toDestroy+" Serraria se destruiu por falta de Ferro",totalDays);
-    }
-    else{
-        iron -= lumbermillIronConsumption;
+            logPush(newPops+" crianças se tornaram adultas",totalDays-1);
     }
 }
 
@@ -410,7 +458,7 @@ function checkGameOver(){
     if(!population){
         gameOver = true;
 
-        score = popRecord * totalDays;
+        score = Math.round((popRecord * totalDays)/1000);
 
         alert("Game Over \n\nScore: "+score);
 
@@ -440,18 +488,23 @@ window.setTimeout(soundtrack, rand(1500,5000));
 
 highScoreHTML();
 buildingsUI();
+resourcesUI();
 
 window.onclick = e => {
     //console.log(e);
     //console.log(e.target.id);
 
     if(e.target.id == "add-house")              buildConstruction("house");
+    if(e.target.id == "add-school")             buildConstruction("school");
+    else if(e.target.id == "add-cropField")     buildConstruction("cropField");
     else if(e.target.id == "add-farm")          buildConstruction("farm");
-    else if(e.target.id == "add-warehouse")     buildConstruction("warehouse");
+    else if(e.target.id == "add-tailor")        buildConstruction("tailor");
+    else if(e.target.id == "add-blacksmith")    buildConstruction("blacksmith");
     else if(e.target.id == "add-lumbermill")    buildConstruction("lumbermill");
-    else if(e.target.id == "add-quarry")        buildConstruction("warehouse");
-    else if(e.target.id == "add-mine")          buildConstruction("warehouse");
-    else if(e.target.id == "add-builder")          buildConstruction("builder");
+    else if(e.target.id == "add-sawmill")       buildConstruction("sawmill");
+    else if(e.target.id == "add-warehouse")     buildConstruction("warehouse");
+    else if(e.target.id == "add-quarry")        buildConstruction("quarry");
+    else if(e.target.id == "add-mine")          buildConstruction("mine");
 
 
     else if(e.target.id == "start"){
@@ -461,6 +514,7 @@ window.onclick = e => {
         document.getElementById("start-game").style.display = "none";
         document.getElementById("game-version").remove();
         document.getElementById("1x").classList.add("btn-active");
+        document.getElementById("buildings-menu").classList.remove("hidden");
         document.getElementById("pause").classList.remove("hidden");
         document.getElementById("1x").classList.remove("hidden");
         document.getElementById("5x").classList.remove("hidden");
@@ -481,6 +535,7 @@ window.onclick = e => {
     } 
     else if(e.target.id == "1x"){
         clearTimeout(gameTick);
+        gamePaused = false;
         gameSpeed = 2000;
         newTurn();
         document.getElementById("pause").classList.remove("btn-active");
@@ -490,6 +545,7 @@ window.onclick = e => {
     }    
     else if(e.target.id == "5x"){
         clearTimeout(gameTick);
+        gamePaused = false;
         gameSpeed = 400;
         newTurn();
         document.getElementById("pause").classList.remove("btn-active");
@@ -499,6 +555,7 @@ window.onclick = e => {
     }    
     else if(e.target.id == "10x"){
         clearTimeout(gameTick);
+        gamePaused = false;
         gameSpeed = 200;
         newTurn();
         document.getElementById("pause").classList.remove("btn-active");

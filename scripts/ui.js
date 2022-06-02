@@ -1,17 +1,19 @@
+import { buildingsData } from "./buildings.js"
+
 export function buildingsUI(){
     const menuDiv = document.getElementById("buildings-menu");
     let actualButtonRow = 0;
-    let buttonRow = "<div>";
+    let buttonRow = `<div class="buildings-btn">`;
 
-    for(let i = 0; i < buildingsButtons.length; i++) {
-        const element = buildingsButtons[i];
+    for(let i = 0; i < buildingsData.length; i++) {
+        const element = buildingsData[i];
         let button;
 
         if(element.buttonRow > actualButtonRow){
             buttonRow += "</div>";
             menuDiv.innerHTML += buttonRow;
 
-            buttonRow = "<div>";
+            buttonRow = `<div class="buildings-btn">`;
             actualButtonRow = element.buttonRow;
         }
 
@@ -19,7 +21,7 @@ export function buildingsUI(){
                     <span class="tooltip">`
 
         if(element.build.length > 0)
-            button += `<b>Construir</b><br>`
+            button += `<b>Construção</b><br>`
     
         for(let j = 0; j < element.build.length; j++){
             button += element.build[j]+"<br>";
@@ -29,7 +31,7 @@ export function buildingsUI(){
         }
 
         if(element.needs.length > 0)
-            button += `<b>Requer</b><br>`
+            button += `<b>Manutenção</b><br>`
     
         for(let j = 0; j < element.needs.length; j++){
             button += element.needs[j]+"<br>";
@@ -55,116 +57,84 @@ export function buildingsUI(){
     menuDiv.innerHTML += buttonRow;
 }
 
-const buildingsButtons = [
+
+export function resourcesUI(){
+    const div = document.getElementById("resources");
+
+    for(let i = 0; i < resources.length; i++){
+        const r = resources[i];
+        let button;
+        
+        if(!r.visibleFromStart)
+            button = `<button class="resources-btn hidden" id="${r.id}">`
+        else
+        button = `<button class="resources-btn" id="${r.id}">`
+
+        button += `
+                <img src="./img/icons/${r.id}.png">
+                <p>${r.name}</p>
+                <p id="${r.id}-stat"></p>
+            </button>
+        `;
+
+        div.innerHTML += button;
+    }
+}
+
+const resources = [
     {
-        id: "house",
-        name: "Casa",
-        buttonRow: 0,
-        build: [
-            "1 de Mão de Obra",
-            "1 Madeira"
-        ],
-        needs: [
-            "1 Madeira / Ano"
-        ],
-        result: [
-            "4 Abrigos"
-        ]
+        id: "food",
+        name: "Comida",
+        visibleFromStart: true
     },
     {
-        id: "farm",
-        name: "Plantação",
-        buttonRow: 10,
-        build: [
-            "Impossível no Inverno",
-            "2 de Madeira"
-        ],
-        needs: [
-        ],
-        result: [
-            "4 Empregos",
-            "0.5 de Colheita"
-        ]
+        id: "crop",
+        name: "Colheita",
+        visibleFromStart: false
     },
     {
-        id: "lumbermill",
-        name: "Serraria",
-        buttonRow: 20,
-        build: [
-            "3 de Mão de Obra"
-        ],
-        needs: [
-            "1 de Ferro / Ano"
-        ],
-        result: [
-            "2 Empregos",
-            "0.5 de Madeira"
-        ]
+        id: "leather",
+        name: "Couro",
+        visibleFromStart: false
     },
     {
-        id: "builder",
-        name: "Carpintaria",
-        buttonRow: 20,
-        build: [
-            "3 de Mão de Obra",
-            "3 de Madeira",
-        ],
-        needs: [
-            "0.5 de Madeira / Mês",
-            "0.5 de Pedra / Mês",
-        ],
-        result: [
-            "3 Empregos",
-            "6 de Mão de Obra"
-        ]
+        id: "wood",
+        name: "Madeira",
+        visibleFromStart: true
     },
     {
-        id: "warehouse",
-        name: "Armazém",
-        buttonRow: 30,
-        build: [
-            "6 de Mão de Obra",
-            "10 de Madeira"
-        ],
-        needs: [
-            "1 de Madeira / Mês"
-        ],
-        result: [
-            "5 Empregos",
-            "50 de Armazenamento"
-        ]
+        id: "firewood",
+        name: "Lenha",
+        visibleFromStart: true
     },
     {
-        id: "quarry",
-        name: "Pedreira",
-        buttonRow: 40,
-        build: [
-            "20 de Mão de Obra",
-            "20 de Madeira"
-        ],
-        needs: [
-            "1 de Madeira / Mês"
-        ],
-        result: [
-            "20 Empregos",
-            "1 de Pedra"
-        ]
+        id: "stone",
+        name: "Pedra",
+        visibleFromStart: true
     },
     {
-        id: "mine",
-        name: "Mina",
-        buttonRow: 40,
-        build: [
-            "30 de Mão de Obra",
-            "30 de Madeira",
-            "30 de Pedra"
-        ],
-        needs: [
-            "1 de Madeira / Mês"
-        ],
-        result: [
-            "30 Empregos",
-            "1 de Ferro"
-        ]
+        id: "iron",
+        name: "Ferro",
+        visibleFromStart: false
     },
+    {
+        id: "coal",
+        name: "Carvão",
+        visibleFromStart: false
+    },
+    {
+        id: "steel",
+        name: "Aço",
+        visibleFromStart: false
+    },
+    {
+        id: "clothes",
+        name: "Roupas",
+        visibleFromStart: true
+    },
+    {
+        id: "tools",
+        name: "Ferramentas",
+        visibleFromStart: true
+    }
 ]

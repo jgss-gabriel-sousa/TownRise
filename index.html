@@ -11,52 +11,47 @@
     <title>My Village</title>
 </head>
 <body>
-    <div id="start-game" class="container">
-        <h1>My Village</h1>
-        <img src="./img/icon.png">
-        <input type="button" class="btn btn-active" value="Começar" id="start">
-        <p id="game-version">v0.5 &copy; JGSS</p>
-        <b><p id="highscore"></p></b>
-    </div>
-    <div class="interface" style="display: none;">
-        <div class="container data">
-            <div>
-                <div class="time">
-                    <input type="button" class="btn btn-active hidden" value="Reiniciar" id="restart">
-                    <input type="button" class="small-btn hidden" value="=" id="pause">
-                    <input type="button" class="small-btn hidden" value=">" id="1x">
-                    <input type="button" class="small-btn hidden" value=">>" id="5x">
-                    <input type="button" class="small-btn hidden" value=">>>" id="10x">
-                    <p><span>Dia </span><span id="totalDays">1</span></p>
-                    <p><span id="day">1</span> - <span id="season">Primavera</span></p>
-                    <span id="day-weather"><i class="fa-solid fa-sun"></i></span>
-                </div>
-                <p>População: <span id="pop-stat"></span> (<span id="childrens-stat">Crianças</span>)</p>
-                <p>Desabrigados: <span id="homeless-stat"></span>%</p>
-                <p>Comida: <span id="food-stat"></span>/<span id="max-food-stat"></span> (<span id="food-prod-stat"></span>)</p>
-                <p>Colheita: <span id="harvest-stat"></span></p>
+    <div id="main-interface">
+        <div id="start-game" class="container">
+            <h1>My Village</h1>
+            <img src="./img/icon.png">
+            <input type="button" class="btn btn-active" value="Começar" id="start">
+            <p id="game-version">v0.6 &copy; JGSS</p>
+            <b><p id="highscore"></p></b>
+        </div>
+        <div class="interface" style="display: none;">
+            <div class="container data">
+                <div>
+                    <div class="time">
+                        <input type="button" class="btn btn-active hidden" value="Reiniciar" id="restart">
+                        <input type="button" class="small-btn hidden" value="=" id="pause">
+                        <input type="button" class="small-btn hidden" value=">" id="1x">
+                        <input type="button" class="small-btn hidden" value=">>" id="5x">
+                        <input type="button" class="small-btn hidden" value=">>>" id="10x">
+                        <p><span>Dia </span><span id="totalDays">1</span></p>
+                        <p><span id="day">1</span> - <span id="season">Primavera</span></p>
+                        <span id="day-weather"><i class="fa-solid fa-sun"></i></span>
+                    </div>
+                    <p>População: <span id="pop-stat"></span> (<span id="childrens-stat">Crianças</span>)</p>
+                    <p>Educados: <span id="educated-stat"></span>/<span id="max-educated-stat"></span></p>
+                    <p>Desabrigados: <span id="homeless-stat"></span>%</p>
 
-                <p>Força de Trabalho: <span id="workforce-stat"></span></p>
-                <p>Empregos: <span id="jobs-stat"></span></p>
-                <p>Produtividade: <span id="productivity-stat"></span>%</p>
+                    <p>Força de Trabalho: <span id="workforce-stat"></span>/<span id="jobs-stat"></span></p>
+                    <p>Produtividade: <span id="productivity-stat"></span>%</p>
+                    <p>Limite de Armazenamento: <span id="resource-limit-stat"></span></p>
+                </div>
+            </div>
+            <div class="container" id="resources"></div>
+        </div>
+        <div id="right-section" class="hidden">
+            <div class="container" id="log"></div>
+            <div class="container grass-spring" id="map">
+                <div class="map-div" id="map-city"></div>
+                <div class="map-div" id="map-farms"></div>
+                <div class="map-div" id="map-manufactories"></div>
             </div>
         </div>
-        <div class="container menu">
-            <p><b>Mão de Obra: <span id="manpower-stat"></span></b></p>
-            <p><b>Madeira: <span id="wood-stat"></span></b></p>
-            <p><b>Pedra: <span id="stone-stat"></span></b></p>
-            <p><b>Ferro: <span id="iron-stat"></span></b></p>
-            <br>
-            <div id="buildings-menu"></div>
-        </div>
     </div>
-    <div id="right-section" class="hidden">
-        <div class="container" id="log"></div>
-        <div class="container grass-spring" id="map">
-            <div class="map-div" id="map-houses"></div>
-            <div class="map-div" id="map-farms"></div>
-            <div class="map-div" id="map-other"></div>
-        </div>
-    </div>
+    <div class="container hidden" id="buildings-menu"></div>
 </body>
 </html>

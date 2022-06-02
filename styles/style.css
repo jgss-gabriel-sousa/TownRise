@@ -6,10 +6,13 @@
 }
 
 body {
-    display: flex;
     background: #67B26F;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+#main-interface {
+    display: flex;
 }
 
 p {
@@ -113,13 +116,40 @@ p {
     margin: 10px;
 }
 
+#resources{
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    padding: 0;
+    border: 0;
+}
+.resources-btn{
+	background: none;
+	color: inherit;
+	font: inherit;
+	cursor: normal;
+	outline: inherit;
+
+	padding: 5px;
+	border: 1px solid;
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+.resources-btn p{
+    margin: 0;
+}
+.resources-btn img{
+    width: 16px;
+    height: 16px;
+}
+
 #right-section {
     flex-direction: column;
     width: 100%;
 }
 
 #log {
-    height: 80px;
+    min-height: 80px;
 }
 
 #log p {
@@ -165,6 +195,13 @@ p {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-item {
+    filter: drop-shadow(2px 2px 2px #333);
+    margin: -6px;
 }
 
 .map-item-sm img {
@@ -196,15 +233,23 @@ button:hover span b {
     text-align: center;
 }
 
+#buildings-menu{
+    flex-direction: row;
+}
 #buildings-menu button{
     width: 100px;
     word-wrap: break-word;
 }
 
+.buildings-btn{
+    display: flex;
+    flex-direction: column;
+}
+
 .tooltip {
     display: none;
-    transform: translate(0%,-130%);
     position: absolute;
+    transform: translate(10%,-130%);
     color: #fff;
     background: #333;
     border: 1px solid black;
@@ -213,7 +258,7 @@ button:hover span b {
     box-shadow: 1px 1px 2px 2px black;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
     body {
         flex-direction: column;
     }
@@ -236,6 +281,21 @@ button:hover span b {
     .map-item-lg img {
         height: 32px;
         width: 32x;
+    }
+
+    #resources{
+        grid-template-columns: 90px 90px 90px;
+    }
+
+    #main-interface {
+        flex-wrap: wrap;
+    }
+    
+    #buildings-menu{
+        flex-wrap: wrap;
+    }
+    .buildings-btn button{
+        margin: 10px;
     }
 }
 
