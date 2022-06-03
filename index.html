@@ -16,10 +16,10 @@
             <h1>My Village</h1>
             <img src="./img/icon.png">
             <input type="button" class="btn btn-active" value="Começar" id="start">
-            <p id="game-version">v0.6 &copy; JGSS</p>
+            <p id="game-version">v0.7 &copy; JGSS</p>
             <b><p id="highscore"></p></b>
         </div>
-        <div class="interface" style="display: none;">
+        <div id="left-interface" style="display: none;">
             <div class="container data">
                 <div>
                     <div class="time">
@@ -29,11 +29,10 @@
                         <input type="button" class="small-btn hidden" value=">>" id="5x">
                         <input type="button" class="small-btn hidden" value=">>>" id="10x">
                         <p><span>Dia </span><span id="totalDays">1</span></p>
-                        <p><span id="day">1</span> - <span id="season">Primavera</span></p>
-                        <span id="day-weather"><i class="fa-solid fa-sun"></i></span>
+                        <p><span id="day-weather"><i class="fa-solid fa-sun"></i></span> <span id="day">1</span> - <span id="season">Primavera</span></p>
                     </div>
                     <p>População: <span id="pop-stat"></span> (<span id="childrens-stat">Crianças</span>)</p>
-                    <p>Educados: <span id="educated-stat"></span>/<span id="max-educated-stat"></span></p>
+                    <p>Pop. Educada: <span id="educated-stat"></span>/<span id="max-educated-stat"></span></p>
                     <p>Desabrigados: <span id="homeless-stat"></span>%</p>
 
                     <p>Força de Trabalho: <span id="workforce-stat"></span>/<span id="jobs-stat"></span></p>

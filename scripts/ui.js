@@ -1,4 +1,7 @@
-import { buildingsData } from "./buildings.js"
+import { buildingsData } from "./buildingsData.js"
+import { resources } from "./resourcesData.js"
+import { numberFormatted, numberBalanceFormatted, translateSeason } from "./funcs.js"
+import { game } from "./gameData.js"
 
 export function buildingsUI(){
     const menuDiv = document.getElementById("buildings-menu");
@@ -63,78 +66,55 @@ export function resourcesUI(){
 
     for(let i = 0; i < resources.length; i++){
         const r = resources[i];
-        let button;
-        
-        if(!r.visibleFromStart)
-            button = `<button class="resources-btn hidden" id="${r.id}">`
-        else
-        button = `<button class="resources-btn" id="${r.id}">`
 
-        button += `
-                <img src="./img/icons/${r.id}.png">
-                <p>${r.name}</p>
+        div.innerHTML += `
+            <button class="resources-btn" id="${r.id}">
+                <div>
+                    <img src="./img/icons/${r.id}.png">
+                    <p>${r.name}</p>
+                </div>
                 <p id="${r.id}-stat"></p>
+                <small id="${r.id}-balance-stat">0</small>
             </button>
         `;
-
-        div.innerHTML += button;
     }
 }
 
-const resources = [
-    {
-        id: "food",
-        name: "Comida",
-        visibleFromStart: true
-    },
-    {
-        id: "crop",
-        name: "Colheita",
-        visibleFromStart: false
-    },
-    {
-        id: "leather",
-        name: "Couro",
-        visibleFromStart: false
-    },
-    {
-        id: "wood",
-        name: "Madeira",
-        visibleFromStart: true
-    },
-    {
-        id: "firewood",
-        name: "Lenha",
-        visibleFromStart: true
-    },
-    {
-        id: "stone",
-        name: "Pedra",
-        visibleFromStart: true
-    },
-    {
-        id: "iron",
-        name: "Ferro",
-        visibleFromStart: false
-    },
-    {
-        id: "coal",
-        name: "Carvão",
-        visibleFromStart: false
-    },
-    {
-        id: "steel",
-        name: "Aço",
-        visibleFromStart: false
-    },
-    {
-        id: "clothes",
-        name: "Roupas",
-        visibleFromStart: true
-    },
-    {
-        id: "tools",
-        name: "Ferramentas",
-        visibleFromStart: true
-    }
-]
+export function updateDataInfo(){
+    document.getElementById("totalDays").innerText = game.totalDays;
+    document.getElementById("pop-stat").innerText = numberFormatted(game.population);
+    document.getElementById("childrens-stat").innerText = numberFormatted(Math.round(game.childrens));
+    document.getElementById("educated-stat").innerText = numberFormatted(Math.round(game.educated));
+    document.getElementById("max-educated-stat").innerText = numberFormatted(Math.round(game.school*4));
+    if(game.population > 0)
+        document.getElementById("homeless-stat").innerText = Math.round(((game.population - game.sheltered)/game.population)*100);
+    else
+        document.getElementById("homeless-stat").innerText = 0;
+    document.getElementById("workforce-stat").innerText = game.workforce;
+    document.getElementById("jobs-stat").innerText = game.jobs;
+    document.getElementById("productivity-stat").innerText = Math.round(game.productivity*100);
+    document.getElementById("resource-limit-stat").innerText = numberFormatted(game.resourceLimit);
+
+    document.getElementById("food-stat").innerText = numberFormatted(Math.floor(game.food));
+    document.getElementById("crop-stat").innerText = numberFormatted(Math.floor(game.crop));
+    document.getElementById("leather-stat").innerText = numberFormatted(Math.floor(game.leather));
+    document.getElementById("wood-stat").innerText = numberFormatted(Math.floor(game.wood));
+    document.getElementById("firewood-stat").innerText = numberFormatted(Math.floor(game.firewood));
+    document.getElementById("stone-stat").innerText = numberFormatted(Math.floor(game.stone));
+    document.getElementById("iron-stat").innerText = numberFormatted(Math.floor(game.iron));
+    document.getElementById("clothes-stat").innerText = numberFormatted(Math.floor(game.clothes));
+    document.getElementById("tools-stat").innerText = numberFormatted(Math.floor(game.tools));
+
+    document.getElementById("food-balance-stat").innerText = numberBalanceFormatted(game.food_balance);
+    document.getElementById("crop-balance-stat").innerText = numberBalanceFormatted(game.crop_balance);
+    document.getElementById("leather-balance-stat").innerText = numberBalanceFormatted(game.leather_balance);
+    document.getElementById("wood-balance-stat").innerText = numberBalanceFormatted(game.wood_balance);
+    document.getElementById("firewood-balance-stat").innerText = numberBalanceFormatted(game.firewood_balance);
+    document.getElementById("stone-balance-stat").innerText = numberBalanceFormatted(game.stone_balance);
+    document.getElementById("iron-balance-stat").innerText = numberBalanceFormatted(game.iron_balance);
+    document.getElementById("clothes-balance-stat").innerText = numberBalanceFormatted(game.clothes_balance);
+    document.getElementById("tools-balance-stat").innerText = numberBalanceFormatted(game.tools_balance);
+
+    document.getElementById("day").innerText = game.day;
+    document.getElementById("season").innerText = translateSeason(game.season);
+}

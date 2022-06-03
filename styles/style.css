@@ -20,10 +20,6 @@ p {
     font-size: 14px;
 }
 
-.interface {
-    margin: auto;
-}
-
 .container {
     display: flex;
     flex-direction: column;
@@ -129,7 +125,7 @@ p {
 	cursor: normal;
 	outline: inherit;
 
-	padding: 5px;
+	padding: 0;
 	border: 1px solid;
     margin: 0;
     font-size: 14px;
@@ -137,10 +133,16 @@ p {
 }
 .resources-btn p{
     margin: 0;
+    line-height: 1.5;
 }
 .resources-btn img{
     width: 16px;
     height: 16px;
+}
+.resources-btn div{
+    background-color: rgb(180, 180, 180);
+    padding: 5px;
+    border-bottom: 1px solid #333;
 }
 
 #right-section {
@@ -168,9 +170,8 @@ p {
     align-items: center;
     background-repeat: repeat;
     border: 2px solid black;
-    background: rgb(45, 155, 30);
-    background: radial-gradient(circle, rgb(45, 155, 30) 0%, rgb(58, 141, 37) 100%); 
-
+    background-image: url("../img/grass.png");
+    background-repeat: repeat;
     -webkit-transition: 2s -webkit-filter linear;
     -moz-transition: 2s -moz-filter linear;
     -moz-transition: 2s filter linear;
@@ -263,24 +264,13 @@ button:hover span b {
         flex-direction: column;
     }
     
+    #left-interface{
+        margin: auto;
+    }
+
     #map {
         width: auto;
         min-height: 300px;
-    }
-
-    .map-item-sm img {
-        height: 16px;
-        width: 16px;
-    }
-
-    .map-item-md img {
-        height: 24px;
-        width: 24px;
-    }
-
-    .map-item-lg img {
-        height: 32px;
-        width: 32x;
     }
 
     #resources{
@@ -290,9 +280,17 @@ button:hover span b {
     #main-interface {
         flex-wrap: wrap;
     }
+
+    #start-game {
+        width: 75%;
+    }
     
     #buildings-menu{
         flex-wrap: wrap;
+        flex-direction: column;
+    }
+    .buildings-btn{
+        flex-direction: row;
     }
     .buildings-btn button{
         margin: 10px;

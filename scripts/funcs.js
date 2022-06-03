@@ -8,6 +8,15 @@ export function numberFormatted(number){
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
+export function numberBalanceFormatted(number){
+    if(number < 10){
+        return number.toFixed(1);
+    }
+    else{
+        return Math.round(number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+}
+
 export function translateSeason(season){
     if(season == "spring")  return "Primavera";
     if(season == "summer")  return "Verão";
