@@ -7,10 +7,12 @@ export function school(){
     //###########################################
     let firewoodSupply = game.firewood/firewood_consumption;
     if(firewoodSupply > 1) firewoodSupply = 1;
+    if(firewoodSupply < 1) game.firewood_lack = true;
     if(!firewoodSupply) firewoodSupply = 0;
 
     let stoneSupply = game.stone/stone_consumption;
     if(stoneSupply > 1) stoneSupply = 1;
+    if(stoneSupply < 1) game.stone_lack = true;
     if(!stoneSupply) stoneSupply = 0;
 
     game.educatedLimit = (game.school*4)*firewoodSupply*stoneSupply;

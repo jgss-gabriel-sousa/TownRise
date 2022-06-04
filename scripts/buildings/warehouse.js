@@ -6,6 +6,7 @@ export function warehouse(){
     //###########################################
     let woodSupply = game.wood/wood_consumption;
     if(woodSupply > 1) woodSupply = 1;
+    if(woodSupply < 1) game.wood_lack = true;
     if(!woodSupply) woodSupply = 0;
 
     game.resourceLimit = ((1+game.warehouse)*game.warehouseStorage)*woodSupply;
@@ -14,4 +15,7 @@ export function warehouse(){
 
     //###########################################
     game.wood_balance -= wood_consumption;
+
+    //###########################################
+    game.jobs += game.warehouse*5;
 }

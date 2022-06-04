@@ -2,7 +2,7 @@ import { rand, numberFormatted, translateSeason, average, highScoreHTML, checkHi
 import { soundtrack } from "./sound.js"
 import { buildingsUI, resourcesUI, updateDataInfo } from "./ui.js"
 
-import { buildingHTML, destroyBuildingHTML, buildingsUpdate } from "./buildings.js"
+import { buildingHTML, destroy, buildingsUpdate, build } from "./buildings.js"
 import { logPush } from "./log.js";
 
 import { game } from "./gameData.js";
@@ -40,94 +40,6 @@ function newWeather(){
     document.getElementById("day-weather").innerHTML = weatherIcon;
 }
 
-function buildConstruction(buildingID){
-    if(!game.gameStarted) return;
-    if(game.gamePaused) return;
-
-    if(buildingID == "house"){
-        if(game.wood >= 5 && game.stone >= 2){
-            game.house++;
-            game.wood -= 5;
-            game.stone -= 2;
-        }
-        else return;
-    }
-    else if(buildingID == "school"){
-        if(game.wood >= 40 && game.stone >= 20 && game.iron >= 20){
-            game.school++;
-            game.wood -= 40;
-            game.stone -= 20;
-            game.iron -= 20;
-        }
-        else return;
-    }
-    else if(buildingID == "cropField"){
-        if(game.season != "winter"){
-            game.cropField++;
-        }
-        else return;
-    }
-    else if(buildingID == "farm"){
-        if(game.wood >= 10){
-            game.farm++;
-            game.wood -= 10;
-        }
-        else return;
-    }
-    else if(buildingID == "tailor"){
-        if(game.wood >= 10){
-            game.tailor++;
-            game.wood -= 10;
-        }
-        else return;
-    }
-    else if(buildingID == "blacksmith"){
-        if(game.stone >= 10){
-            game.blacksmith++;
-            game.stone -= 10;
-        }
-        else return;
-    }
-    else if(buildingID == "lumbermill"){
-        game.lumbermill++;
-    }
-    else if(buildingID == "sawmill"){
-        if(game.wood >= 20 && game.stone >= 10){
-            game.sawmill++;
-            game.wood -= 20;
-            game.stone -= 10;
-        }
-        else return;
-    }
-    else if(buildingID == "warehouse"){
-        if(game.wood >= 50){
-            game.warehouse++;
-            game.wood -= 50;
-        }
-        else return;
-    }
-    else if(buildingID == "quarry"){
-        if(game.wood >= 40){
-            game.quarry++;
-            game.wood -= 40;
-        }
-        else return;
-    }
-    else if(buildingID == "mine"){
-        if(game.stone >= 40){
-            game.mine++;
-            game.stone -= 40;
-        }
-        else return;
-    }
-    else{
-        return;
-    }
-
-    buildingHTML(buildingID);
-    updateDataInfo();
-}
-
 function advanceDay(){
     game.totalDays++;
     if(game.day < 30){
@@ -160,7 +72,7 @@ function advanceDay(){
             if(game.crop > 0) logPush("A colheita rendeu "+Math.round(game.crop)+" de comida");
             
             game.crop = 0;
-            destroyBuildingHTML("cropField",game.cropField);
+            destroy("cropField",game.cropField);
             game.cropField = 0;
         }  
         else if(game.season == "winter"){
@@ -183,16 +95,25 @@ function advanceDay(){
     game.tools_balance = 0;
     game.clothes_balance = 0;
 
-    game.jobs = 0;
+    game.food_lack = false;
+    game.crop_lack = false;
+    game.leather_lack = false;
+    game.wood_lack = false;
+    game.firewood_lack = false;
+    game.stone_lack = false;
+    game.iron_lack = false;
+    game.tools_lack = false;
+    game.clothes_lack = false;
     
     //Workforce ###################################################################################
     game.workforce = (game.population - game.educated)+(game.educated*1.5);
-    game.jobs = (game.cropField*4)+(game.farm*8)+(game.lumbermill*5)+(game.sawmill*5)+(game.tailor*3)+(game.blacksmith*3)+(game.warehouse*5)+(game.quarry*10)+(game.mine*20);
 
     //PRODUCTIVITY ################################################################################
     let jobAssignment = game.workforce/game.jobs;
     if(game.jobs == 0) jobAssignment = 1;
     if(jobAssignment > 1) jobAssignment = 1;
+    
+    game.jobs = 0;
 
     let toolsAccess = game.tools/game.population;
     if(game.tools == 0) toolsAccess = 0;
@@ -200,7 +121,7 @@ function advanceDay(){
 
     game.tools_balance -= game.population*0.0125;
 
-    game.productivity = average([jobAssignment,toolsAccess]);
+    game.productivity = jobAssignment*toolsAccess;
 
     if(game.productivity > 1) game.productivity = 1;
 
@@ -275,6 +196,8 @@ function advanceDay(){
         game.hungry--;
     if(game.hungry < 0)  game.hungry = 0;
     if(game.hungry > 0){
+        game.food_lack = true;
+
         popDeath = rand(0,game.hungry);
         childrenDeath = rand(0,game.hungry);
         
@@ -404,17 +327,17 @@ window.onclick = e => {
     //console.log(e);
     //console.log(e.target.id);
 
-    if(e.target.id == "add-house")              buildConstruction("house");
-    if(e.target.id == "add-school")             buildConstruction("school");
-    else if(e.target.id == "add-cropField")     buildConstruction("cropField");
-    else if(e.target.id == "add-farm")          buildConstruction("farm");
-    else if(e.target.id == "add-tailor")        buildConstruction("tailor");
-    else if(e.target.id == "add-blacksmith")    buildConstruction("blacksmith");
-    else if(e.target.id == "add-lumbermill")    buildConstruction("lumbermill");
-    else if(e.target.id == "add-sawmill")       buildConstruction("sawmill");
-    else if(e.target.id == "add-warehouse")     buildConstruction("warehouse");
-    else if(e.target.id == "add-quarry")        buildConstruction("quarry");
-    else if(e.target.id == "add-mine")          buildConstruction("mine");
+    if(e.target.id == "add-house")              build("house");
+    if(e.target.id == "add-school")             build("school");
+    else if(e.target.id == "add-cropField")     build("cropField");
+    else if(e.target.id == "add-farm")          build("farm");
+    else if(e.target.id == "add-tailor")        build("tailor");
+    else if(e.target.id == "add-blacksmith")    build("blacksmith");
+    else if(e.target.id == "add-lumbermill")    build("lumbermill");
+    else if(e.target.id == "add-sawmill")       build("sawmill");
+    else if(e.target.id == "add-warehouse")     build("warehouse");
+    else if(e.target.id == "add-quarry")        build("quarry");
+    else if(e.target.id == "add-mine")          build("mine");
 
 
     else if(e.target.id == "start"){

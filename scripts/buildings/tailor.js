@@ -6,10 +6,14 @@ export function tailor(){
     //###########################################
     let leatherSupply = game.leather/leather_consumption;
     if(leatherSupply > 1) leatherSupply = 1;
+    if(leatherSupply < 1) game.leather_lack = true;
     if(!leatherSupply) leatherSupply = 0;
 
     game.clothes_balance += (game.tailor)*leatherSupply*game.productivity;
 
     //###########################################
     game.leather_balance -= leather_consumption;
+
+    //###########################################
+    game.jobs += game.tailor*3;
 }

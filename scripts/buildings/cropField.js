@@ -6,5 +6,8 @@ export function cropField(){
     if(game.weather == "rain") weatherProductivity = 4;
     
     game.crop_balance += (game.cropField*0.5)*game.productivity*weatherProductivity;
+
+    //###########################################
+    game.jobs += game.cropField*4;
 }
 

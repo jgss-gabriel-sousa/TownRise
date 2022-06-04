@@ -7,10 +7,12 @@ export function blacksmith(){
     //###########################################
     let firewoodSupply = game.firewood/firewood_consumption;
     if(firewoodSupply > 1) firewoodSupply = 1;
+    if(firewoodSupply < 1) game.firewood_lack = true;
     if(!firewoodSupply) firewoodSupply = 0;
 
     let ironSupply = game.iron/iron_consumption;
     if(ironSupply > 1) ironSupply = 1;
+    if(ironSupply < 1) game.iron_lack = true;
     if(!ironSupply) ironSupply = 0;
 
     game.tools_balance += (game.blacksmith)*firewoodSupply*ironSupply*game.productivity;
@@ -18,4 +20,7 @@ export function blacksmith(){
     //###########################################
     game.firewood_balance -= firewood_consumption;
     game.iron_balance -= iron_consumption;
+
+    //###########################################
+    game.jobs += game.blacksmith*3;
 }

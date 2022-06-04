@@ -83,13 +83,16 @@ export function resourcesUI(){
 export function updateDataInfo(){
     document.getElementById("totalDays").innerText = game.totalDays;
     document.getElementById("pop-stat").innerText = numberFormatted(game.population);
+    document.getElementById("pop-record-stat").innerText = numberFormatted(game.popRecord);
     document.getElementById("childrens-stat").innerText = numberFormatted(Math.round(game.childrens));
     document.getElementById("educated-stat").innerText = numberFormatted(Math.round(game.educated));
     document.getElementById("max-educated-stat").innerText = numberFormatted(Math.round(game.school*4));
-    if(game.population > 0)
-        document.getElementById("homeless-stat").innerText = Math.round(((game.population - game.sheltered)/game.population)*100);
-    else
-        document.getElementById("homeless-stat").innerText = 0;
+    
+    let settledRate = 100-Math.round(((game.population - game.sheltered)/game.population)*100);
+    if(settledRate > 100) settledRate = 100;
+    if(!settledRate) settledRate = 0;
+    document.getElementById("settled-stat").innerText = settledRate;
+        
     document.getElementById("workforce-stat").innerText = game.workforce;
     document.getElementById("jobs-stat").innerText = game.jobs;
     document.getElementById("productivity-stat").innerText = Math.round(game.productivity*100);
@@ -117,4 +120,31 @@ export function updateDataInfo(){
 
     document.getElementById("day").innerText = game.day;
     document.getElementById("season").innerText = translateSeason(game.season);
+
+    document.getElementById("productivity-bar").style.width = Math.round(game.productivity*100).toString()+"%";
+    document.getElementById("settled-bar").style.width = settledRate.toString()+"%";
+
+
+    resourceLack();
+}
+
+function resourceLack(){
+    if(game.food_lack)      document.getElementById("food-stat").classList.add("lack");
+    else                    document.getElementById("food-stat").classList.remove("lack");
+    if(game.crop_lack)      document.getElementById("crop-stat").classList.add("lack");
+    else                    document.getElementById("crop-stat").classList.remove("lack");
+    if(game.leather_lack)   document.getElementById("leather-stat").classList.add("lack");
+    else                    document.getElementById("leather-stat").classList.remove("lack");
+    if(game.wood_lack)      document.getElementById("wood-stat").classList.add("lack");
+    else                    document.getElementById("wood-stat").classList.remove("lack");
+    if(game.firewood_lack)  document.getElementById("firewood-stat").classList.add("lack");
+    else                    document.getElementById("firewood-stat").classList.remove("lack");
+    if(game.stone_lack)     document.getElementById("stone-stat").classList.add("lack");
+    else                    document.getElementById("stone-stat").classList.remove("lack");
+    if(game.iron_lack)      document.getElementById("iron-stat").classList.add("lack");
+    else                    document.getElementById("iron-stat").classList.remove("lack");
+    if(game.clothes_lack)   document.getElementById("clothes-stat").classList.add("lack");
+    else                    document.getElementById("clothes-stat").classList.remove("lack");
+    if(game.tools_lack)     document.getElementById("tools-stat").classList.add("lack");
+    else                    document.getElementById("tools-stat").classList.remove("lack");
 }

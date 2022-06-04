@@ -34,6 +34,16 @@ export const game = {
     clothes_balance: 0,
     tools_balance: 0,
     
+    food_lack: false,
+    crop_lack: false,
+    leather_lack: false,
+    wood_lack: false,
+    firewood_lack: false,
+    stone_lack: false,
+    iron_lack: false,
+    clothes_lack: false,
+    tools_lack: false,
+    
     workforce: 0,
     jobs: 0,
     productivity: 0,

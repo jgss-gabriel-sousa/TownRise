@@ -64,8 +64,8 @@ export const buildingsData = [
             "0.5 Madeira"
         ],
         result: [
-            "8 Empregos",
-            "1 de Comida",
+            "4 Empregos",
+            "0.5 de Comida",
             "0.5 de Couro",
         ]
     },
@@ -107,7 +107,7 @@ export const buildingsData = [
     {
         id: "lumbermill",
         name: "Madeireira",
-        spriteSize: "md",
+        spriteSize: "sm",
         spritePlace: "manufactories",
         buttonRow: 20,
         build: [
@@ -115,7 +115,7 @@ export const buildingsData = [
         needs: [
         ],
         result: [
-            "5 Empregos",
+            "3 Empregos",
             "1 Madeira"
         ]
     },
@@ -133,7 +133,7 @@ export const buildingsData = [
             "0.5 Madeira"
         ],
         result: [
-            "5 Empregos",
+            "3 Empregos",
             "0.25 Lenha"
         ]
     },
@@ -182,7 +182,7 @@ export const buildingsData = [
         needs: [
         ],
         result: [
-            "20 Empregos",
+            "10 Empregos",
             "1 Ferro"
         ]
     },
