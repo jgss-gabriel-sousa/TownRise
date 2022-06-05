@@ -9,12 +9,18 @@ export function numberFormatted(number){
 }
 
 export function numberBalanceFormatted(number){
+    let value;
     if(number < 10){
-        return number.toFixed(1);
+        value = number.toFixed(1);
     }
     else{
-        return Math.round(number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        value = Math.round(number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
+    
+    if(value > 0)
+        value = "+"+value;
+    
+    return value;
 }
 
 export function translateSeason(season){
