@@ -1,46 +1,12 @@
-import { rand, numberFormatted, translateSeason, average, highScoreHTML, checkHighScore } from "./funcs.js"
-import { soundtrack } from "./sound.js"
-import { buildingsUI, resourcesUI, updateDataInfo } from "./ui.js"
+import { game } from "../gameData.js";
+import { logPush } from "../log.js";
+import { advanceMonth } from "./month.js";
+import { advanceYear } from "./year.js";
+import { buildingsUpdate } from "../buildings.js";
+import { rand } from "../funcs.js";
+import { updateDataInfo } from "../ui.js";
 
-import { buildingHTML, destroy, buildingsUpdate, build } from "./buildings.js"
-import { logPush } from "./log.js";
-
-import { game } from "./gameData.js";
-
-
-function newWeather(){
-    game.weather = "sun";
-
-    switch(game.season){
-        case "spring":
-            if(rand(0,100) < 30)
-                game.weather = "rain";
-            break;
-            
-        case "summer":
-            if(rand(0,100) < 50)
-                game.weather = "rain";
-            break;
-
-        case "autumn":
-            if(rand(0,100) < 15)
-                game.weather = "rain";
-            break;
-
-        case "winter":
-            if(rand(0,100) < 50)
-                game.weather = "snow";
-            break;
-    }
-
-    let weatherIcon;
-    if(game.weather == "sun")    weatherIcon = '<i class="fa-solid fa-sun"></i>';
-    if(game.weather == "rain")   weatherIcon = '<i class="fa-solid fa-cloud-rain"></i>';
-    if(game.weather == "snow")   weatherIcon = '<i class="fa-solid fa-snowflake"></i>';
-    document.getElementById("day-weather").innerHTML = weatherIcon;
-}
-
-function advanceDay(){
+export function advanceDay(){
     game.totalDays++;
     if(game.day < 30){
         game.day++;
@@ -84,7 +50,6 @@ function advanceDay(){
     }
 
     // RESET RESOURCES BALANCES
-
     game.food_balance = 0;
     game.crop_balance = 0;
     game.leather_balance = 0;
@@ -193,7 +158,7 @@ function advanceDay(){
     if(game.food < foodConsumption)
         game.hungry++;
     else
-        game.hungry--;
+        game.hungry = 0;
     if(game.hungry < 0)  game.hungry = 0;
     if(game.hungry > 0){
         game.food_lack = true;
@@ -249,162 +214,3 @@ function advanceDay(){
 
     updateDataInfo();
 }
-
-function advanceMonth(){
-    let homes = game.house+1 / Math.round(game.population/4);
-    if(homes > 1) homes = 1;
-    if(game.population == 0) homes = 0;
-
-    if(!game.hungry){
-        const newChildrens = Math.round(((1+(rand(0,game.fertilityRate)/100)))*Math.round(game.population/8)*homes);
-        game.childrens += newChildrens;
-
-        if(newChildrens > 1)    logPush(newChildrens+" crianças nasceram no ultimo mês");
-        if(newChildrens == 1)   logPush(newChildrens+" criança nasceu no ultimo mês");
-    }
-}
-
-function advanceYear(){
-    if(game.childrens > 1 && game.childrens < 4){
-        game.childrens--;
-        game.population++;
-
-        if(game.educated < (game.school*4))
-            game.educated++;
-
-        logPush("1 criança se tornou adulta");
-    }
-    else if(game.childrens > 0){
-        const newPops = game.childrens;
-        game.childrens -= newPops;
-        game.population += newPops;
-
-        if(game.educated < (game.school*4))
-            game.educated *= game.school;
-
-        if(game.educated > (game.school*4))   game.educated = (game.school*4);
-
-        if(newPops > 0)
-            logPush(newPops+" crianças se tornaram adultas");
-    }
-}
-
-function checkGameOver(){
-    if(!game.population){
-        game.gameOver = true;
-
-        game.score = Math.round((game.popRecord * game.totalDays)/1000);
-
-        alert("Game Over \n\nScore: "+game.score);
-
-        checkHighScore(game.score);
-
-        document.getElementById("restart").classList.remove("hidden");
-        document.getElementById("pause").classList.add("hidden");
-        document.getElementById("1x").classList.add("hidden");
-        document.getElementById("5x").classList.add("hidden");
-        document.getElementById("10x").classList.add("hidden");
-    }
-}
-
-function newTurn(){
-    checkGameOver();
-
-    advanceDay();
-    newWeather();
-
-    if(!game.gameOver)
-        game.gameTick = window.setTimeout(newTurn, game.gameSpeed);
-}
-
-window.setTimeout(soundtrack, rand(1500,5000));
-
-highScoreHTML();
-buildingsUI();
-resourcesUI();
-
-window.onclick = e => {
-    //console.log(e);
-    //console.log(e.target.id);
-
-    if(e.target.id == "add-house")              build("house");
-    if(e.target.id == "add-school")             build("school");
-    else if(e.target.id == "add-cropField")     build("cropField");
-    else if(e.target.id == "add-farm")          build("farm");
-    else if(e.target.id == "add-tailor")        build("tailor");
-    else if(e.target.id == "add-blacksmith")    build("blacksmith");
-    else if(e.target.id == "add-lumbermill")    build("lumbermill");
-    else if(e.target.id == "add-sawmill")       build("sawmill");
-    else if(e.target.id == "add-warehouse")     build("warehouse");
-    else if(e.target.id == "add-quarry")        build("quarry");
-    else if(e.target.id == "add-mine")          build("mine");
-
-
-    else if(e.target.id == "start"){
-        newTurn();
-        game.gameStarted = true;
-        game.gamePaused = false;
-        document.getElementById("start-game").style.display = "none";
-        document.getElementById("game-version").remove();
-        document.getElementById("1x").classList.add("btn-active");
-        document.getElementById("buildings-menu").classList.remove("hidden");
-        document.getElementById("pause").classList.remove("hidden");
-        document.getElementById("1x").classList.remove("hidden");
-        document.getElementById("5x").classList.remove("hidden");
-        document.getElementById("10x").classList.remove("hidden");
-        document.getElementById("left-interface").style.display = "block";
-        document.getElementById("right-section").style.display = "flex";
-    } 
-    else if(e.target.id == "restart"){
-        document.location.reload(true);
-    }
-    else if(e.target.id == "pause"){
-        clearTimeout(game.gameTick);
-        game.gamePaused = true;
-        document.getElementById("pause").classList.add("btn-active");
-        document.getElementById("1x").classList.remove("btn-active");
-        document.getElementById("5x").classList.remove("btn-active");
-        document.getElementById("10x").classList.remove("btn-active");
-    } 
-    else if(e.target.id == "1x"){
-        clearTimeout(game.gameTick);
-        game.gamePaused = false;
-        game.gameSpeed = 2000;
-        newTurn();
-        document.getElementById("pause").classList.remove("btn-active");
-        document.getElementById("1x").classList.add("btn-active");
-        document.getElementById("5x").classList.remove("btn-active");
-        document.getElementById("10x").classList.remove("btn-active");
-    }    
-    else if(e.target.id == "5x"){
-        clearTimeout(game.gameTick);
-        game.gamePaused = false;
-        game.gameSpeed = 400;
-        newTurn();
-        document.getElementById("pause").classList.remove("btn-active");
-        document.getElementById("1x").classList.remove("btn-active");
-        document.getElementById("5x").classList.add("btn-active");
-        document.getElementById("10x").classList.remove("btn-active");
-    }    
-    else if(e.target.id == "10x"){
-        clearTimeout(game.gameTick);
-        game.gamePaused = false;
-        game.gameSpeed = 200;
-        newTurn();
-        document.getElementById("pause").classList.remove("btn-active");
-        document.getElementById("1x").classList.remove("btn-active");
-        document.getElementById("5x").classList.remove("btn-active");
-        document.getElementById("10x").classList.add("btn-active");
-    }   
-}
-/*
-document.addEventListener('mousemove', function(e) {
-    let box = document.getElementById('floating-box');
-    box.style.left =  e.pageX + 'px';
-    box.style.top = e.pageY + 'px';
-});
-
-document.getElementById("add-house").addEventListener("mouseover", function(e) {
-    document.getElementById('floating-box').hidden = false;
-}, false);
-*/

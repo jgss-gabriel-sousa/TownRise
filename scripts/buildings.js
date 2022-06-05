@@ -42,16 +42,6 @@ export function buildingHTML(id){
         return false;
 }
 
-export function destroy(id, qty){
-    const elements = document.querySelectorAll(".map-"+id);
-
-    if(qty > elements.length) qty = elements.length;
-
-    for(let i = 0; i < qty; i++){
-        elements[i].remove();
-    }
-}
-
 export function buildingsUpdate(){
     house();
     school();
@@ -66,7 +56,17 @@ export function buildingsUpdate(){
     mine();
 }
 
-export function build(buildingID){
+export function destroyBuilding(id, qty){
+    const elements = document.querySelectorAll(".map-"+id);
+
+    if(qty > elements.length) qty = elements.length;
+
+    for(let i = 0; i < qty; i++){
+        elements[i].remove();
+    }
+}
+
+export function buildBuilding(buildingID){
     if(!game.gameStarted) return;
     if(game.gamePaused) return;
 

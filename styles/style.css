@@ -170,7 +170,6 @@ p {
     align-content: center;
     justify-content: space-evenly;
     align-items: center;
-    background-repeat: repeat;
     border: 2px solid black;
     background-image: url("../img/grass.png");
     background-repeat: repeat;
@@ -288,10 +287,10 @@ button:hover span b {
     background-color: #ffd900;
     border: 1px solid #222;
     margin: -1px;
-    -webkit-transition : width 5s ease;
-   -moz-transition : width 5s ease;
-     -o-transition : width 5s ease;
-        transition : width 5s ease;
+    -webkit-transition : width 2s ease;
+   -moz-transition : width 2s ease;
+     -o-transition : width 2s ease;
+        transition : width 2s ease;
 }
 
 .progress-bar div {

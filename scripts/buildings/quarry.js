@@ -4,5 +4,5 @@ export function quarry(){
     game.stone_balance += (game.quarry)*game.productivity;
 
     //###########################################
-    game.jobs += game.quarry*10;
+    game.jobs += game.quarry*5;
 }

@@ -10,7 +10,6 @@ export const buildingsData = [
             "2 Pedras",
         ],
         needs: [
-            "0.25 Madeira",
             "0.05 Lenha (Inverno)"
         ],
         result: [
@@ -166,7 +165,7 @@ export const buildingsData = [
         needs: [
         ],
         result: [
-            "10 Empregos",
+            "5 Empregos",
             "1 Pedra"
         ]
     },
@@ -182,7 +181,7 @@ export const buildingsData = [
         needs: [
         ],
         result: [
-            "10 Empregos",
+            "5 Empregos",
             "1 Ferro"
         ]
     },
