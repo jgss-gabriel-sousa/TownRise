@@ -17,7 +17,7 @@ body {
 
 p {
     margin: 4px;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .container {
@@ -114,7 +114,7 @@ p {
 
 #resources{
     display: grid;
-    grid-template-columns: 100px 100px 100px;
+    grid-template-columns: 80px 80px 80px 80px;
     padding: 0;
     border: 0;
 }
@@ -128,7 +128,7 @@ p {
 	padding: 0;
 	border: 1px solid;
     margin: 0;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
 }
 .resources-btn p{
@@ -267,7 +267,7 @@ button:hover span b {
 }
 
 .progress-stat p {
-    min-width: 40%;
+    min-width: 30%;
 }
 
 .progress-bar-background {
