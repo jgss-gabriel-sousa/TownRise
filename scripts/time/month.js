@@ -1,3 +1,4 @@
+import { rand } from "../funcs.js";
 import { game } from "../gameData.js";
 
 export function advanceMonth(){

@@ -42,7 +42,6 @@ export function average(array){
     return total / count;
 }
 
-
 if(localStorage.getItem("game-version") != document.getElementById("game-version").innerText){
     localStorage.setItem("highscore", "0");
     localStorage.setItem("game-version", document.getElementById("game-version").innerText);

@@ -124,8 +124,8 @@ export function updateDataInfo(){
     document.getElementById("productivity-bar").style.width = Math.round(game.productivity*100).toString()+"%";
     document.getElementById("settled-bar").style.width = settledRate.toString()+"%";
 
-
     resourceLack();
+    professionsStat();
 }
 
 function resourceLack(){
@@ -147,4 +147,12 @@ function resourceLack(){
     else                    document.getElementById("clothes-stat").classList.remove("lack");
     if(game.tools_lack)     document.getElementById("tools-stat").classList.add("lack");
     else                    document.getElementById("tools-stat").classList.remove("lack");
+}
+
+function professionsStat(){
+    document.getElementById("idle-input").value = game.idle;
+    document.getElementById("idle-input").max = game.population;
+
+    document.getElementById("farmer-input").value = game.farmer;
+    document.getElementById("farmer-input").max = game.idle+game.farmer;
 }

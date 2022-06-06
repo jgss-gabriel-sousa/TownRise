@@ -26,6 +26,7 @@ window.onclick = e => {
         document.getElementById("5x").classList.remove("hidden");
         document.getElementById("10x").classList.remove("hidden");
         document.getElementById("left-interface").style.display = "block";
+        document.getElementById("middle-section").style.display = "flex";
         document.getElementById("right-section").style.display = "flex";
     } 
     else if(e.target.id == "restart"){

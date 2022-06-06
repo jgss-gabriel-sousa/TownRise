@@ -147,11 +147,10 @@ p {
     border-bottom: 1px solid #333;
 }
 
-#right-section {
+#middle-section {
     flex-direction: column;
     width: 100%;
 }
-
 #log {
     min-height: 80px;
 }
@@ -302,6 +301,11 @@ button:hover span b {
 
 .lack {
     color: red;
+}
+
+#right-section {
+    flex-direction: column;
+    min-width: 320px;
 }
 
 @media only screen and (max-width: 700px) {
