@@ -14,6 +14,17 @@ export const game = {
     
     resourceLimit: 10,
     
+    //Profession
+    idle: 0,
+    worker: 0,
+    farmer: 0,
+    herdsman: 0,
+    lumberjack: 0,
+    tailor: 0,
+    teacher: 0,
+    blacksmith: 0,
+    miner: 0,
+
     food: 50,
     crop: 0,
     leather: 0,
