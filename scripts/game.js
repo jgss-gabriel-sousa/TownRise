@@ -1,8 +1,9 @@
 import { rand, highScoreHTML, checkHighScore } from "./funcs.js";
 import { soundtrack } from "./sound.js";
-import { buildingsUI, resourcesUI } from "./ui.js";
+import { buildingsUI, resourcesUI, professionsUI } from "./ui.js";
 import { newWeather } from "./weather.js";
 import { advanceDay } from "./time/day.js";
+import { popUpdate } from "./pop.js";
 import { game } from "./gameData.js";
 
 function checkGameOver(){
@@ -37,3 +38,6 @@ window.setTimeout(soundtrack, rand(1500,5000));
 highScoreHTML();
 buildingsUI();
 resourcesUI();
+professionsUI();
+
+setInterval(popUpdate, 33);

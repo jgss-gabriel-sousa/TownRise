@@ -1,9 +1,8 @@
 import { game } from "../gameData.js";
 import { logPush } from "../log.js";
 import { advanceMonth } from "./month.js";
-import { advanceYear } from "./year.js";
 import { buildingsUpdate } from "../buildings.js";
-import { rand } from "../funcs.js";
+import { rand, average } from "../funcs.js";
 import { updateDataInfo } from "../ui.js";
 
 export function advanceDay(){
@@ -14,39 +13,6 @@ export function advanceDay(){
     else{
         game.day = 1;
         advanceMonth();
-
-        if(game.season == "spring"){
-            game.season = "summer";
-
-            document.getElementById("map").classList.add("map-summer");
-        }
-        else if(game.season == "summer"){
-            game.season = "autumn";
-
-            document.getElementById("map").classList.remove("map-summer");
-            document.getElementById("map").classList.add("map-autumn");
-        }  
-        else if(game.season == "autumn"){
-            game.season = "winter";
-
-            document.getElementById("map").classList.remove("map-autumn");
-            document.getElementById("map").classList.add("map-winter");
-
-            //Harvest
-            game.food += game.crop;
-
-            if(game.crop > 0) logPush("A colheita rendeu "+Math.round(game.crop)+" de comida");
-            
-            game.crop = 0;
-            destroy("cropField",game.cropField);
-            game.cropField = 0;
-        }  
-        else if(game.season == "winter"){
-            game.season = "spring";
-
-            document.getElementById("map").classList.remove("map-winter");
-            advanceYear();
-        }
     }
 
     // RESET RESOURCES BALANCES
@@ -74,11 +40,6 @@ export function advanceDay(){
     game.workforce = (game.population - game.educated)+(game.educated*1.5);
 
     //PRODUCTIVITY ################################################################################
-    let jobAssignment = game.workforce/game.jobs;
-    if(game.jobs == 0) jobAssignment = 1;
-    if(jobAssignment > 1) jobAssignment = 1;
-    
-    game.jobs = 0;
 
     let toolsAccess = game.tools/game.population;
     if(game.tools == 0) toolsAccess = 0;
@@ -86,9 +47,21 @@ export function advanceDay(){
 
     game.tools_balance -= game.population*0.0125;
 
-    game.productivity = jobAssignment*toolsAccess;
+    game.productivity = toolsAccess*game.happiness*game.health;
 
     if(game.productivity > 1) game.productivity = 1;
+    if(game.productivity < 0.25) game.productivity = 0.25;
+
+    //#############################################################################################
+
+    game.worker_jobs = 0;
+    game.farmer_jobs = 0;
+    game.herdsman_jobs = 0;
+    game.lumberjack_jobs = 0;
+    game.tailor_jobs = 0;
+    game.teacher_jobs = 0;
+    game.blacksmith_jobs = 0;
+    game.miner_jobs = 0;
 
     //Updates #####################################################################################
 
@@ -196,17 +169,17 @@ export function advanceDay(){
     if(game.firewood < 0) game.firewood = 0;
     if(game.stone < 0) game.stone = 0;
     if(game.iron < 0) game.iron = 0;
-    if(game.clothes < 0) game.clothes = 0;
     if(game.tools < 0) game.tools = 0;
+    if(game.clothes < 0) game.clothes = 0;
 
     if(game.food > game.resourceLimit)        game.food = game.resourceLimit;
+    if(game.leather > game.resourceLimit)     game.leather = game.resourceLimit;
     if(game.wood > game.resourceLimit)        game.wood = game.resourceLimit;
+    if(game.firewood > game.resourceLimit)    game.firewood = game.resourceLimit;
     if(game.stone > game.resourceLimit)       game.stone = game.resourceLimit;
     if(game.iron > game.resourceLimit)        game.iron = game.resourceLimit;
-    if(game.firewood > game.resourceLimit)    game.firewood = game.resourceLimit;
     if(game.tools > game.resourceLimit)       game.tools = game.resourceLimit;
     if(game.clothes > game.resourceLimit)     game.clothes = game.resourceLimit;
-    if(game.leather > game.resourceLimit)     game.leather = game.resourceLimit;
 
     //#############################################################################################
 

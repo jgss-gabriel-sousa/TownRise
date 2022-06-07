@@ -4,16 +4,23 @@ export function sawmill(){
     const wood_consumption = game.sawmill*0.5;
     
     //###########################################
+    
+    game.lumberjack_jobs += game.sawmill*3;
+    
+    let jobSupply = game.lumberjack/game.lumberjack_jobs;
+    if(jobSupply > 1) jobSupply = 1;
+    if(!jobSupply) jobSupply = 0;
+    
+    //###########################################
     let woodSupply = game.wood/wood_consumption;
     if(woodSupply > 1) woodSupply = 1;
     if(woodSupply < 1) game.wood_lack = true;
     if(!woodSupply) woodSupply = 0;
 
-    game.firewood_balance += (game.sawmill*0.25)*woodSupply*game.productivity;
+    const productivity = jobSupply*woodSupply*game.productivity;
+
+    game.firewood_balance += (game.sawmill*0.25)*productivity;
 
     //###########################################
-    game.wood_balance -= wood_consumption;
-
-    //###########################################
-    game.jobs += game.sawmill*3;
+    game.wood_balance -= wood_consumption*productivity;
 }

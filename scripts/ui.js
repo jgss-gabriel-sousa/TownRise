@@ -1,5 +1,6 @@
 import { buildingsData } from "./buildingsData.js"
 import { resources } from "./resourcesData.js"
+import { professions } from "./professions.js"
 import { numberFormatted, numberBalanceFormatted, translateSeason } from "./funcs.js"
 import { game } from "./gameData.js"
 
@@ -60,7 +61,6 @@ export function buildingsUI(){
     menuDiv.innerHTML += buttonRow;
 }
 
-
 export function resourcesUI(){
     const div = document.getElementById("resources");
 
@@ -79,6 +79,28 @@ export function resourcesUI(){
         `;
     }
 }
+export function professionsUI(){
+    const div = document.getElementById("professions");
+    div.innerHTML += `
+        <div class="profession-stat">
+            <p>Ociosos:</p>
+            <input id="idle-input" type="range" value="0" step="1" disabled>
+            <span id="idle-stat">10</span>
+        </div>
+    `;
+
+    for(let i = 1; i < professions.length; i++){
+        const p = professions[i];
+
+        div.innerHTML += `
+            <div class="profession-stat">
+                <p>${p.name}:</p>
+                <input id="${p.id}-input" class="professions-slider" type="range" value="0" step="1">
+                <span id="${p.id}-stat">10</span>/<span id="${p.id}-jobs-stat">10</span>
+            </div>
+        `;
+    }
+}
 
 export function updateDataInfo(){
     document.getElementById("totalDays").innerText = game.totalDays;
@@ -93,8 +115,6 @@ export function updateDataInfo(){
     if(!settledRate) settledRate = 0;
     document.getElementById("settled-stat").innerText = settledRate;
         
-    document.getElementById("workforce-stat").innerText = game.workforce;
-    document.getElementById("jobs-stat").innerText = game.jobs;
     document.getElementById("productivity-stat").innerText = Math.round(game.productivity*100);
     document.getElementById("resource-limit-stat").innerText = numberFormatted(game.resourceLimit);
 
@@ -150,9 +170,43 @@ function resourceLack(){
 }
 
 function professionsStat(){
-    document.getElementById("idle-input").value = game.idle;
-    document.getElementById("idle-input").max = game.population;
+    game.worker = Number(document.getElementById("worker-input").value);
+    game.farmer = Number(document.getElementById("farmer-input").value);
+    game.herdsman = Number(document.getElementById("herdsman-input").value);
+    game.lumberjack = Number(document.getElementById("lumberjack-input").value);
+    game.tailor_prof = Number(document.getElementById("tailor-input").value);
+    game.teacher = Number(document.getElementById("teacher-input").value);
+    game.blacksmith_prof = Number(document.getElementById("blacksmith-input").value);
+    game.miner = Number(document.getElementById("miner-input").value);
 
-    document.getElementById("farmer-input").value = game.farmer;
-    document.getElementById("farmer-input").max = game.idle+game.farmer;
+    const array = ["worker","farmer","herdsman","lumberjack","tailor","teacher","blacksmith","miner"];
+    const arrayP = [game.worker,game.farmer,game.herdsman,game.lumberjack,game.tailor_prof,game.teacher,game.blacksmith_prof,game.miner];
+    const arrayPjobs = [game.worker_jobs,game.farmer_jobs,game.herdsman_jobs,game.lumberjack_jobs,game.tailor_jobs,game.teacher_jobs,game.blacksmith_jobs,game.miner_jobs];
+
+    game.idle = game.population;
+    for(let i = 0; i < arrayP.length; i++){
+        game.idle -= arrayP[i];
+    }
+
+    document.getElementById("idle-input").value = game.idle<0?0:game.idle;
+    document.getElementById("idle-input").max = game.population;
+    document.getElementById("idle-stat").innerText = game.idle;
+
+    for(let i = 0; i < array.length; i++) {
+        if(arrayPjobs[i] == 0)   document.getElementById(array[i]+"-input").disabled = true;
+        else    document.getElementById(array[i]+"-input").disabled = false;
+
+        document.getElementById(array[i]+"-input").value = arrayP[i];
+        document.getElementById(array[i]+"-input").max = (game.idle+arrayP[i])<arrayPjobs[i]?(game.idle+arrayP[i]):arrayPjobs[i];
+        document.getElementById(array[i]+"-stat").innerText = arrayP[i];
+        document.getElementById(array[i]+"-jobs-stat").innerText = arrayPjobs[i];
+    }
+    /*
+    if(game.worker_jobs == 0)   document.getElementById("worker-input").disabled = true;
+    else    document.getElementById("worker-input").disabled = false;
+    document.getElementById("worker-input").value = game.worker;
+    document.getElementById("worker-input").max = (game.idle+game.worker)<game.worker_jobs?(game.idle+game.worker):game.worker_jobs;
+    document.getElementById("worker-stat").innerText = game.worker;
+    document.getElementById("worker-jobs-stat").innerText = game.worker_jobs;
+    */
 }

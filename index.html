@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/map.css">
+    
     <script src="./scripts/game.js" type="module" defer></script>
     <script src="./scripts/handleInput.js" type="module" defer></script>
     <script src="https://kit.fontawesome.com/893953f084.js" crossorigin="anonymous"></script>
+    
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <title>My Village</title>
 </head>
@@ -17,10 +21,10 @@
             <h1>My Village</h1>
             <img src="./img/icon.png">
             <input type="button" class="btn btn-active" value="Começar" id="start">
-            <p id="game-version">v0.8.2 &copy; JGSS</p>
+            <p id="game-version">v0.9 &copy; JGSS</p>
             <b><p id="highscore"></p></b>
         </div>
-        <div id="left-interface" style="display: none;">
+        <div id="left-section" style="display: none;">
             <div class="container data">
                 <div>
                     <div class="time">
@@ -35,7 +39,6 @@
                     <p>População: <span id="pop-stat"></span> (<span id="childrens-stat">Crianças</span>)</p>
                     <p>Pop. Recorde: <span id="pop-record-stat"></span></p>
                     <p>Pop. Educada: <span id="educated-stat"></span>/<span id="max-educated-stat"></span></p>
-                    <p>Força de Trabalho: <span id="workforce-stat"></span>/<span id="jobs-stat"></span></p>
 
                     <div class="progress-stat">
                         <p>Pop. Abrigada:</p>
@@ -63,7 +66,7 @@
             </div>
             <div class="container" id="resources"></div>
         </div>
-        <div id="right-section" class="hidden">
+        <div id="middle-section" class="hidden">
             <div class="container" id="log"></div>
             <div class="container grass-spring" id="map">
                 <div class="map-div" id="map-city"></div>
@@ -71,7 +74,11 @@
                 <div class="map-div" id="map-manufactories"></div>
             </div>
         </div>
+        <div id="right-section" class="hidden">
+            <div class="container" id="professions"></div>
+        </div>
     </div>
     <div class="container hidden" id="buildings-menu"></div>
+    <div id="pops"></div>
 </body>
 </html>

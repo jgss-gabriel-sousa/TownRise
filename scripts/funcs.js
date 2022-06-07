@@ -60,3 +60,8 @@ export function checkHighScore(value){
         localStorage.setItem("highscore", value.toString());
     }
 }
+
+export function redrawHTML(element){
+    element.classList.add("hidden");
+    element.classList.remove("hidden");
+}

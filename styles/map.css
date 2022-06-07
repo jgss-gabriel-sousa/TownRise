@@ -1,0 +1,72 @@
+#map {
+    display: flex;
+    height: 100%;
+    justify-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 2px solid black;
+    background-image: url("../img/grass.png");
+    background-repeat: repeat;
+    -webkit-transition: 2s -webkit-filter linear;
+    -moz-transition: 2s -moz-filter linear;
+    -moz-transition: 2s filter linear;
+    -ms-transition: 2s -ms-filter linear;
+    -o-transition: 2s -o-filter linear;
+    transition: 2s filter linear, 2s -webkit-filter linear;
+}
+
+.map-winter {
+    filter: grayscale(0.8);
+}
+
+.map-autumn {
+    filter: saturate(150%) hue-rotate(320deg);
+}
+
+.map-summer {
+    filter: saturate(150%) contrast(120%);
+}
+
+.map-div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-item {
+    filter: drop-shadow(2px 2px 2px #333);
+    margin: -6px;
+}
+
+.map-item-sm img {
+    height: 32px;
+    width: 32px;
+}
+
+.map-item-md img {
+    height: 48px;
+    width: 48px;
+}
+
+.map-item-lg img {
+    height: 64px;
+    width: 64px;
+}
+
+#map-canvas {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+@media only screen and (max-width: 700px) {
+    #map {
+        width: auto;
+        min-height: 300px;
+    }
+}

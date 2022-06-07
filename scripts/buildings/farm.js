@@ -2,19 +2,27 @@ import { game } from "../gameData.js"
 
 export function farm(){
     const wood_consumption = game.farm*0.5;
+
+    //###########################################
+
+    game.herdsman_jobs += game.farm*4;
+    
+    let jobSupply = game.herdsman/game.herdsman_jobs;
+    if(jobSupply > 1) jobSupply = 1;
+    if(!jobSupply) jobSupply = 0;
     
     //###########################################
+
     let woodSupply = game.wood/wood_consumption;
     if(woodSupply > 1) woodSupply = 1;
     if(woodSupply < 1) game.wood_lack = true;
     if(!woodSupply) woodSupply = 0;
 
-    game.food_balance += (game.farm*0.5)*woodSupply*game.productivity;
-    game.leather_balance += (game.farm*0.5)*woodSupply*game.productivity;
+    const productivity = jobSupply*woodSupply*game.productivity;
+
+    game.food_balance += (game.farm*0.5)*productivity;
+    game.leather_balance += (game.farm*0.5)*productivity;
 
     //###########################################
-    game.wood_balance -= wood_consumption;
-
-    //###########################################
-    game.jobs += game.farm*4;
+    game.wood_balance -= wood_consumption*productivity;
 }

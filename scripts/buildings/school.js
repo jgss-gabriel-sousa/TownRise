@@ -5,6 +5,14 @@ export function school(){
     const stone_consumption = game.school*0.5;
     
     //###########################################
+    
+    game.teacher_jobs += game.school*2;
+    
+    let jobSupply = game.teacher/game.teacher_jobs;
+    if(jobSupply > 1) jobSupply = 1;
+    if(!jobSupply) jobSupply = 0;
+    
+    //###########################################
     let firewoodSupply = game.firewood/firewood_consumption;
     if(firewoodSupply > 1) firewoodSupply = 1;
     if(firewoodSupply < 1) game.firewood_lack = true;
@@ -15,9 +23,11 @@ export function school(){
     if(stoneSupply < 1) game.stone_lack = true;
     if(!stoneSupply) stoneSupply = 0;
 
-    game.educatedLimit = (game.school*4)*firewoodSupply*stoneSupply;
+    const productivity = jobSupply*firewoodSupply*stoneSupply;
+
+    game.educatedLimit = (game.school*4)*productivity;
 
     //###########################################
-    game.firewood_balance -= firewood_consumption;
-    game.stone_balance -= stone_consumption;
+    game.firewood_balance -= firewood_consumption*productivity;
+    game.stone_balance -= stone_consumption*productivity;
 }

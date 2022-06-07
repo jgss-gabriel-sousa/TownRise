@@ -20,10 +20,19 @@ export const game = {
     farmer: 0,
     herdsman: 0,
     lumberjack: 0,
-    tailor: 0,
+    tailor_prof: 0,
     teacher: 0,
-    blacksmith: 0,
+    blacksmith_prof: 0,
     miner: 0,
+
+    worker_jobs: 0,
+    farmer_jobs: 0,
+    herdsman_jobs: 0,
+    lumberjack_jobs: 0,
+    tailor_jobs: 0,
+    teacher_jobs: 0,
+    blacksmith_jobs: 0,
+    miner_jobs: 0,
 
     //Resources
     food: 50,
@@ -56,9 +65,9 @@ export const game = {
     clothes_lack: false,
     tools_lack: false,
     
-    workforce: 0,
-    jobs: 0,
     productivity: 0,
+    happiness: 1,
+    health: 1,
     
     house: 0,
     school: 0,
