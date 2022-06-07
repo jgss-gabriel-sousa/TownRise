@@ -273,8 +273,25 @@ button:hover span b {
     width: 80px;
     text-align: end;
 }
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #04AA6D; /* Green background */
+}
+  
+.slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #04AA6D; /* Green background */
+}
 
-@media only screen and (max-width: 700px) {
+.hidden {
+    display: none;
+}
+
+@media only screen and (max-width: 950px) {
     body {
         flex-direction: column;
     }
@@ -286,13 +303,15 @@ button:hover span b {
     #right-section{
         margin: auto;
     }
-
-    #resources{
-        grid-template-columns: 90px 90px 90px;
+    #resources {
+        grid-template-columns: 80px 80px 80px 80px;
     }
     
     #professions {
         align-items: center;
+    }
+    #professions input {
+        margin: 10px 5px;
     }
 
     #main-interface {
@@ -315,6 +334,8 @@ button:hover span b {
     }
 }
 
-.hidden {
-    display: none;
+@media only screen and (max-width: 380px) {
+    #resources {
+        grid-template-columns: 80px 80px 80px;
+    }
 }

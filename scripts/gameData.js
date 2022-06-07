@@ -12,7 +12,7 @@ export const game = {
     childrens: 0,
     fertilityRate: 20,
     
-    resourceLimit: 10,
+    resourceLimit: 0,
     
     //Professions
     idle: 10,
