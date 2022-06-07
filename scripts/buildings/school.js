@@ -24,6 +24,8 @@ export function school(){
     const productivity = jobSupply*firewoodSupply*stoneSupply;
 
     game.educatedLimit = (game.school*4)*productivity;
+    
+    if(game.educatedLimit > game.population) game.educatedLimit = game.population;
 
     //###########################################
     game.firewood_balance -= firewood_consumption*productivity;
