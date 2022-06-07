@@ -4,8 +4,6 @@ export function farm(){
     const wood_consumption = game.farm*0.5;
 
     //###########################################
-
-    game.herdsman_jobs += game.farm*4;
     
     let jobSupply = game.herdsman/game.herdsman_jobs;
     if(jobSupply > 1) jobSupply = 1;

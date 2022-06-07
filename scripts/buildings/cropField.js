@@ -1,8 +1,6 @@
 import { game } from "../gameData.js"
 
-export function cropField(){
-    game.farmer_jobs += game.cropField*4;
-    
+export function cropField(){    
     let jobSupply = game.farmer/game.farmer_jobs;
     if(jobSupply > 1) jobSupply = 1;
     if(!jobSupply) jobSupply = 0;

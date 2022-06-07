@@ -5,8 +5,6 @@ export function blacksmith(){
     const iron_consumption = game.blacksmith*0.25;
 
     //###########################################
-
-    game.blacksmith_jobs += game.blacksmith*3;
     
     let jobSupply = game.blacksmith_prof/game.blacksmith_jobs;
     if(jobSupply > 1) jobSupply = 1;

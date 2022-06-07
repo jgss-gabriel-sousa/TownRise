@@ -5,8 +5,6 @@ export function sawmill(){
     
     //###########################################
     
-    game.lumberjack_jobs += game.sawmill*3;
-    
     let jobSupply = game.lumberjack/game.lumberjack_jobs;
     if(jobSupply > 1) jobSupply = 1;
     if(!jobSupply) jobSupply = 0;

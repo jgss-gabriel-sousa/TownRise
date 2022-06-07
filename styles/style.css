@@ -229,8 +229,6 @@ button:hover span b {
     border: 1px solid #222;
     margin: -1px;
     -webkit-transition : width 2s ease;
-   -moz-transition : width 2s ease;
-     -o-transition : width 2s ease;
         transition : width 2s ease;
 }
 
@@ -259,7 +257,7 @@ button:hover span b {
 }
 
 #professions {
-    min-width: 200px;
+    min-width: 270px;
     padding: 10px;
     font-size: 12px;
 }
@@ -272,26 +270,46 @@ button:hover span b {
 .profession-stat p {
     width: 80px;
     text-align: end;
+    font-weight: bold;
 }
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default look */
+
+.professions-slider {
+    -webkit-appearance: none;
     appearance: none;
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
-    background: #04AA6D; /* Green background */
+    height: 25px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 1;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+.professions-slider:hover {
+    opacity: 1.5;
+}
+.professions-slider:disabled {
+    appearance: inherit;
+    opacity: 0.4;
+}
+
+.professions-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #005e3b;
 }
   
-.slider::-moz-range-thumb {
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
-    background: #04AA6D; /* Green background */
+.professions-slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #005e3b;
 }
 
 .hidden {
     display: none;
 }
 
-@media only screen and (max-width: 950px) {
+@media only screen and (max-width: 960px) {
     body {
         flex-direction: column;
     }

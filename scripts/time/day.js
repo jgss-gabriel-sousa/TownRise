@@ -52,17 +52,6 @@ export function advanceDay(){
     if(game.productivity > 1) game.productivity = 1;
     if(game.productivity < 0.25) game.productivity = 0.25;
 
-    //#############################################################################################
-
-    game.worker_jobs = 0;
-    game.farmer_jobs = 0;
-    game.herdsman_jobs = 0;
-    game.lumberjack_jobs = 0;
-    game.tailor_jobs = 0;
-    game.teacher_jobs = 0;
-    game.blacksmith_jobs = 0;
-    game.miner_jobs = 0;
-
     //Updates #####################################################################################
 
     buildingsUpdate();

@@ -1,8 +1,6 @@
 import { game } from "../gameData.js"
 
-export function lumbermill(){
-    game.lumberjack_jobs += game.lumbermill*3;
-    
+export function lumbermill(){    
     let jobSupply = game.lumberjack/game.lumberjack_jobs;
     if(jobSupply > 1) jobSupply = 1;
     if(!jobSupply) jobSupply = 0;

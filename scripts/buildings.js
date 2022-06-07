@@ -2,6 +2,8 @@ import { game } from "./gameData.js";
 import { updateDataInfo } from "./ui.js";
 import { buildingsData } from "./buildingsData.js";
 
+import { jobs } from "./buildings/jobs.js";
+
 import { house } from "./buildings/house.js";
 import { school } from "./buildings/school.js";
 import { cropField } from "./buildings/cropField.js";
@@ -43,6 +45,8 @@ export function buildingHTML(id){
 }
 
 export function buildingsUpdate(){
+    jobs();
+
     house();
     school();
     cropField();

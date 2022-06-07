@@ -6,8 +6,6 @@ export function school(){
     
     //###########################################
     
-    game.teacher_jobs += game.school*2;
-    
     let jobSupply = game.teacher/game.teacher_jobs;
     if(jobSupply > 1) jobSupply = 1;
     if(!jobSupply) jobSupply = 0;

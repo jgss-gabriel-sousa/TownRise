@@ -84,7 +84,7 @@ export function professionsUI(){
     div.innerHTML += `
         <div class="profession-stat">
             <p>Ociosos:</p>
-            <input id="idle-input" type="range" value="0" step="1" disabled>
+            <input id="idle-input" class="professions-slider" type="range" value="0" step="1" disabled>
             <span id="idle-stat">10</span>
         </div>
     `;

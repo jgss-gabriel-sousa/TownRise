@@ -5,8 +5,6 @@ export function tailor(){
     
     //###########################################
     
-    game.tailor_jobs += game.tailor*3;
-    
     let jobSupply = game.tailor_prof/game.tailor_jobs;
     if(jobSupply > 1) jobSupply = 1;
     if(!jobSupply) jobSupply = 0;
