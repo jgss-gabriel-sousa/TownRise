@@ -12,16 +12,16 @@ export const professions = [
         name: "Fazendeiro",
     },
     {
-        id: "herdsman",
-        name: "Pastor",
-    },
-    {
         id: "tailor",
         name: "Alfaiate",
     },
     {
         id: "blacksmith",
         name: "Ferreiro",
+    },
+    {
+        id: "brewer",
+        name: "Cervejeiro",
     },
     {
         id: "lumberjack",
@@ -32,7 +32,7 @@ export const professions = [
         name: "Minerador",
     },
     {
-        id: "teacher",
-        name: "Professor",
+        id: "academic",
+        name: "Acadêmico",
     },
 ]

@@ -5,7 +5,7 @@ import { advanceYear } from "./year.js";
 import { destroyBuilding } from "../buildings.js";
 
 export function advanceMonth(){
-    let homes = game.house+1 / Math.round(game.population/4);
+    let homes = (game.house+game.stoneHouse) / Math.round(game.population/4);
     if(homes > 1) homes = 1;
     if(game.population == 0) homes = 0;
 

@@ -1,65 +1,33 @@
 import { buildingsData } from "./buildingsData.js"
 import { resources } from "./resourcesData.js"
 import { professions } from "./professions.js"
-import { numberFormatted, numberBalanceFormatted, translateSeason } from "./funcs.js"
+import { numberFormatted, numberBalanceFormatted, translateSeason, resourceBalanceNumberFormat } from "./funcs.js"
 import { game } from "./gameData.js"
 
 export function buildingsUI(){
     const menuDiv = document.getElementById("buildings-menu");
-    let actualButtonRow = 0;
-    let buttonRow = `<div class="buildings-btn">`;
 
-    for(let i = 0; i < buildingsData.length; i++) {
-        const element = buildingsData[i];
-        let button;
+    menuDiv.innerHTML = `
+        <div id="buildings-menu1">
+            <button class="btn building-menu" id="building-house">Habitações</button>
 
-        if(element.buttonRow > actualButtonRow){
-            buttonRow += "</div>";
-            menuDiv.innerHTML += buttonRow;
+            <button class="btn building-menu" id="building-farm">Agricultura</button>
+            <button class="btn building-menu" id="building-pasture">Pecuária</button>
 
-            buttonRow = `<div class="buildings-btn">`;
-            actualButtonRow = element.buttonRow;
-        }
+            <button class="btn building-menu" id="building-resources">Recursos</button>    
 
-        button =`<button class="btn" id="add-${element.id}">${element.name}
-                    <span class="tooltip">`
+            <button class="btn building-menu" id="building-manufacture">Manufaturas</button>
+            <button class="btn building-menu" id="building-businesses">Negócios</button>
+            <button class="btn building-menu" id="building-handicraft">Ofícios</button>
 
-        if(element.build.length > 0)
-            button += `<b>Construção</b><br>`
-    
-        for(let j = 0; j < element.build.length; j++){
-            button += element.build[j]+"<br>";
-
-            if(j+1 == element.build.length)
-                button += "<br>"
-        }
-
-        if(element.needs.length > 0)
-            button += `<b>Manutenção</b><br>`
-    
-        for(let j = 0; j < element.needs.length; j++){
-            button += element.needs[j]+"<br>";
-
-            if(j+1 == element.needs.length)
-                button += "<br>"
-        }
-
-        if(element.result.length > 0)
-            button += `<b>Gera</b><br>`
-        
-        for(let j = 0; j < element.result.length; j++){
-            button += element.result[j];
-            
-            if(j+1 != element.result.length)
-                button += "<br>"
-        }
-        button += `</span></button>`;
-
-        buttonRow += button;
-    }
-    buttonRow += "</div>";
-    menuDiv.innerHTML += buttonRow;
+            <button class="btn building-menu" id="building-others">Outros</button>
+        </div>
+        <div id="buildings-menu2"></div>
+    `;
 }
+
+
+
 
 export function resourcesUI(){
     const div = document.getElementById("resources");
@@ -82,9 +50,8 @@ export function resourcesUI(){
 export function professionsUI(){
     const div = document.getElementById("professions");
     div.innerHTML += `
-        <div class="profession-stat">
-            <p>Ociosos:</p>
-            <input id="idle-input" class="professions-slider" type="range" value="0" step="1" disabled>
+        <div class="profession-stat" id="idle">
+            <p>Ocioso:</p>
             <span id="idle-stat">10</span>
         </div>
     `;
@@ -93,7 +60,7 @@ export function professionsUI(){
         const p = professions[i];
 
         div.innerHTML += `
-            <div class="profession-stat">
+            <div class="profession-stat" id="${p.id}">
                 <p>${p.name}:</p>
                 <input id="${p.id}-input" class="professions-slider" type="range" value="0" step="1">
                 <span id="${p.id}-stat">10</span>/<span id="${p.id}-jobs-stat">10</span>
@@ -102,13 +69,30 @@ export function professionsUI(){
     }
 }
 
+export function savedGamesHTML(){
+    let villages = localStorage.getItem("saved-villages");
+
+    if(villages == null ||villages == "null" || villages == "[]" || villages.length == 0){
+        document.getElementById("load").classList.add("hidden");
+        document.getElementById("saved-villages").style.display = "none";
+        return;
+    }
+
+    villages = JSON.parse(villages);
+    let html;
+
+    for(let i = 0; i < villages.length; i++){
+        html += `<option value="${villages[i].villageName}">${villages[i].villageName}</option>`;
+    }
+
+    document.getElementById("village-to-load").innerHTML = html;
+}
+
 export function updateDataInfo(){
     document.getElementById("totalDays").innerText = game.totalDays;
     document.getElementById("pop-stat").innerText = numberFormatted(game.population);
-    document.getElementById("pop-record-stat").innerText = numberFormatted(game.popRecord);
     document.getElementById("childrens-stat").innerText = numberFormatted(Math.round(game.childrens));
-    document.getElementById("educated-stat").innerText = numberFormatted(Math.round(game.educated));
-    document.getElementById("max-educated-stat").innerText = numberFormatted(Math.round(game.school*4));
+    document.getElementById("science-stat").innerText = numberFormatted(Math.round(game.science));
     
     let settledRate = 100-Math.round(((game.population - game.sheltered)/game.population)*100);
     if(settledRate > 100) settledRate = 100;
@@ -116,97 +100,57 @@ export function updateDataInfo(){
     document.getElementById("settled-stat").innerText = settledRate;
         
     document.getElementById("productivity-stat").innerText = Math.round(game.productivity*100);
+    document.getElementById("happiness-stat").innerText = Math.round(game.happiness*100);
+    document.getElementById("health-stat").innerText = Math.round(game.health*100);
     document.getElementById("resource-limit-stat").innerText = numberFormatted(game.resourceLimit);
 
-    document.getElementById("food-stat").innerText = numberFormatted(Math.floor(game.food));
-    document.getElementById("crop-stat").innerText = numberFormatted(Math.floor(game.crop));
-    document.getElementById("leather-stat").innerText = numberFormatted(Math.floor(game.leather));
-    document.getElementById("wood-stat").innerText = numberFormatted(Math.floor(game.wood));
-    document.getElementById("firewood-stat").innerText = numberFormatted(Math.floor(game.firewood));
-    document.getElementById("stone-stat").innerText = numberFormatted(Math.floor(game.stone));
-    document.getElementById("iron-stat").innerText = numberFormatted(Math.floor(game.iron));
-    document.getElementById("clothes-stat").innerText = numberFormatted(Math.floor(game.clothes));
-    document.getElementById("tools-stat").innerText = numberFormatted(Math.floor(game.tools));
+    for(let i = 0; i < resources.length; i++){
+        const r = resources[i].id;
 
-    document.getElementById("food-balance-stat").innerText = numberBalanceFormatted(game.food_balance);
-    document.getElementById("crop-balance-stat").innerText = numberBalanceFormatted(game.crop_balance);
-    document.getElementById("leather-balance-stat").innerText = numberBalanceFormatted(game.leather_balance);
-    document.getElementById("wood-balance-stat").innerText = numberBalanceFormatted(game.wood_balance);
-    document.getElementById("firewood-balance-stat").innerText = numberBalanceFormatted(game.firewood_balance);
-    document.getElementById("stone-balance-stat").innerText = numberBalanceFormatted(game.stone_balance);
-    document.getElementById("iron-balance-stat").innerText = numberBalanceFormatted(game.iron_balance);
-    document.getElementById("clothes-balance-stat").innerText = numberBalanceFormatted(game.clothes_balance);
-    document.getElementById("tools-balance-stat").innerText = numberBalanceFormatted(game.tools_balance);
+        document.getElementById(r+"-stat").innerText = numberFormatted(Math.floor(game[r]));
+        document.getElementById(r+"-balance-stat").innerText = numberBalanceFormatted(game[r+"_balance"]);
+
+        if(game[r+"_lack"])
+            document.getElementById(r+"-stat").classList.add("lack");
+        else
+            document.getElementById(r+"-stat").classList.remove("lack");
+    }
 
     document.getElementById("day").innerText = game.day;
     document.getElementById("season").innerText = translateSeason(game.season);
 
     document.getElementById("productivity-bar").style.width = Math.round(game.productivity*100).toString()+"%";
     document.getElementById("settled-bar").style.width = settledRate.toString()+"%";
+    document.getElementById("happiness-bar").style.width = Math.round(game.happiness*100).toString()+"%";
+    document.getElementById("health-bar").style.width = Math.round(game.health*100).toString()+"%";
 
-    resourceLack();
     professionsStat();
 }
 
-function resourceLack(){
-    if(game.food_lack)      document.getElementById("food-stat").classList.add("lack");
-    else                    document.getElementById("food-stat").classList.remove("lack");
-    if(game.crop_lack)      document.getElementById("crop-stat").classList.add("lack");
-    else                    document.getElementById("crop-stat").classList.remove("lack");
-    if(game.leather_lack)   document.getElementById("leather-stat").classList.add("lack");
-    else                    document.getElementById("leather-stat").classList.remove("lack");
-    if(game.wood_lack)      document.getElementById("wood-stat").classList.add("lack");
-    else                    document.getElementById("wood-stat").classList.remove("lack");
-    if(game.firewood_lack)  document.getElementById("firewood-stat").classList.add("lack");
-    else                    document.getElementById("firewood-stat").classList.remove("lack");
-    if(game.stone_lack)     document.getElementById("stone-stat").classList.add("lack");
-    else                    document.getElementById("stone-stat").classList.remove("lack");
-    if(game.iron_lack)      document.getElementById("iron-stat").classList.add("lack");
-    else                    document.getElementById("iron-stat").classList.remove("lack");
-    if(game.clothes_lack)   document.getElementById("clothes-stat").classList.add("lack");
-    else                    document.getElementById("clothes-stat").classList.remove("lack");
-    if(game.tools_lack)     document.getElementById("tools-stat").classList.add("lack");
-    else                    document.getElementById("tools-stat").classList.remove("lack");
-}
-
 function professionsStat(){
-    game.worker = Number(document.getElementById("worker-input").value);
-    game.farmer = Number(document.getElementById("farmer-input").value);
-    game.herdsman = Number(document.getElementById("herdsman-input").value);
-    game.lumberjack = Number(document.getElementById("lumberjack-input").value);
-    game.tailor_prof = Number(document.getElementById("tailor-input").value);
-    game.teacher = Number(document.getElementById("teacher-input").value);
-    game.blacksmith_prof = Number(document.getElementById("blacksmith-input").value);
-    game.miner = Number(document.getElementById("miner-input").value);
-
-    const array = ["worker","farmer","herdsman","lumberjack","tailor","teacher","blacksmith","miner"];
-    const arrayP = [game.worker,game.farmer,game.herdsman,game.lumberjack,game.tailor_prof,game.teacher,game.blacksmith_prof,game.miner];
-    const arrayPjobs = [game.worker_jobs,game.farmer_jobs,game.herdsman_jobs,game.lumberjack_jobs,game.tailor_jobs,game.teacher_jobs,game.blacksmith_jobs,game.miner_jobs];
-
     game.idle = game.population;
-    for(let i = 0; i < arrayP.length; i++){
-        game.idle -= arrayP[i];
+    for(let i = 1; i < professions.length; i++){
+        const j = professions[i].id;
+        
+        game[j] = Number(document.getElementById(j+"-input").value);
+
+        game.idle -= game[j];
     }
 
-    document.getElementById("idle-input").value = game.idle<0?0:game.idle;
-    document.getElementById("idle-input").max = game.population;
+    for(let i = 1; i < professions.length; i++){
+        const j = professions[i].id;
+        
+        if(game[j+"_jobs"] == 0)   
+            document.getElementById(j+"-input").disabled = true;
+        else
+            document.getElementById(j+"-input").disabled = false;
+
+        document.getElementById(j+"-input").value = game[j];
+        document.getElementById(j+"-input").max = (game.idle+game[j])<game[j+"_jobs"]?(game.idle+game[j]):game[j+"_jobs"];
+        document.getElementById(j+"-stat").innerText = game[j];
+        document.getElementById(j+"-jobs-stat").innerText = game[j+"_jobs"];
+    }
+
+    if(game.idle < 0) game.idle = 0;
     document.getElementById("idle-stat").innerText = game.idle;
-
-    for(let i = 0; i < array.length; i++) {
-        if(arrayPjobs[i] == 0)   document.getElementById(array[i]+"-input").disabled = true;
-        else    document.getElementById(array[i]+"-input").disabled = false;
-
-        document.getElementById(array[i]+"-input").value = arrayP[i];
-        document.getElementById(array[i]+"-input").max = (game.idle+arrayP[i])<arrayPjobs[i]?(game.idle+arrayP[i]):arrayPjobs[i];
-        document.getElementById(array[i]+"-stat").innerText = arrayP[i];
-        document.getElementById(array[i]+"-jobs-stat").innerText = arrayPjobs[i];
-    }
-    /*
-    if(game.worker_jobs == 0)   document.getElementById("worker-input").disabled = true;
-    else    document.getElementById("worker-input").disabled = false;
-    document.getElementById("worker-input").value = game.worker;
-    document.getElementById("worker-input").max = (game.idle+game.worker)<game.worker_jobs?(game.idle+game.worker):game.worker_jobs;
-    document.getElementById("worker-stat").innerText = game.worker;
-    document.getElementById("worker-jobs-stat").innerText = game.worker_jobs;
-    */
 }

@@ -20,13 +20,19 @@ p {
     font-size: 12px;
 }
 
+select {
+    font-size: 18px;
+    padding: 0px 10px;
+    border: 1px solid #333;
+}
+
 .container {
     display: flex;
     flex-direction: column;
     border: 1px solid;
     margin: 10px;
     padding: 2px;
-    background-color: rgb(240, 240, 240);
+    background-color: #f0f0f0;
 }
 
 .container h3 {
@@ -35,6 +41,7 @@ p {
 
 .data {
     text-align: start;
+    min-width: 250px
 }
 
 .menu {
@@ -80,43 +87,21 @@ p {
     font-weight: bold;
 }
 
-#start-game{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    
-    width: 50%;
-    border: 3px solid green;
-    box-shadow: 0px 0px 5px 1px black;
-    padding: 10px;
-    align-items: center;
-    justify-content: center;
-}
-#start-game h1{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-#start-game img{
-    width: 100px;
-    margin: 10px;
-}
-#start-game p{
-    font-size: 18px;
-    margin: 5px;
-    line-height: 2;
-}
-#start-game input{
-    font-size: 16px;
-    padding: 20px;
-    margin: 10px;
+#left-section{
+    flex-direction: column;
+    align-items: stretch;
 }
 
 #resources{
-    display: grid;
-    grid-template-columns: 80px 80px 80px 80px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     padding: 0;
     border: 0;
+    width: fit-content;
+    align-self: center;
+    background-color: transparent;
 }
 .resources-btn{
 	background: none;
@@ -124,7 +109,7 @@ p {
 	font: inherit;
 	cursor: normal;
 	outline: inherit;
-
+    background-color: #f0f0f0;
 	padding: 0;
 	border: 1px solid;
     margin: 0;
@@ -143,7 +128,7 @@ p {
 }
 .resources-btn div{
     background-color: rgb(180, 180, 180);
-    padding: 5px;
+    padding: 2px;
     border-bottom: 1px solid #333;
 }
 
@@ -155,11 +140,8 @@ p {
 
 #log {
     min-height: 80px;
-}
-
-#log p {
     font-size: 12px;
-    line-height: 0.5;
+    line-height: 0.8;
 }
 
 button:hover span {
@@ -178,15 +160,18 @@ button:hover span b {
 
 #buildings-menu{
     flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
 }
 #buildings-menu button{
-    width: 100px;
     word-wrap: break-word;
+    min-width: 100px;
 }
-
-.buildings-btn{
-    display: flex;
-    flex-direction: column;
+#buildings-menu1{
+    display: grid;
+}
+#buildings-menu2{
+    width: 50%;
 }
 
 .tooltip {
@@ -208,7 +193,7 @@ button:hover span b {
 }
 
 .progress-stat p {
-    min-width: 30%;
+    min-width: 25%;
 }
 
 .progress-bar-background {
@@ -247,19 +232,28 @@ button:hover span b {
     position: absolute;
 }
 .pop {
+    opacity: 0;
     filter: drop-shadow(2px 2px 2px #333);
     left: 50%;
+    -webkit-transition : opacity 1s ease-out;
+        transition : opacity 1s ease-out;
+}
+.pop-live {
+    opacity: 1;
+}
+.pop-die {
+    opacity: 0;
 }
 
 #right-section {
-    flex-direction: column;
+    flex-direction: row;
     align-content: center;
 }
 
 #professions {
-    min-width: 270px;
     padding: 10px;
     font-size: 12px;
+    min-width: 250px
 }
 
 .profession-stat {
@@ -272,6 +266,7 @@ button:hover span b {
     text-align: end;
     font-weight: bold;
 }
+
 
 .professions-slider {
     -webkit-appearance: none;
@@ -305,26 +300,56 @@ button:hover span b {
     background: #005e3b;
 }
 
-.hidden {
-    display: none;
+#options {
+    height: fit-content;
+    flex-direction: row;
+    text-align: center;
+    background-color: transparent;
+    border: 0;
 }
+
+#options div{
+    border: 1px solid black;
+    height: max-content;
+    background-color: rgb(240, 240, 240);
+    padding: 10px;
+}
+
+#volume {
+    width: fit-content;
+    align-items: center;
+    height: max-content;
+}
+#volume input {
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* Chromium */
+    width: 8px;
+    height: 100px;
+    padding: 0 5px;
+}
+
+
 
 @media only screen and (max-width: 960px) {
     body {
         flex-direction: column;
     }
+
+    #main-interface {
+        flex-wrap: wrap;
+    }
     
     #left-section{
         margin: auto;
+        display: flex;
+        flex-direction: row;
     }
 
     #right-section{
         margin: auto;
+        flex-direction: row;
+        align-content: stretch;
     }
-    #resources {
-        grid-template-columns: 80px 80px 80px 80px;
-    }
-    
     #professions {
         align-items: center;
     }
@@ -332,28 +357,39 @@ button:hover span b {
         margin: 10px 5px;
     }
 
-    #main-interface {
-        flex-wrap: wrap;
-    }
-
-    #start-game {
-        width: 75%;
-    }
-    
-    #buildings-menu{
-        flex-wrap: wrap;
-        flex-direction: column;
-    }
-    .buildings-btn{
+    .buildings-btn {
         flex-direction: row;
     }
-    .buildings-btn button{
+    .buildings-btn button {
         margin: 10px;
+    }
+
+    #right-section > div {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #log {
+        height: max-content;
+        width: 200px;
+        line-height: normal;
     }
 }
 
-@media only screen and (max-width: 380px) {
-    #resources {
-        grid-template-columns: 80px 80px 80px;
+@media only screen and (max-width: 650px) {
+    #right-section {
+        flex-direction: column;
     }
+}
+
+@media only screen and (max-width: 550px) {
+    #left-section{
+        flex-direction: column;
+    }
+}
+
+.hidden {
+    display: none;
 }

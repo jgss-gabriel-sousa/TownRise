@@ -5,7 +5,7 @@ export function farm(){
 
     //###########################################
     
-    let jobSupply = game.herdsman/game.herdsman_jobs;
+    let jobSupply = game.farmer/game.farmer_jobs;
     if(jobSupply > 1) jobSupply = 1;
     if(!jobSupply) jobSupply = 0;
     

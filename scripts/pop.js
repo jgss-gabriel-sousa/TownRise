@@ -1,4 +1,4 @@
-import { rand, redrawHTML } from "./funcs.js";
+import { rand } from "./funcs.js";
 import { game } from "./gameData.js";
 
 export function popUpdate(){
@@ -11,35 +11,57 @@ export function popUpdate(){
         const diff = game.population-popCount;
 
         for(let i = 0; i < diff; i++) {
-            addPop();
+            addPop(false);
         }
     }
     if(game.population < popCount){
-        const diff = popCount-game.population;
+        const diff = popCount-game.population-1;
 
-        for(let i = 0; i < diff; i++) {
-            removePop();
-        }
+        removePop();
     }
 }
 
 export function popBootstrap(){
     for(let i = 0; i < game.population; i++){
-        addPop();
+        addPop(true);
     }
 }
 
-function addPop(){
-    let sprite = `<img class="pop"`;
+function addPop(isBootstrap){
+    let sprite;
+
+    if(isBootstrap)
+        sprite = `<img class="pop pop-live"`;
+    else
+        sprite = `<img class="pop"`;
 
     const popVariation = rand(0,2);
     sprite += `src="./img/pop${popVariation}.png" >`
 
     document.getElementById("pops").innerHTML += sprite;
+
+    setTimeout(()=> {
+        for(let i = 0; i < document.querySelectorAll(".pop").length; i++){
+            const element = document.querySelectorAll(".pop")[i];
+
+            if(element.classList.contains("pop") && !element.classList.contains("pop-die")){
+                element.classList.add("pop-live");
+            }
+        }
+    }
+    ,250);
 }
 
 function removePop(){
-    const id = rand(0,document.querySelectorAll(".pop").length);
+    document.querySelectorAll(".pop")[document.querySelectorAll(".pop").length-1].classList.add("pop-die");
 
-    document.querySelectorAll(".pop")[id].remove();
+    setTimeout(()=> {
+        for(let i = 0; i < document.querySelectorAll(".pop-die").length; i++){
+            const element = document.querySelectorAll(".pop-die")[i];
+
+            element.remove();
+        }
+    }
+    ,1000);
 }
+

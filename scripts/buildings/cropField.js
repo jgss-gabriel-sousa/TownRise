@@ -13,6 +13,6 @@ export function cropField(){
 
     const productivity = jobSupply*game.productivity*weatherProductivity;
     
-    game.crop_balance += (game.cropField*0.5)*productivity;
+    game.grain_balance += (game.cropField*0.5)*productivity;
 }
 

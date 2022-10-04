@@ -15,7 +15,7 @@ export function warehouse(){
     if(woodSupply < 1) game.wood_lack = true;
     if(!woodSupply) woodSupply = 0;
 
-    const productivity = jobSupply*woodSupply;
+    const productivity = ((jobSupply*woodSupply)+1)/2;
 
     game.resourceLimit = ((1+game.warehouse)*game.warehouseStorage)*productivity;
 

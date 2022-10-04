@@ -7,9 +7,22 @@
     
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/map.css">
+    <link rel="stylesheet" href="./styles/menu.css">
     
+    <!-- Development -->
+    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js" defer></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js" defer></script>
+    <!--  -->
+    
+    <!-- Production 
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    -->
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./scripts/game.js" type="module" defer></script>
     <script src="./scripts/handleInput.js" type="module" defer></script>
+    <script src="./scripts/tooltips.js" type="module" defer></script>
     <script src="https://kit.fontawesome.com/893953f084.js" crossorigin="anonymous"></script>
     
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -17,57 +30,94 @@
 </head>
 <body>
     <div id="main-interface">
-        <div id="start-game" class="container">
+        <div id="start-game" class="container menu">
             <h1>My Village</h1>
             <img src="./img/icon.png">
-            <input type="button" class="btn btn-active" value="Começar" id="start">
-            <p id="game-version">v0.9.2 &copy; JGSS</p>
+            <input type="button" class="btn btn-active" value="Nova Vila" id="start">
+            <input type="button" class="btn btn-active" value="Carregar Vila" id="load">
+            <br>
+            <p id="game-version">v0.10 &copy; JGSS</p>
             <b><p id="highscore"></p></b>
+        </div>
+        <div id="load-game" class="container menu hidden">
+            <h1>Carregar Vila</h1>
+            <br>
+            <div id="saved-villages">
+                <select id="village-to-load"></select>
+                <input type="button" class="btn-small" value="Deletar" id="delete-village">
+            </div>
+            <br>
+            <input type="button" class="btn btn-active" value="Carregar" id="load-village">
+            <br>
+            <input type="button" class="btn btn-active" value="Voltar" id="back-to-start">
+            <br>
         </div>
         <div id="left-section" style="display: none;">
             <div class="container data">
-                <div>
-                    <div class="time">
-                        <input type="button" class="btn btn-active hidden" value="Reiniciar" id="restart">
-                        <input type="button" class="small-btn hidden" value="=" id="pause">
-                        <input type="button" class="small-btn hidden" value=">" id="1x">
-                        <input type="button" class="small-btn hidden" value=">>" id="5x">
-                        <input type="button" class="small-btn hidden" value=">>>" id="10x">
-                        <p><span>Dia </span><span id="totalDays">1</span></p>
-                        <p><span id="day-weather"><i class="fa-solid fa-sun"></i></span> <span id="day">1</span> - <span id="season">Primavera</span></p>
-                    </div>
-                    <p>População: <span id="pop-stat"></span> (<span id="childrens-stat">Crianças</span>)</p>
-                    <p>Pop. Recorde: <span id="pop-record-stat"></span></p>
-                    <p>Pop. Alfabetizada: <span id="educated-stat"></span>/<span id="max-educated-stat"></span></p>
-
-                    <div class="progress-stat">
-                        <p>Pop. Abrigada:</p>
-                        <div class="progress-bar-background">
-                            <div id="settled-bar" class="progress-bar">
-                                <div>
-                                    <span id="settled-stat"></span>%
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="progress-stat">
-                        <p>Produtividade:</p>
-                        <div class="progress-bar-background">
-                            <div id="productivity-bar" class="progress-bar">
-                                <div>
-                                    <span id="productivity-stat"></span>%
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <p>Limite de Armazenamento: <span id="resource-limit-stat"></span></p>
+                <div id="options">
+                    <button class="btn btn-active" id="save-game">Salvar Vila</button>
+                    <button class="btn btn-active" id="surrender">Desistir</button>
                 </div>
+                <div class="time">
+                    <input type="button" class="btn btn-active hidden" value="Voltar para o Menu" id="restart">
+                    <input type="button" class="small-btn hidden" value="=" id="pause">
+                    <input type="button" class="small-btn hidden" value=">" id="1x">
+                    <input type="button" class="small-btn hidden" value=">>" id="5x">
+                    <input type="button" class="small-btn hidden" value=">>>" id="10x">
+                    <p><span>Dia </span><span id="totalDays">1</span></p>
+                    <p><span id="day-weather"><i class="fa-solid fa-sun"></i></span> <span id="day">1</span> - <span id="season">Primavera</span></p>
+                </div>
+                <p id="pop-info">População: <span id="pop-stat"></span> (<span id="childrens-stat">Crianças</span>)</p>
+                
+
+                <div class="progress-stat">
+                    <p>Pop. Abrigada:</p>
+                    <div class="progress-bar-background">
+                        <div id="settled-bar" class="progress-bar">
+                            <div>
+                                <span id="settled-stat"></span>%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-stat">
+                    <p>Produtividade:</p>
+                    <div class="progress-bar-background">
+                        <div id="productivity-bar" class="progress-bar">
+                            <div>
+                                <span id="productivity-stat"></span>%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-stat">
+                    <p>Felicidade:</p>
+                    <div class="progress-bar-background">
+                        <div id="happiness-bar" class="progress-bar">
+                            <div>
+                                <span id="happiness-stat"></span>%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress-stat">
+                    <p>Saúde:</p>
+                    <div class="progress-bar-background">
+                        <div id="health-bar" class="progress-bar">
+                            <div>
+                                <span id="health-stat"></span>%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p>Ciência: <span id="science-stat"></span></p>
+                <p>Armazenamento: <span id="resource-limit-stat"></span></p>
             </div>
-            <div class="container" id="resources"></div>
+            <div class="container hidden" id="buildings-menu"></div>
         </div>
         <div id="middle-section" class="hidden">
-            <div class="container" id="log"></div>
+            <div class="container" id="resources"></div>
             <div class="container grass-spring" id="map">
                 <div class="map-div" id="map-city"></div>
                 <div class="map-div" id="map-farms"></div>
@@ -75,10 +125,16 @@
             </div>
         </div>
         <div id="right-section" class="hidden">
-            <div class="container" id="professions"></div>
+            <div>
+                <div class="container" id="professions"></div>
+                <div class="container" id="log"></div>
+                <div class="container" id="volume">
+                    <input type="range" min="0" max="1" step="0.05">
+                    <p>Volume</p>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="container hidden" id="buildings-menu"></div>
     <div id="pops"></div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 import { game } from "../gameData.js"
 
-export function house(){
-    const firewood_consumption = game.house*0.1;
+export function stoneHouse(){
+    const firewood_consumption = game.stoneHouse*0.02;
     
     //###########################################
     let firewoodSupply = game.firewood/firewood_consumption;
@@ -9,7 +9,7 @@ export function house(){
     if(firewoodSupply < 1) game.firewood_lack = true;
     if(game.season != "winter") firewoodSupply = 1;
 
-    game.sheltered += Math.round((game.house*4)*firewoodSupply);
+    game.sheltered += Math.round((game.stoneHouse*8)*firewoodSupply);
 
     if(game.sheltered > game.population) game.sheltered = game.population;
     if(!game.sheltered) game.sheltered = 0;

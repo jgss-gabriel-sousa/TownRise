@@ -5,15 +5,37 @@ export const buildingsData = [
         spriteSize: "sm",
         spritePlace: "city",
         buttonRow: 0,
+        description: "Habitação para 4 pessoas",
+        jobs: [
+        ],
         build: [
-            "5 Madeiras",
+            "4 Madeiras",
             "2 Pedras",
         ],
         needs: [
-            "0.05 Lenha (Inverno)"
+            "0.1 Lenha (Inverno)"
         ],
         result: [
-            "4 Abrigos"
+        ]
+    },
+    {
+        id: "stoneHouse",
+        name: "Casa de Pedra",
+        spriteSize: "sm",
+        spritePlace: "city",
+        buttonRow: 0,
+        description: "Habitação para 8 pessoas",
+        jobs: [
+        ],
+        build: [
+            "6 Madeiras",
+            "10 Pedras",
+            "2 Ferros",
+        ],
+        needs: [
+            "0.02 Lenha (Inverno)"
+        ],
+        result: [
         ]
     },
     {
@@ -22,25 +44,32 @@ export const buildingsData = [
         spriteSize: "md",
         spritePlace: "city",
         buttonRow: 5,
+        description: "",
+        jobs: [
+            "4 Acadêmicos"
+        ],
         build: [
-            "40 Madeiras",
-            "20 Pedras",
-            "20 Ferros"
+            "12 Madeiras",
+            "4 Pedras",
+            "4 Ferros"
         ],
         needs: [
-            "0.5 Lenha",
+            "0.2 Lenha",
             "0.5 Pedra"
         ],
         result: [
-            "4 Vagas de Estudante"
+            "1 de Ciência"
         ]
     },
     {
         id: "cropField",
         name: "Plantação",
-        spriteSize: "md",
+        spriteSize: "lg",
         spritePlace: "farms",
-        buttonRow: 10,
+        buttonRow: -1,
+        description: "",
+        jobs: [
+        ],
         build: [
         ],
         needs: [
@@ -53,9 +82,12 @@ export const buildingsData = [
     {
         id: "farm",
         name: "Fazenda",
-        spriteSize: "md",
+        spriteSize: "lg",
         spritePlace: "farms",
         buttonRow: 10,
+        description: "",
+        jobs: [
+        ],
         build: [
             "10 Madeiras"
         ],
@@ -74,6 +106,9 @@ export const buildingsData = [
         spriteSize: "md",
         spritePlace: "city",
         buttonRow: 15,
+        description: "",
+        jobs: [
+        ],
         build: [
             "10 Madeiras"
         ],
@@ -91,6 +126,9 @@ export const buildingsData = [
         spriteSize: "md",
         spritePlace: "city",
         buttonRow: 15,
+        description: "",
+        jobs: [
+        ],
         build: [
             "10 Pedras"
         ],
@@ -104,11 +142,37 @@ export const buildingsData = [
         ]
     },
     {
+        id: "tavern",
+        name: "Taverna",
+        spriteSize: "md",
+        spritePlace: "city",
+        buttonRow: 15,
+        description: "",
+        jobs: [
+            "1 Cervejeiro",
+            "2 Trabalhadores",
+        ],
+        build: [
+            "12 Madeiras",
+            "6 Pedras",
+            "4 Ferros",
+        ],
+        needs: [
+            "1 Comida"
+        ],
+        result: [
+            "0.5 Cerveja"
+        ]
+    },
+    {
         id: "lumbermill",
         name: "Madeireira",
         spriteSize: "sm",
         spritePlace: "manufactories",
         buttonRow: 20,
+        description: "",
+        jobs: [
+        ],
         build: [
         ],
         needs: [
@@ -124,6 +188,9 @@ export const buildingsData = [
         spriteSize: "md",
         spritePlace: "manufactories",
         buttonRow: 20,
+        description: "",
+        jobs: [
+        ],
         build: [
             "20 Madeiras",
             "10 Pedras"
@@ -142,6 +209,9 @@ export const buildingsData = [
         spriteSize: "lg",
         spritePlace: "manufactories",
         buttonRow: 30,
+        description: "",
+        jobs: [
+        ],
         build: [
             "50 Madeiras"
         ],
@@ -159,13 +229,16 @@ export const buildingsData = [
         spriteSize: "lg",
         spritePlace: "manufactories",
         buttonRow: 40,
+        description: "",
+        jobs: [
+            "5 Mineradores"
+        ],
         build: [
-            "40 Madeiras"
+            "30 Madeiras"
         ],
         needs: [
         ],
         result: [
-            "5 Empregos",
             "1 Pedra"
         ]
     },
@@ -173,15 +246,18 @@ export const buildingsData = [
         id: "mine",
         name: "Mina",
         spriteSize: "lg",
-        buttonRow: 40,
         spritePlace: "manufactories",
+        buttonRow: 40,
+        description: "",
+        jobs: [
+            "5 Mineradores"
+        ],
         build: [
-            "40 Pedras"
+            "30 Pedras"
         ],
         needs: [
         ],
         result: [
-            "5 Empregos",
             "1 Ferro"
         ]
     },

@@ -1,11 +1,15 @@
 export const resources = [
     {
-        id: "food",
-        name: "Comida",
+        id: "grain",
+        name: "Grãos",
     },
     {
-        id: "crop",
-        name: "Colheita",
+        id: "fruit",
+        name: "Frutas",
+    },
+    {
+        id: "meat",
+        name: "Carne",
     },
     {
         id: "wood",
@@ -34,5 +38,9 @@ export const resources = [
     {
         id: "tools",
         name: "Ferramentas",
+    },
+    {
+        id: "ale",
+        name: "Cerveja",
     },
 ]

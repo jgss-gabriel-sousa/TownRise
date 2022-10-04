@@ -8,6 +8,24 @@ export function numberFormatted(number){
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
+export function resourceBalanceNumberFormat(number){
+    let value;
+    if(number < 10){
+        value = number.toFixed(1);
+    }
+    else if(number < 1){
+        value = number.toFixed(2);
+    }
+    else{
+        value = Math.round(number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+    
+    if(value > 0)
+        value = "+"+value;
+    
+    return value;
+}
+
 export function numberBalanceFormatted(number){
     let value;
     if(number < 10){
@@ -59,9 +77,4 @@ export function checkHighScore(value){
     if(value > highscore){
         localStorage.setItem("highscore", value.toString());
     }
-}
-
-export function redrawHTML(element){
-    element.classList.add("hidden");
-    element.classList.remove("hidden");
 }
