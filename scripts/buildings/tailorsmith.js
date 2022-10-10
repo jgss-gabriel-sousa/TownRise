@@ -1,11 +1,11 @@
 import { game } from "../gameData.js"
 
-export function tailor(){
-    const leather_consumption = game.tailor*1;
+export function tailorsmith(){
+    const leather_consumption = game.tailorsmith*1;
     
     //###########################################
     
-    let jobSupply = game.tailor_prof/game.tailor_jobs;
+    let jobSupply = game.tailor/game.tailor_jobs;
     if(jobSupply > 1) jobSupply = 1;
     if(!jobSupply) jobSupply = 0;
     
@@ -17,7 +17,7 @@ export function tailor(){
 
     const productivity = jobSupply*leatherSupply*game.productivity;
 
-    game.clothes_balance += (game.tailor)*productivity;
+    game.clothes_balance += (game.tailorsmith)*productivity;
 
     //###########################################
     game.leather_balance -= leather_consumption*productivity;

@@ -11,18 +11,18 @@ export const game = {
 
     population: 10,
     sheltered: 0,
-    childrens: 0,
     fertilityRate: 20,
     
     science: 0,
     resourceLimit: 0,
     
-    //Professions
+    //Pops
+    childrens: 0,
     idle: 10,
     worker: 0,
     farmer: 0,
     lumberjack: 0,
-    tailor_prof: 0,
+    tailor: 0,
     brewer: 0,
     academic: 0,
     blacksmith_prof: 0,
@@ -84,7 +84,7 @@ export const game = {
     school: 0,
     cropField: 0,
     farm: 0,
-    tailor: 0,
+    tailorsmith: 0,
     blacksmith: 0,
     lumbermill: 0,
     sawmill: 0,

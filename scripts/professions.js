@@ -16,7 +16,7 @@ export const professions = [
         name: "Alfaiate",
     },
     {
-        id: "blacksmith",
+        id: "blacksmith_prof",
         name: "Ferreiro",
     },
     {

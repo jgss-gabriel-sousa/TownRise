@@ -60,12 +60,12 @@ export function average(array){
     return total / count;
 }
 
-if(localStorage.getItem("game-version") != document.getElementById("game-version").innerText){
-    localStorage.setItem("highscore", "0");
-    localStorage.setItem("game-version", document.getElementById("game-version").innerText);
+if(localStorage.getItem("mv-game-version") != document.getElementById("game-version").innerText){
+    localStorage.setItem("mv-highscore", "0");
+    localStorage.setItem("mv-game-version", document.getElementById("game-version").innerText);
 }
 
-let highscore = localStorage.getItem("highscore");
+let highscore = localStorage.getItem("mv-highscore");
 if(highscore == null) highscore = 0;
 
 
@@ -75,6 +75,6 @@ export function highScoreHTML(){
 
 export function checkHighScore(value){
     if(value > highscore){
-        localStorage.setItem("highscore", value.toString());
+        localStorage.setItem("mv-highscore", value.toString());
     }
 }

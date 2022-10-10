@@ -9,13 +9,11 @@ export function advanceMonth(){
     if(homes > 1) homes = 1;
     if(game.population == 0) homes = 0;
 
-    if(!game.hungry){
-        const newChildrens = Math.round(((1+(rand(0,game.fertilityRate)/100)))*Math.round(game.population/8)*homes);
-        game.childrens += newChildrens;
+    const newChildrens = Math.round(((1+(rand(0,game.fertilityRate)/100)))*Math.round(game.population/8)*homes);
+    game.childrens += newChildrens;
 
-        if(newChildrens > 1)    logPush(newChildrens+" crianças nasceram no ultimo mês");
-        if(newChildrens == 1)   logPush(newChildrens+" criança nasceu no ultimo mês");
-    }
+    if(newChildrens > 1)    logPush(newChildrens+" crianças nasceram no ultimo mês");
+    if(newChildrens == 1)   logPush(newChildrens+" criança nasceu no ultimo mês");
 
     
     if(game.season == "spring"){
@@ -34,13 +32,7 @@ export function advanceMonth(){
 
         document.getElementById("map").classList.remove("map-autumn");
         document.getElementById("map").classList.add("map-winter");
-
-        //Harvest
-        game.food += game.crop;
-
-        if(game.crop > 0) logPush("A colheita rendeu "+Math.round(game.crop)+" de comida");
         
-        game.crop = 0;
         destroyBuilding("cropField",game.cropField);
         game.cropField = 0;
     }  

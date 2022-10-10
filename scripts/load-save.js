@@ -34,7 +34,7 @@ export async function saveGame(){
     try{
         if(!game.villageName) throw "error";
 
-        localStorage.setItem("saved-villages", JSON.stringify(villages));
+        localStorage.setItem("mv-saved-villages", JSON.stringify(villages));
 
         Swal.fire({
             icon: "success",
@@ -43,7 +43,7 @@ export async function saveGame(){
             timer: 1000
         });
     }catch(e){
-        localStorage.setItem("saved-villages", JSON.stringify(villagesBackup));
+        localStorage.setItem("mv-saved-villages", JSON.stringify(villagesBackup));
         
         Swal.fire({
             icon: "error",
@@ -54,7 +54,7 @@ export async function saveGame(){
 }
 
 export function loadGame(name){
-    let villages = JSON.parse(localStorage.getItem("saved-villages"));
+    let villages = JSON.parse(localStorage.getItem("mv-saved-villages"));
 
     for(let i = 0; i < villages.length; i++){
         const element = villages[i];
@@ -69,7 +69,7 @@ export function loadGame(name){
 }
 
 export function deleteGame(name){
-    let villages = JSON.parse(localStorage.getItem("saved-villages"));
+    let villages = JSON.parse(localStorage.getItem("mv-saved-villages"));
     let newVillages = [];
 
     for(let i = 0; i < villages.length; i++){
@@ -78,7 +78,7 @@ export function deleteGame(name){
     }
 
     villages = newVillages;
-    localStorage.setItem("saved-villages", JSON.stringify(villages));
+    localStorage.setItem("mv-saved-villages", JSON.stringify(villages));
 
     savedGamesHTML();
 }

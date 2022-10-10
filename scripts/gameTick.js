@@ -112,25 +112,12 @@ export function gameTick(){
     game.clothes_balance -= (game.population*0.0125)+(game.childrens*0.00625);
 
     //HUNGRY ######################################################################################
-
-    //const foodConsumption = ((game.population*0.04) + (game.childrens*0.02)) * difficulty;
-    //game.food_balance -= foodConsumption;
-
-    //if(game.food < foodConsumption)
-    //game.hungry /= 8;
-
-    /*
-    else
-        game.hungry = 0;
-    if(game.hungry < 0)  game.hungry = 0;*/
     if(game.hungry > 0){
-        //game.food_lack = true;
-
         popDeath = rand(0,Math.ceil(game.hungry) > game.population ? game.population : Math.ceil(game.hungry));
         childrenDeath = rand(0,Math.ceil(game.hungry) > game.childrens ? game.childrens : Math.ceil(game.hungry));
         
-    console.log(Math.ceil(game.hungry));
-    console.log(popDeath);
+        console.log(Math.ceil(game.hungry));
+        console.log(popDeath);
 
         game.population -= popDeath;
         game.childrens -= childrenDeath;

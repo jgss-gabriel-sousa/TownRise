@@ -4,10 +4,10 @@ var audio = new Audio();
 const NUMBER_OF_SONGS = 8;
 
 export function soundStart(){
-    if(!localStorage.getItem("volume"))
-        localStorage.setItem("volume", "0.5");
+    if(!localStorage.getItem("mv-volume"))
+        localStorage.setItem("mv-volume", "0.5");
 
-    document.querySelector("#volume input").value = localStorage.getItem("volume");
+    document.querySelector("#volume input").value = localStorage.getItem("mv-volume");
 }
 
 export function soundtrack(){
@@ -19,7 +19,7 @@ export function soundtrack(){
         }catch(error){}
     }
 
-    audio.volume = Number(localStorage.getItem("volume"))/4;
+    audio.volume = Number(localStorage.getItem("mv-volume"))/4;
     
     window.setTimeout(soundtrack, 500);
 }

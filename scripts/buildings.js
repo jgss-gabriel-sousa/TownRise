@@ -9,7 +9,7 @@ import { stoneHouse } from "./buildings/stoneHouse.js";
 import { school } from "./buildings/school.js";
 import { cropField } from "./buildings/cropField.js";
 import { farm } from "./buildings/farm.js";
-import { tailor } from "./buildings/tailor.js";
+import { tailorsmith } from "./buildings/tailorsmith.js";
 import { blacksmith } from "./buildings/blacksmith.js";
 import { lumbermill } from "./buildings/lumbermill.js";
 import { sawmill } from "./buildings/sawmill.js";
@@ -66,7 +66,7 @@ export function buildingsUpdate(){
     school();
     cropField();
     farm();
-    tailor();
+    tailorsmith();
     blacksmith();
     lumbermill();
     sawmill();
@@ -127,9 +127,9 @@ export async function buildBuilding(buildingID){
     else if(buildingID == "farm"){
         game.farm++;
     }
-    else if(buildingID == "tailor"){
+    else if(buildingID == "tailorsmith"){
         if(game.wood >= 10){
-            game.tailor++;
+            game.tailorsmith++;
             game.wood -= 10;
         }
         else return;

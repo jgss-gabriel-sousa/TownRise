@@ -101,7 +101,7 @@ export const buildingsData = [
         ]
     },
     {
-        id: "tailor",
+        id: "tailorsmith",
         name: "Alfaiate",
         spriteSize: "md",
         spritePlace: "city",

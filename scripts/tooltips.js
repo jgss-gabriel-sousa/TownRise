@@ -5,7 +5,7 @@ const buildings = [
     ["house",["house","stoneHouse"]],
     ["farm",["cropField"/*,"orchard"*/]],
     ["pasture", ["farm"]],
-    ["handicraft", ["tailor","blacksmith"]],
+    ["handicraft", ["tailorsmith","blacksmith"]],
     ["manufacture", ["sawmill"]],
     ["resources", ["lumbermill","mine","quarry"]],
     ["businesses", ["tavern"]],

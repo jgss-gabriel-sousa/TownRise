@@ -70,7 +70,7 @@ export function professionsUI(){
 }
 
 export function savedGamesHTML(){
-    let villages = localStorage.getItem("saved-villages");
+    let villages = localStorage.getItem("mv-saved-villages");
 
     if(villages == null ||villages == "null" || villages == "[]" || villages.length == 0){
         document.getElementById("load").classList.add("hidden");

@@ -94,7 +94,7 @@ window.onclick = e => {
 }
 
 document.querySelector("#volume input").addEventListener("change", () => {
-    localStorage.setItem("volume", document.querySelector("#volume input").value);
+    localStorage.setItem("mv-volume", document.querySelector("#volume input").value);
 });
 
 
