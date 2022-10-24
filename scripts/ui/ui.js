@@ -1,8 +1,8 @@
-import { buildingsData } from "./buildingsData.js"
-import { resources } from "./resourcesData.js"
-import { professions } from "./professions.js"
-import { numberFormatted, numberBalanceFormatted, translateSeason, resourceBalanceNumberFormat } from "./funcs.js"
-import { game } from "./gameData.js"
+import { buildingsData } from "../buildingsData.js"
+import { resources } from "../resourcesData.js"
+import { professions } from "../professions.js"
+import { numberFormatted, numberBalanceFormatted, translateSeason, resourceBalanceNumberFormat } from "../funcs.js"
+import { game } from "../gameData.js"
 
 export function buildingsUI(){
     const menuDiv = document.getElementById("buildings-menu");
@@ -26,9 +26,6 @@ export function buildingsUI(){
     `;
 }
 
-
-
-
 export function resourcesUI(){
     const div = document.getElementById("resources");
 
@@ -47,6 +44,7 @@ export function resourcesUI(){
         `;
     }
 }
+
 export function professionsUI(){
     const div = document.getElementById("professions");
     div.innerHTML += `

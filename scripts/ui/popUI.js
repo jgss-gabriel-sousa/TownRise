@@ -1,5 +1,5 @@
-import { rand } from "./funcs.js";
-import { game } from "./gameData.js";
+import { rand } from "../funcs.js";
+import { game } from "../gameData.js";
 
 export function popUpdate(){
     if(game.gamePaused) return;

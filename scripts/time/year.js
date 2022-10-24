@@ -1,5 +1,5 @@
 import { game } from "../gameData.js";
-import { logPush } from "../log.js";
+import { logPush } from "../ui/log.js";
 
 export function advanceYear(){
     if(game.childrens > 1 && game.childrens < 4){

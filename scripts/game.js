@@ -1,9 +1,9 @@
 import { rand, highScoreHTML, checkHighScore } from "./funcs.js";
 import { soundStart, soundtrack } from "./sound.js";
-import { buildingsUI, resourcesUI, professionsUI, savedGamesHTML } from "./ui.js";
+import { buildingsUI, resourcesUI, professionsUI, savedGamesHTML } from "./ui/ui.js";
 import { newWeather } from "./weather.js";
 import { advanceDay } from "./time/day.js";
-import { popUpdate } from "./pop.js";
+import { popUpdate } from "./ui/popUI.js";
 import { game } from "./gameData.js";
 import { gameTick } from "./gameTick.js";
 

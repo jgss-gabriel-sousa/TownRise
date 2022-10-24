@@ -22,7 +22,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./scripts/game.js" type="module" defer></script>
     <script src="./scripts/handleInput.js" type="module" defer></script>
-    <script src="./scripts/tooltips.js" type="module" defer></script>
+    <script src="./scripts/ui/tooltips.js" type="module" defer></script>
     <script src="https://kit.fontawesome.com/893953f084.js" crossorigin="anonymous"></script>
     
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
@@ -67,52 +67,69 @@
                     <p><span>Dia </span><span id="totalDays">1</span></p>
                     <p><span id="day-weather"><i class="fa-solid fa-sun"></i></span> <span id="day">1</span> - <span id="season">Primavera</span></p>
                 </div>
-                <p id="pop-info">População: <span id="pop-stat"></span> (<span id="childrens-stat">Crianças</span>)</p>
-                
 
-                <div class="progress-stat">
-                    <p>Pop. Abrigada:</p>
-                    <div class="progress-bar-background">
-                        <div id="settled-bar" class="progress-bar">
-                            <div>
-                                <span id="settled-stat"></span>%
+                <table id="infos">
+                    <tr id="pop-info">
+                        <td><p>População:</p></td>
+                        <td><p><span id="pop-stat"></span> (<span id="childrens-stat">Crianças</span>)</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Pop. Abrigada:</p></td>
+                        <td>
+                            <div class="progress-bar-background">
+                                <div id="settled-bar" class="progress-bar">
+                                    <div>
+                                        <span id="settled-stat"></span>%
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="progress-stat">
-                    <p>Produtividade:</p>
-                    <div class="progress-bar-background">
-                        <div id="productivity-bar" class="progress-bar">
-                            <div>
-                                <span id="productivity-stat"></span>%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>Produtividade:</p></td>
+                        <td>
+                            <div class="progress-bar-background">
+                                <div id="productivity-bar" class="progress-bar">
+                                    <div>
+                                        <span id="productivity-stat"></span>%
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="progress-stat">
-                    <p>Felicidade:</p>
-                    <div class="progress-bar-background">
-                        <div id="happiness-bar" class="progress-bar">
-                            <div>
-                                <span id="happiness-stat"></span>%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>Felicidade:</p></td>
+                        <td>
+                            <div class="progress-bar-background">
+                                <div id="happiness-bar" class="progress-bar">
+                                    <div>
+                                        <span id="happiness-stat"></span>%
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="progress-stat">
-                    <p>Saúde:</p>
-                    <div class="progress-bar-background">
-                        <div id="health-bar" class="progress-bar">
-                            <div>
-                                <span id="health-stat"></span>%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>Saúde:</p></td>
+                        <td>
+                            <div class="progress-bar-background">
+                                <div id="health-bar" class="progress-bar">
+                                    <div>
+                                        <span id="health-stat"></span>%
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <p>Ciência: <span id="science-stat"></span></p>
-                <p>Armazenamento: <span id="resource-limit-stat"></span></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>Ciência:</p></td>
+                        <td><p><span id="science-stat"></span></p></td>
+                    </tr>
+                    <tr>
+                        <td><p>Armazenamento:</p></td>
+                        <td><p><span id="resource-limit-stat"></span></p></td>
+                    </tr>
+                </table>
             </div>
             <div class="container hidden" id="buildings-menu"></div>
         </div>

@@ -1,5 +1,5 @@
 import { game } from "./gameData.js";
-import { savedGamesHTML } from "./ui.js";
+import { savedGamesHTML } from "./ui/ui.js";
 
 export async function saveGame(){
     if(game.villageName == ""){

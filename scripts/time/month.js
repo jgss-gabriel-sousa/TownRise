@@ -1,6 +1,6 @@
 import { rand } from "../funcs.js";
 import { game } from "../gameData.js";
-import { logPush } from "../log.js";
+import { logPush } from "../ui/log.js";
 import { advanceYear } from "./year.js";
 import { destroyBuilding } from "../buildings.js";
 

@@ -1,6 +1,6 @@
-import {game} from "./gameData.js"
+import {game} from "../gameData.js"
 
-const MAX_LOG_SIZE = 5;
+const MAX_LOG_SIZE = 100;
 
 export function logPush(msg){
     const logSize = document.getElementById("log").childNodes.length;

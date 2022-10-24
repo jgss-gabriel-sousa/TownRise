@@ -1,12 +1,12 @@
 import { game } from "../gameData.js"
 
-export function blacksmith(){
-    const firewood_consumption = game.blacksmith*0.25;
-    const iron_consumption = game.blacksmith*0.25;
+export function foundry(){
+    const firewood_consumption = game.foundry*0.25;
+    const iron_consumption = game.foundry*0.25;
 
     //###########################################
     
-    let jobSupply = game.blacksmith_prof/game.blacksmith_jobs;
+    let jobSupply = game.blacksmith/game.blacksmith_jobs;
     if(jobSupply > 1) jobSupply = 1;
     if(!jobSupply) jobSupply = 0;
     
@@ -23,7 +23,7 @@ export function blacksmith(){
 
     const productivity = jobSupply*firewoodSupply*ironSupply*game.productivity;
     
-    game.tools_balance += (game.blacksmith)*productivity;
+    game.tools_balance += (game.foundry)*productivity;
 
     //###########################################
     game.firewood_balance -= firewood_consumption*productivity;

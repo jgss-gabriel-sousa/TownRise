@@ -121,8 +121,8 @@ export const buildingsData = [
         ]
     },
     {
-        id: "blacksmith",
-        name: "Ferreiro",
+        id: "foundry",
+        name: "Fundição",
         spriteSize: "md",
         spritePlace: "city",
         buttonRow: 15,

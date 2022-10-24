@@ -2,8 +2,8 @@ import { buildingsData } from "./buildingsData.js";
 import { buildBuilding, buildingsBootstrap } from "./buildings.js";
 import { newTurn, checkGameOver } from "./game.js";
 import { game } from "./gameData.js";
-import { popBootstrap } from "./pop.js";
-import { updateDataInfo } from "./ui.js";
+import { popBootstrap } from "./ui/popUI.js";
+import { updateDataInfo } from "./ui/ui.js";
 import { deleteGame, loadGame, saveGame } from "./load-save.js";
 
 window.onclick = e => {

@@ -1,5 +1,5 @@
 import { game } from "./gameData.js";
-import { updateDataInfo } from "./ui.js";
+import { updateDataInfo } from "./ui/ui.js";
 import { buildingsData } from "./buildingsData.js";
 
 import { jobs } from "./buildings/jobs.js";
@@ -10,7 +10,7 @@ import { school } from "./buildings/school.js";
 import { cropField } from "./buildings/cropField.js";
 import { farm } from "./buildings/farm.js";
 import { tailorsmith } from "./buildings/tailorsmith.js";
-import { blacksmith } from "./buildings/blacksmith.js";
+import { foundry } from "./buildings/foundry.js";
 import { lumbermill } from "./buildings/lumbermill.js";
 import { sawmill } from "./buildings/sawmill.js";
 import { warehouse } from "./buildings/warehouse.js";
@@ -67,7 +67,7 @@ export function buildingsUpdate(){
     cropField();
     farm();
     tailorsmith();
-    blacksmith();
+    foundry();
     lumbermill();
     sawmill();
     warehouse();
@@ -134,9 +134,9 @@ export async function buildBuilding(buildingID){
         }
         else return;
     }
-    else if(buildingID == "blacksmith"){
+    else if(buildingID == "foundry"){
         if(game.stone >= 10){
-            game.blacksmith++;
+            game.foundry++;
             game.stone -= 10;
         }
         else return;

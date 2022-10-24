@@ -25,7 +25,7 @@ export const game = {
     tailor: 0,
     brewer: 0,
     academic: 0,
-    blacksmith_prof: 0,
+    blacksmith: 0,
     miner: 0,
 
     worker_jobs: 0,
@@ -85,7 +85,7 @@ export const game = {
     cropField: 0,
     farm: 0,
     tailorsmith: 0,
-    blacksmith: 0,
+    foundry: 0,
     lumbermill: 0,
     sawmill: 0,
     warehouse: 0,
