@@ -13,11 +13,11 @@ export async function saveGame(){
                 if(!value) return "Digite um nome!";
             }
         });
-
-        game.villageName = name;
+        
+        if(name) game.villageName = name;
     }
 
-    let villagesBackup = JSON.parse(localStorage.getItem("saved-villages"));
+    let villagesBackup = JSON.parse(localStorage.getItem("mv-saved-villages"));
     let villages = villagesBackup;
 
     if(villages != null){
