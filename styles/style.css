@@ -20,6 +20,21 @@ p {
     font-size: 12px;
 }
 
+ul {
+    padding: 0;
+    list-style-position: inside;
+}
+
+li {
+    margin: 5px;
+    font-size: 16px;
+    padding-left: 20px;
+}
+
+li::marker {
+    padding-left: 0;
+}
+
 select {
     font-size: 18px;
     padding: 0px 10px;
@@ -30,8 +45,6 @@ select {
     display: flex;
     flex-direction: column;
     border: 1px solid;
-    margin: 10px;
-    padding: 2px;
     background-color: #f0f0f0;
 }
 
@@ -148,8 +161,8 @@ select {
 }
 
 #log {
+    display: block;
     font-size: 12px;
-    line-height: 1.5;
     overflow-y: scroll;
     height: 100px;
 }
@@ -168,18 +181,22 @@ button:hover span b {
     text-align: center;
 }
 
+#buildings-menu{
+    flex-direction: row;
+    width: min-content;
+    height: min-content;
+    padding: 10px;
+}
 #buildings-menu button{
     word-wrap: break-word;
     min-width: 100px;
 }
-#buildings-menu1{
+#buildings-menu1,#buildings-menu2{
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin: 10px 0px;
-}
-#buildings-menu2{
-    width: 50%;
+    justify-content: flex-start;
+    min-width: 120px;
 }
 
 .tooltip {
@@ -244,69 +261,24 @@ button:hover span b {
 }
 
 #right-section {
-    flex-direction: row;
     align-content: center;
+    flex-direction: column;
 }
 
-#professions {
-    padding: 10px;
-    font-size: 12px;
-    min-width: 250px
-}
-
-.profession-stat {
+#options{
     display: flex;
-    width: 100%;
-    align-items: center;
-}
-.profession-stat p {
-    width: 80px;
-    text-align: end;
-    font-weight: bold;
 }
 
-
-.professions-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    height: 25px;
-    background: #d3d3d3;
-    outline: none;
-    opacity: 1;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-}
-.professions-slider:hover {
-    opacity: 1.5;
-}
-.professions-slider:disabled {
-    appearance: inherit;
-    opacity: 0.4;
-}
-
-.professions-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    background: #005e3b;
-}
-  
-.professions-slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    background: #005e3b;
-}
-
-#options {
+#save {
     height: fit-content;
     flex-direction: row;
     text-align: center;
     background-color: transparent;
     border: 0;
+    padding: 10px;
 }
 
-#options div{
+#save div{
     border: 1px solid black;
     height: max-content;
     background-color: rgb(240, 240, 240);

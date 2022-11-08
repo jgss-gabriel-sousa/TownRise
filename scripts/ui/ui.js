@@ -1,30 +1,7 @@
-import { buildingsData } from "../buildingsData.js"
 import { resources } from "../resourcesData.js"
-import { professions } from "../professions.js"
-import { numberFormatted, numberBalanceFormatted, translateSeason, resourceBalanceNumberFormat } from "../funcs.js"
+import { popsData } from "../../data/popsData.js"
+import { numberF, numberBalanceFormatted, translateSeason } from "../funcs.js"
 import { game } from "../gameData.js"
-
-export function buildingsUI(){
-    const menuDiv = document.getElementById("buildings-menu");
-
-    menuDiv.innerHTML = `
-        <div id="buildings-menu1">
-            <button class="btn building-menu" id="building-house">Habitações</button>
-
-            <button class="btn building-menu" id="building-farm">Agricultura</button>
-            <button class="btn building-menu" id="building-pasture">Pecuária</button>
-
-            <button class="btn building-menu" id="building-resources">Recursos</button>    
-
-            <button class="btn building-menu" id="building-manufacture">Manufaturas</button>
-            <button class="btn building-menu" id="building-businesses">Negócios</button>
-            <button class="btn building-menu" id="building-handicraft">Ofícios</button>
-
-            <button class="btn building-menu" id="building-others">Outros</button>
-        </div>
-        <div id="buildings-menu2"></div>
-    `;
-}
 
 export function resourcesUI(){
     const div = document.getElementById("resources");
@@ -41,28 +18,6 @@ export function resourcesUI(){
                 <p id="${r.id}-stat"></p>
                 <small id="${r.id}-balance-stat">0</small>
             </button>
-        `;
-    }
-}
-
-export function professionsUI(){
-    const div = document.getElementById("professions");
-    div.innerHTML += `
-        <div class="profession-stat" id="idle">
-            <p>Ocioso:</p>
-            <span id="idle-stat">10</span>
-        </div>
-    `;
-
-    for(let i = 1; i < professions.length; i++){
-        const p = professions[i];
-
-        div.innerHTML += `
-            <div class="profession-stat" id="${p.id}">
-                <p>${p.name}:</p>
-                <input id="${p.id}-input" class="professions-slider" type="range" value="0" step="1">
-                <span id="${p.id}-stat">10</span>/<span id="${p.id}-jobs-stat">10</span>
-            </div>
         `;
     }
 }
@@ -87,10 +42,10 @@ export function savedGamesHTML(){
 }
 
 export function updateDataInfo(){
-    document.getElementById("totalDays").innerText = game.totalDays;
-    document.getElementById("pop-stat").innerText = numberFormatted(game.population);
-    document.getElementById("childrens-stat").innerText = numberFormatted(Math.round(game.childrens));
-    document.getElementById("science-stat").innerText = numberFormatted(Math.round(game.science));
+    document.getElementById("totalDays").innerText = numberF(game.totalDays,"",0);
+    document.getElementById("totalYears").innerText = numberF(game.year,"",0);
+    document.getElementById("pop-stat").innerText = numberF(game.population,"",0);
+    document.getElementById("science-stat").innerText = numberF(game.science,"",0);
     
     let settledRate = 100-Math.round(((game.population - game.sheltered)/game.population)*100);
     if(settledRate > 100) settledRate = 100;
@@ -100,12 +55,12 @@ export function updateDataInfo(){
     document.getElementById("productivity-stat").innerText = Math.round(game.productivity*100);
     document.getElementById("happiness-stat").innerText = Math.round(game.happiness*100);
     document.getElementById("health-stat").innerText = Math.round(game.health*100);
-    document.getElementById("resource-limit-stat").innerText = numberFormatted(game.resourceLimit);
+    document.getElementById("resource-limit-stat").innerText = numberF(game.resourceLimit,"",0);
 
     for(let i = 0; i < resources.length; i++){
         const r = resources[i].id;
 
-        document.getElementById(r+"-stat").innerText = numberFormatted(Math.floor(game[r]));
+        document.getElementById(r+"-stat").innerText = numberF(Math.floor(game[r]),"",0);
         document.getElementById(r+"-balance-stat").innerText = numberBalanceFormatted(game[r+"_balance"]);
 
         if(game[r+"_lack"])
@@ -126,17 +81,18 @@ export function updateDataInfo(){
 }
 
 function professionsStat(){
+    /*
     game.idle = game.population;
-    for(let i = 1; i < professions.length; i++){
-        const j = professions[i].id;
+    for(let i = 1; i < popsData.length; i++){
+        const j = popsData[i].id;
         
         game[j] = Number(document.getElementById(j+"-input").value);
 
         game.idle -= game[j];
     }
 
-    for(let i = 1; i < professions.length; i++){
-        const j = professions[i].id;
+    for(let i = 1; i < popsData.length; i++){
+        const j = popsData[i].id;
         
         if(game[j+"_jobs"] == 0)   
             document.getElementById(j+"-input").disabled = true;
@@ -151,4 +107,5 @@ function professionsStat(){
 
     if(game.idle < 0) game.idle = 0;
     document.getElementById("idle-stat").innerText = game.idle;
+    */
 }

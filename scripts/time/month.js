@@ -2,20 +2,10 @@ import { rand } from "../funcs.js";
 import { game } from "../gameData.js";
 import { logPush } from "../ui/log.js";
 import { advanceYear } from "./year.js";
-import { destroyBuilding } from "../buildings.js";
+import { destroyBuilding } from "../ui/buildingsUI.js";
+import { popGrowth } from "../population.js";
 
 export function advanceMonth(){
-    let homes = (game.house+game.stoneHouse) / Math.round(game.population/4);
-    if(homes > 1) homes = 1;
-    if(game.population == 0) homes = 0;
-
-    const newChildrens = Math.round(((1+(rand(0,game.fertilityRate)/100)))*Math.round(game.population/8)*homes);
-    game.childrens += newChildrens;
-
-    if(newChildrens > 1)    logPush(newChildrens+" crianças nasceram no ultimo mês");
-    if(newChildrens == 1)   logPush(newChildrens+" criança nasceu no ultimo mês");
-
-    
     if(game.season == "spring"){
         game.season = "summer";
 

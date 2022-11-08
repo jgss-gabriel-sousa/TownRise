@@ -1,6 +1,6 @@
 import { game } from "../gameData.js";
-import { buildingsData } from "../buildingsData.js";
-import { numberFormatted } from "../funcs.js";
+import { buildingsData } from "../../data/buildingsData.js";
+import { numberF } from "../funcs.js";
 
 const tooltipUpdateRate = 500;
 
@@ -25,7 +25,7 @@ function getBuildingName(element){
             return b.name;
     }
 }
-
+/*
 for(let i = 0; i < buildings.length; i++){
     const building = buildings[i];
     let contentHTML = `<div class="building-menu-tooltip">`;
@@ -47,7 +47,7 @@ for(let i = 0; i < buildings.length; i++){
         allowHTML: true,
         interactive: true,
     });
-}
+}*/
 
 tippy("#pop-info", {
     maxWidth: 500,
@@ -61,8 +61,11 @@ tippy("#productivity-bar", {
 
 setInterval(() => {
     document.querySelector("#pop-info")._tippy.setContent(`
-        <p><b>Adultos:</b> ${game.population}</p>
-        <p><b>Crianças:</b> ${game.childrens}</p>
+        <p><b>Felicidade:</b> ${Math.round((game.happiness/0.5)*100)-100}%</p>
+        <p><b>Impactos no Cresc.:</b> ${numberF(Math.round(game.popGrowthImpacts*100)-100,"balance",0)}%</p>
+        <br>
+        <p><b>População do Ano Anterior:</b> ${game.lastYear_population}</p>
+        <p><b>Crescimento:</b> ${Math.round((game.population/game.lastYear_population)*100)-100}%</p>
         <br>
         <p><b>Pop. Recorde:</b> ${game.popRecord}</p>
     `);
@@ -72,9 +75,10 @@ setInterval(() => {
     if(game.tools == 0) toolsAccess = 0;
     if(toolsAccess > 1) toolsAccess = 1;
     document.querySelector("#productivity-bar")._tippy.setContent(`
-        <p><b>Acesso à Ferramentas:</b> ${numberFormatted(toolsAccess)*100}%</p>
-        <p><b>Felicidade:</b> ${game.happiness*100}%</p>
+        <p><b>Acesso à Ferramentas:</b> ${numberF(toolsAccess*100,"",0)}%</p>
+        <p><b>Felicidade:</b> ${numberF(toolsAccess*100,"",0)}%</p>
         <p><b>Saúde:</b> ${game.health*100}%</p>
         <p><b>Estação do Ano:</b> ${seasonProductivity*100}%</p>
+        <p><b>Tecnologia:</b> ${game.productivityTech*100}%</p>
     `);
 },tooltipUpdateRate);

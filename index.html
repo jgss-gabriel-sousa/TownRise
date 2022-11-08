@@ -36,7 +36,7 @@
             <input type="button" class="btn btn-active" value="Nova Vila" id="start">
             <input type="button" class="btn btn-active" value="Carregar Vila" id="load">
             <br>
-            <p id="game-version">v0.10 &copy; JGSS</p>
+            <p id="game-version">v0.11 &copy; JGSS</p>
             <b><p id="highscore"></p></b>
         </div>
         <div id="load-game" class="container menu hidden">
@@ -53,25 +53,48 @@
             <br>
         </div>
         <div id="left-section" style="display: none;">
-            <div class="container data">
-                <div id="options">
-                    <button class="btn btn-active" id="save-game">Salvar Vila</button>
-                    <button class="btn btn-active" id="surrender">Desistir</button>
+            <div class="container hidden" id="buildings-menu">
+                <div id="buildings-menu1">
+                    <button class="btn building-menu" id="building-house">Habitações</button>
+        
+                    <button class="btn building-menu" id="building-farm">Agricultura</button>
+                    <button class="btn building-menu" id="building-pasture">Pecuária</button>
+        
+                    <button class="btn building-menu" id="building-resources">Recursos</button>    
+        
+                    <button class="btn building-menu" id="building-manufacture">Manufaturas</button>
+                    <button class="btn building-menu" id="building-businesses">Negócios</button>
+                    <button class="btn building-menu" id="building-handicraft">Ofícios</button>
+        
+                    <button class="btn building-menu" id="building-others">Outros</button>
                 </div>
+                <div id="buildings-menu2"></div>
+            </div>
+        </div>
+        <div id="middle-section" class="hidden">
+            <div class="container" id="resources"></div>
+            <div class="container grass-spring" id="map">
+                <div class="map-div" id="map-city"></div>
+                <div class="map-div" id="map-farms"></div>
+                <div class="map-div" id="map-manufactories"></div>
+            </div>
+        </div>
+        <div id="right-section" class="hidden">
+            <div class="container data">
                 <div class="time">
                     <input type="button" class="btn btn-active hidden" value="Voltar para o Menu" id="restart">
                     <input type="button" class="small-btn hidden" value="=" id="pause">
                     <input type="button" class="small-btn hidden" value=">" id="1x">
                     <input type="button" class="small-btn hidden" value=">>" id="5x">
                     <input type="button" class="small-btn hidden" value=">>>" id="10x">
-                    <p><span>Dia </span><span id="totalDays">1</span></p>
+                    <p><span>Dia </span><span id="totalDays">1</span><span> - Ano </span><span id="totalYears">0</span></p>
                     <p><span id="day-weather"><i class="fa-solid fa-sun"></i></span> <span id="day">1</span> - <span id="season">Primavera</span></p>
                 </div>
 
                 <table id="infos">
                     <tr id="pop-info">
                         <td><p>População:</p></td>
-                        <td><p><span id="pop-stat"></span> (<span id="childrens-stat">Crianças</span>)</p></td>
+                        <td><p><span id="pop-stat"></span></p></td>
                     </tr>
                     <tr>
                         <td><p>Pop. Abrigada:</p></td>
@@ -131,23 +154,18 @@
                     </tr>
                 </table>
             </div>
-            <div class="container hidden" id="buildings-menu"></div>
-        </div>
-        <div id="middle-section" class="hidden">
-            <div class="container" id="resources"></div>
-            <div class="container grass-spring" id="map">
-                <div class="map-div" id="map-city"></div>
-                <div class="map-div" id="map-farms"></div>
-                <div class="map-div" id="map-manufactories"></div>
-            </div>
-        </div>
-        <div id="right-section" class="hidden">
-            <div>
-                <div class="container" id="professions"></div>
-                <div class="container" id="log"></div>
+
+            <div class="container" id="log"></div>
+
+            <div id="options">
                 <div class="container" id="volume">
                     <input type="range" min="0" max="1" step="0.05">
                     <p>Volume</p>
+                </div>
+                
+                <div id="save">
+                    <button class="btn btn-active" id="save-game">Salvar Vila</button>
+                    <button class="btn btn-active" id="surrender">Desistir</button>
                 </div>
             </div>
         </div>

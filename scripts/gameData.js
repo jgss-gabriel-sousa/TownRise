@@ -9,15 +9,23 @@ export const game = {
     gameDifficulty: "normal",
     seasonLength: 30,
 
+    modifiers:{},
+    activeEvents:{},
+
     population: 10,
+    lastYear_population: 10,
     sheltered: 0,
-    fertilityRate: 20,
+
+    popGrowthImpacts: 1,
+    popDeathImpacts: 1,
+    happinessImpacts: 1,
     
     science: 0,
     resourceLimit: 0,
+
+    productivityTech: 0,
     
     //Pops
-    childrens: 0,
     idle: 10,
     worker: 0,
     farmer: 0,
@@ -103,5 +111,6 @@ export const game = {
     
     season: "spring",
     day: 0,
+    year: 0,
     weather: "sun",
 }

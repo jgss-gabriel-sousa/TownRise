@@ -1,10 +1,12 @@
-import { buildingsData } from "./buildingsData.js";
-import { buildBuilding, buildingsBootstrap } from "./buildings.js";
-import { newTurn, checkGameOver } from "./game.js";
+import { buildingsData } from "../data/buildingsData.js";
+import { buildBuilding } from "./buildings.js";
+import { buildingsBootstrap } from "./ui/buildingsUI.js";
+import { checkGameOver, newTurn } from "./game.js";
 import { game } from "./gameData.js";
 import { popBootstrap } from "./ui/popUI.js";
 import { updateDataInfo } from "./ui/ui.js";
 import { deleteGame, loadGame, saveGame } from "./load-save.js";
+import { setGameSpeed, pauseGame } from "./gameTime.js";
 
 window.onclick = e => {
     //Build Constructions
@@ -70,10 +72,7 @@ window.onclick = e => {
         document.location.reload(true);
     }
     if(e.target.id == "pause"){
-        clearTimeout(game.gameTick);
-        game.gamePaused = true;
-        speedBtnsClassReset();
-        document.getElementById("pause").classList.add("btn-active");
+        pauseGame();
     } 
     if(e.target.id == "1x"){
         setGameSpeed("1x");
@@ -87,35 +86,24 @@ window.onclick = e => {
     if(e.target.id == "save-game"){
         saveGame();
     }   
-
-    if(e.target.classList.contains("professions-slider")){
-        updateDataInfo();
-    }
 }
 
 document.querySelector("#volume input").addEventListener("change", () => {
     localStorage.setItem("mv-volume", document.querySelector("#volume input").value);
 });
 
-
-function speedBtnsClassReset(){
-    document.getElementById("pause").classList.remove("btn-active");
-    document.getElementById("1x").classList.remove("btn-active");
-    document.getElementById("5x").classList.remove("btn-active");
-    document.getElementById("10x").classList.remove("btn-active");
-}
-
 async function startSequence(type){
     if(type == "new-game")
         await selectGameDifficulty();
-    setGameSpeed("1x");
+
+    newTurn();
     popBootstrap();
     buildingsBootstrap();
     game.gameStarted = true;
     game.gamePaused = false;
     document.getElementById("start-game").classList.add("hidden");
     document.getElementById("game-version").remove();
-    document.getElementById("1x").classList.add("btn-active");
+    document.getElementById("pause").classList.add("btn-active");
     document.getElementById("buildings-menu").classList.remove("hidden");
     document.getElementById("pause").classList.remove("hidden");
     document.getElementById("1x").classList.remove("hidden");
@@ -124,18 +112,6 @@ async function startSequence(type){
     document.getElementById("left-section").style.display = "flex";
     document.getElementById("middle-section").style.display = "flex";
     document.getElementById("right-section").style.display = "flex";
-}
-
-function setGameSpeed(speed){
-    if(speed == "1x")       game.gameSpeed = 3000;
-    if(speed == "5x")       game.gameSpeed = 500;
-    if(speed == "10x")      game.gameSpeed = 100;
-
-    clearTimeout(game.gameTick);
-    game.gamePaused = false;
-    newTurn();
-    speedBtnsClassReset();
-    document.getElementById(speed).classList.add("btn-active");
 }
 
 async function selectGameDifficulty(){
@@ -148,13 +124,13 @@ async function selectGameDifficulty(){
     })
     
     const { value: difficulty } = await Swal.fire({
-        title: "Dificuldade:",
+        title: "Dificuldade",
         input: "radio",
         allowOutsideClick: false,
         allowEscapeKey: false,
         inputOptions: inputOptions,
         inputValidator: (value) => {
-            if(!value) return "Escolha uma dificuldade!";
+            if(!value) return "Você precisa escolher uma dificuldade";
         }
     });
     

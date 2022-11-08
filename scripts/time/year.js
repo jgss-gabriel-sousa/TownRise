@@ -1,19 +1,11 @@
+import { eventsData } from "../../data/eventsData.js";
+import { shuffleArr } from "../funcs.js";
 import { game } from "../gameData.js";
 import { logPush } from "../ui/log.js";
 
 export function advanceYear(){
-    if(game.childrens > 1 && game.childrens < 4){
-        game.childrens--;
-        game.population++;
+    shuffleArr(eventsData);
 
-        logPush("1 criança se tornou adulta");
-    }
-    else if(game.childrens > 0){
-        const newPops = game.childrens;
-        game.childrens -= newPops;
-        game.population += newPops;
-
-        if(newPops > 0)
-            logPush(newPops+" crianças se tornaram adultas");
-    }
+    game.lastYear_population = game.population;
+    game.year++;
 }

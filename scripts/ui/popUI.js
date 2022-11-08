@@ -2,6 +2,7 @@ import { rand } from "../funcs.js";
 import { game } from "../gameData.js";
 
 export function popUpdate(){
+    return;
     if(game.gamePaused) return;
     if(!game.gameStarted) return;
 
@@ -28,6 +29,7 @@ export function popBootstrap(){
 }
 
 function addPop(isBootstrap){
+    return;
     let sprite;
 
     if(isBootstrap)
@@ -53,6 +55,7 @@ function addPop(isBootstrap){
 }
 
 function removePop(){
+    return;
     document.querySelectorAll(".pop")[document.querySelectorAll(".pop").length-1].classList.add("pop-die");
 
     setTimeout(()=> {

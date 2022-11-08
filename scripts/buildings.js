@@ -1,8 +1,8 @@
 import { game } from "./gameData.js";
 import { updateDataInfo } from "./ui/ui.js";
-import { buildingsData } from "./buildingsData.js";
+import { buildingHTML, destroyBuilding } from "./ui/buildingsUI.js";
 
-import { jobs } from "./buildings/jobs.js";
+import { jobs } from "./jobs.js";
 
 import { house } from "./buildings/house.js";
 import { stoneHouse } from "./buildings/stoneHouse.js";
@@ -17,46 +17,6 @@ import { warehouse } from "./buildings/warehouse.js";
 import { quarry } from "./buildings/quarry.js";
 import { mine } from "./buildings/mine.js";
 import { tavern } from "./buildings/tavern.js";
-
-
-export function buildingHTML(id){
-    const city = document.getElementById("map-city");
-    const farms = document.getElementById("map-farms");
-    const manufactories = document.getElementById("map-manufactories");
-
-    let exists = false;
-
-    buildingsData.forEach(element => {
-        if(element.id == id){
-            exists = true;
-
-            let buildingHTML = `<div class="map-item map-item-${element.spriteSize} map-${element.spritePlace} map-${element.id}">
-                                    <img src="./img/${element.id}.png">
-                                </div>`;
-
-            if(element.spritePlace == "city")           city.innerHTML += buildingHTML;
-            if(element.spritePlace == "farms")          farms.innerHTML += buildingHTML;
-            if(element.spritePlace == "manufactories")  manufactories.innerHTML += buildingHTML;
-        }
-    });
-
-    if(exists)
-        return true;
-    else
-        return false;
-}
-
-export function buildingsBootstrap(){
-    buildingsData.forEach(element => {
-        const count = document.querySelectorAll("map-"+element.id).length;
-
-        if(game[element.id] > count){
-            for(let i = 0; i < game[element.id]-count; i++){
-                buildingHTML(element.id);
-            }
-        }
-    });
-}
 
 export function buildingsUpdate(){
     jobs();
@@ -74,16 +34,6 @@ export function buildingsUpdate(){
     quarry();
     mine();
     tavern();
-}
-
-export function destroyBuilding(id, qty){
-    const elements = document.querySelectorAll(".map-"+id);
-
-    if(qty > elements.length) qty = elements.length;
-
-    for(let i = 0; i < qty; i++){
-        elements[i].remove();
-    }
 }
 
 export async function buildBuilding(buildingID){

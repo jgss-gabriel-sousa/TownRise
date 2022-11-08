@@ -14,9 +14,16 @@ export function soundtrack(){
     if(audio.paused){
         const newSongID = rand(0,NUMBER_OF_SONGS);
         audio = new Audio("songs/"+newSongID+".mp3");
-        try{
-            audio.play();
-        }catch(error){}
+        
+        const tryToPlay = setInterval(() => {        
+            audio.play()
+                .then(() => {
+                    clearInterval(tryToPlay);
+                })
+                .catch(error => {
+                    ;
+                });
+        }, 1000);
     }
 
     audio.volume = Number(localStorage.getItem("mv-volume"))/4;

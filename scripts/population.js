@@ -1,21 +1,47 @@
-import { children } from "./pops/children.js";
-import { idle } from "./pops/idle.js";
-
+import { popsUpdate } from "./pops.js";
 import { game } from "./gameData.js";
 import { rand } from "./funcs.js";
 import { logPush } from "./ui/log.js";
 
-export function PopulationUpdate(){
+export function populationUpdate(){
     let difficulty;
 
     if(game.gameDifficulty == "hard")       difficulty = 1;
     if(game.gameDifficulty == "normal")     difficulty = 0.75;
     if(game.gameDifficulty == "easy")       difficulty = 0.5;
     
-    children(difficulty);
-    idle(difficulty);
+    popsUpdate(difficulty);
+
+    popGrowth();
 
     popDeaths();
+}
+
+export function popGrowth(){
+    if(rand(0,10) != 0) return;
+    
+    let popGrowth = rand(0,5)+((game.happiness/0.5) * game.popGrowthImpacts);
+    popGrowth /= 100;
+    
+    popGrowth = Math.round(game.population * popGrowth);
+    if(popGrowth < 1 && rand(0,4) == 0)
+        popGrowth = 1;
+
+    let popDeath = Math.round((game.population*(rand(0,3)/100))*game.popDeathImpacts);
+    if(popDeath < 1 && rand(0,5) == 0)
+        popDeath = 1;
+
+    game.popGrowth = popGrowth/game.population;
+    game.popDeath = popDeath/game.population;
+
+    game.population = game.population + popGrowth - popDeath;
+
+    if(popDeath > popGrowth){
+        if(popDeath-popGrowth == 1) 
+            logPush("1 pessoa morreu");
+        else                        
+            logPush((popDeath-popGrowth)+" pessoas morreram");
+    }    
 }
 
 function popDeaths(){
@@ -55,18 +81,13 @@ function popDeaths(){
         
         if(game.hungry > 0){
             let popDeath = rand(0, Math.ceil(game.hungry * game.population));
-            let childrenDeath = rand(0, Math.ceil(game.hungry * game.childrens));
     
             game.population -= popDeath;
-            game.childrens -= childrenDeath;
     
             if(popDeath > 1)        logPush(popDeath+" pessoas morreram de fome");
             if(popDeath == 1)       logPush(popDeath+" pessoa morreu de fome");
-            if(childrenDeath > 1)   logPush(childrenDeath+" crianças morreram de fome");
-            if(childrenDeath == 1)  logPush(childrenDeath+" criança morreu de fome");
     
             if(!game.population)    game.population = 0;
-            if(!game.childrens)     game.childrens = 0;
         }
     }
 
@@ -78,18 +99,17 @@ function popDeaths(){
         if(!homelessRate || homelessRate < 0) homelessRate = 0;
 
         const homelessPops = game.population-game.sheltered;
-        const homelessChildrens = Math.round(game.childrens*homelessRate);
 
         let homelessDeathChance;
-        if(game.gameDifficulty == "hard")       homelessDeathChance = 5;
-        if(game.gameDifficulty == "normal")     homelessDeathChance = 2.5;
-        if(game.gameDifficulty == "easy")       homelessDeathChance = 1.25;
+        if(game.gameDifficulty == "hard")   homelessDeathChance = 5;
+        if(game.gameDifficulty == "normal") homelessDeathChance = 2.5;
+        if(game.gameDifficulty == "easy")   homelessDeathChance = 1.25;
 
-        if(game.season == "winter"){homelessDeathChance *= 2}
-        if(game.season == "summer"){homelessDeathChance *= 1.4}
+        if(game.season == "winter") homelessDeathChance *= 2
+        if(game.season == "summer") homelessDeathChance *= 1.4
 
-        if(game.weather == "rain"){homelessDeathChance *= 1.4}
-        if(game.weather == "snow"){homelessDeathChance *= 2}
+        if(game.weather == "rain")  homelessDeathChance *= 1.4
+        if(game.weather == "snow")  homelessDeathChance *= 2
 
         if(game.clothes < game.population){
             const MAX_CLOTHES_DEATH_CHANCE = 2;
@@ -110,16 +130,12 @@ function popDeaths(){
 
         if(popDeath){
             popDeath = Math.ceil((rand(0,homelessDeathChance)/100)*homelessPops);
-            childrenDeath = Math.ceil((rand(0,homelessDeathChance*2)/100)*homelessChildrens);
         }
 
         game.population -= popDeath;
-        game.childrens -= childrenDeath;
 
         if(popDeath > 1)        logPush(popDeath+" pessoas morreram sem abrigo");
         if(popDeath == 1)       logPush(popDeath+" pessoa morreu sem abrigo");
-        if(childrenDeath > 1)   logPush(childrenDeath+" crianças morreram sem abrigo");
-        if(childrenDeath == 1)  logPush(childrenDeath+" criança morreu sem abrigo");
     }
 
     function randDeaths(){

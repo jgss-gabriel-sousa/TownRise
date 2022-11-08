@@ -4,7 +4,8 @@ import { buildingsUpdate } from "./buildings.js";
 import { rand, average } from "./funcs.js";
 import { updateDataInfo } from "./ui/ui.js";
 import { resources } from "./resourcesData.js";
-import { PopulationUpdate } from "./population.js";
+import { populationUpdate } from "./population.js";
+import { events } from "./events.js";
 
 export function gameTick(){
     // RESET RESOURCES BALANCES
@@ -13,6 +14,12 @@ export function gameTick(){
         game[resources[i].id+"_lack"] = false;
     }
     game.sheltered = 0;
+
+    //HAPPINESS ################################################################################
+
+    game.happiness = average([1,!game.ale_lack,game.happinessImpacts]);
+    if(game.happiness > 1) game.happiness = 1;
+    if(game.happiness < 0) game.happiness = 0;
 
     //PRODUCTIVITY ################################################################################
 
@@ -30,7 +37,7 @@ export function gameTick(){
 
     const seasonProductivity = game.season == "winter" ? 0.5 : 1;
 
-    game.productivity = average([toolsAccess,game.happiness,game.health,seasonProductivity]);
+    game.productivity = average([toolsAccess,game.happiness,game.health,seasonProductivity,game.productivityTech]);
 
     if(game.productivity > 1) game.productivity = 1;
     
@@ -40,7 +47,7 @@ export function gameTick(){
     //Updates #####################################################################################
 
     buildingsUpdate();
-    PopulationUpdate();
+    populationUpdate();
 
     //Resource Calc ###############################################################################
 
@@ -62,4 +69,11 @@ export function gameTick(){
     if(game.population > game.popRecord) game.popRecord = game.population;
 
     updateDataInfo();
+    
+    // RESET IMPACTS VARS
+    game.popDeathImpacts = 1;
+    game.popGrowthImpacts = 1;
+    game.happinessImpacts = 1;
+
+    //events();
 }

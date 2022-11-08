@@ -1,11 +1,13 @@
-import { rand, highScoreHTML, checkHighScore } from "./funcs.js";
+import { rand, highScoreHTML, checkHighScore, shuffleArr } from "./funcs.js";
 import { soundStart, soundtrack } from "./sound.js";
-import { buildingsUI, resourcesUI, professionsUI, savedGamesHTML } from "./ui/ui.js";
+import { resourcesUI, savedGamesHTML } from "./ui/ui.js";
+import { buildinglisteners } from "./ui/buildingsUI.js";
 import { newWeather } from "./weather.js";
 import { advanceDay } from "./time/day.js";
 import { popUpdate } from "./ui/popUI.js";
 import { game } from "./gameData.js";
 import { gameTick } from "./gameTick.js";
+import { eventsData } from "../data/eventsData.js";
 
 export function checkGameOver(){
     if(!game.population || game.gameOver){
@@ -16,7 +18,7 @@ export function checkGameOver(){
         if(game.gameDifficulty == "hard")   difficultyBonus *= 2;
         if(game.gameDifficulty == "easy")   difficultyBonus /= 10;
 
-        game.score = Math.floor(((game.popRecord * game.totalDays)/6000)*difficultyBonus);
+        game.score = Math.floor(((game.popRecord * game.totalDays)/1200)*difficultyBonus);
 
         checkHighScore(game.score);
 
@@ -45,16 +47,17 @@ export function newTurn(){
     
     gameTick();
 
-    if(!game.gameOver)
+    if(!game.gameOver && !game.gamePaused)
         game.gameTick = window.setTimeout(newTurn, game.gameSpeed);
 }
 
 window.setTimeout(soundtrack, rand(1500,5000));
 soundStart();
 highScoreHTML();
-buildingsUI();
 resourcesUI();
-professionsUI();
 savedGamesHTML();
+shuffleArr(eventsData);
+
+buildinglisteners();
 
 setInterval(popUpdate, 100);
