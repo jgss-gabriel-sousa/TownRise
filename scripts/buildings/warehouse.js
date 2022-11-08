@@ -1,4 +1,4 @@
-import { game } from "../gameData.js"
+import { game } from "../../data/gameData.js"
 
 export function warehouse(){
     const wood_consumption = game.warehouse*1;

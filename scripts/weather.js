@@ -1,4 +1,4 @@
-import { game } from "./gameData.js";
+import { game } from "../data/gameData.js";
 import { rand } from "./funcs.js";
 
 export function newWeather(){

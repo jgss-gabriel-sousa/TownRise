@@ -1,4 +1,4 @@
-import { game } from "./gameData.js"
+import { game } from "../data/gameData.js"
 import { popsData } from "../data/popsData.js"
 
 let difficulty;
@@ -6,7 +6,15 @@ let difficulty;
 export function popsUpdate(diff){
     difficulty = diff;
 
+    foodConsumption();
+
     goodsConsumption();
+}
+
+function foodConsumption(){
+    for(const p in popsData){
+        game.food_consumption += popsData[p].food_consumption*game[popsData[p].id]*difficulty;
+    }
 }
 
 function goodsConsumption(){

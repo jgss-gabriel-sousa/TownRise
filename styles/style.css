@@ -121,10 +121,15 @@ select {
     justify-content: center;
     padding: 0;
     border: 0;
-    width: fit-content;
     align-self: center;
     background-color: transparent;
 }
+
+.resources-row{
+    display: flex;
+    margin: 5px 5px;
+}
+
 .resources-btn{
 	background: none;
 	color: inherit;
@@ -137,10 +142,13 @@ select {
     margin: 0;
     font-size: 12px;
     font-weight: bold;
+    width: 50px;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    white-space: nowrap;
 }
 .resources-btn p{
     margin: 0;
-    line-height: 1.5;
 }
 .resources-btn img{
     width: 16px;
@@ -158,6 +166,7 @@ select {
     flex-direction: column;
     width: 100%;
     min-width: 300px;
+    min-height: 600px;
 }
 
 #log {

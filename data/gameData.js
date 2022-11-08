@@ -20,6 +20,8 @@ export const game = {
     popDeathImpacts: 1,
     happinessImpacts: 1,
     
+    food: 0,
+    food_consumption: 0,
     science: 0,
     resourceLimit: 0,
 

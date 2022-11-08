@@ -1,4 +1,4 @@
-import { game } from "../gameData.js"
+import { game } from "../../data/gameData.js"
 
 export function foundry(){
     const firewood_consumption = game.foundry*0.25;

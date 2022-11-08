@@ -1,4 +1,4 @@
-import { game } from "../gameData.js";
+import { game } from "../../data/gameData.js";
 import { buildingsData } from "../../data/buildingsData.js";
 import { numberF } from "../funcs.js";
 
@@ -25,29 +25,24 @@ function getBuildingName(element){
             return b.name;
     }
 }
-/*
-for(let i = 0; i < buildings.length; i++){
-    const building = buildings[i];
-    let contentHTML = `<div class="building-menu-tooltip">`;
 
-    for(let j = 0; j < building[1].length; j++){
-        const element = building[1][j];
-        const name = getBuildingName(element);
+for(let i = 0; i < buildingsData.length; i++){
+    const building = buildingsData[i];
+    let contentHTML = "";
 
-        contentHTML += `<button class="btn" id="add-${element}">${name}</button>`;
+    for(let j = 0; j < building.build.length; j++){
+        contentHTML += `<li>${building.build[j]}</li>`;
     }
-    contentHTML += `</div>`;
+    if(contentHTML == "") continue;
 
-
-    tippy("#building-"+building[0], {
+    tippy("#add-"+building.id, {
         content: contentHTML,
         maxWidth: 500,
-        placement: 'top',
-        trigger: 'click',
+        placement: 'right',
         allowHTML: true,
         interactive: true,
     });
-}*/
+}
 
 tippy("#pop-info", {
     maxWidth: 500,

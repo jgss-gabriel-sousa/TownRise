@@ -2,7 +2,7 @@ import { buildingsData } from "../data/buildingsData.js";
 import { buildBuilding } from "./buildings.js";
 import { buildingsBootstrap } from "./ui/buildingsUI.js";
 import { checkGameOver, newTurn } from "./game.js";
-import { game } from "./gameData.js";
+import { game } from "../data/gameData.js";
 import { popBootstrap } from "./ui/popUI.js";
 import { updateDataInfo } from "./ui/ui.js";
 import { deleteGame, loadGame, saveGame } from "./load-save.js";

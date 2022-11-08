@@ -1,4 +1,4 @@
-import { game } from "../gameData.js"
+import { game } from "../../data/gameData.js"
 
 export function tailorsmith(){
     const leather_consumption = game.tailorsmith*1;

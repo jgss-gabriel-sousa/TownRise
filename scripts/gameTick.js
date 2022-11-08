@@ -1,9 +1,9 @@
-import { game } from "./gameData.js";
+import { game } from "../data/gameData.js";
 import { logPush } from "./ui/log.js";
 import { buildingsUpdate } from "./buildings.js";
 import { rand, average } from "./funcs.js";
 import { updateDataInfo } from "./ui/ui.js";
-import { resources } from "./resourcesData.js";
+import { resources } from "../data/resourcesData.js";
 import { populationUpdate } from "./population.js";
 import { events } from "./events.js";
 
@@ -14,6 +14,7 @@ export function gameTick(){
         game[resources[i].id+"_lack"] = false;
     }
     game.sheltered = 0;
+    game.food_consumption = 0;
 
     //HAPPINESS ################################################################################
 
@@ -63,6 +64,8 @@ export function gameTick(){
         if(game[resources[i].id] > game.resourceLimit)
             game[resources[i].id] = game.resourceLimit;
     }
+
+    game.food = (game.grain*0.22) + (game.meat*0.6) + (game.fruit*0.18);
 
     //#############################################################################################
 

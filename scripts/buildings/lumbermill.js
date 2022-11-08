@@ -1,4 +1,4 @@
-import { game } from "../gameData.js"
+import { game } from "../../data/gameData.js"
 
 export function lumbermill(){  
     let jobSupply = game.lumberjack/game.lumberjack_jobs;

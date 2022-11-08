@@ -1,5 +1,5 @@
 import { rand } from "../funcs.js";
-import { game } from "../gameData.js";
+import { game } from "../../data/gameData.js";
 
 export function popUpdate(){
     return;

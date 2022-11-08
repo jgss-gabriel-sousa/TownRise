@@ -1,5 +1,5 @@
 import { rand } from "./funcs.js";
-import { game } from "./gameData.js"
+import { game } from "../data/gameData.js"
 import { pauseGame, playGame } from "./gameTime.js";
 
 import { eventsData } from "../data/eventsData.js";

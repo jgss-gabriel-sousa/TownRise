@@ -1,5 +1,5 @@
 import { popsUpdate } from "./pops.js";
-import { game } from "./gameData.js";
+import { game } from "../data/gameData.js";
 import { rand } from "./funcs.js";
 import { logPush } from "./ui/log.js";
 
@@ -50,6 +50,7 @@ function popDeaths(){
     randDeaths();
     
     function hungryDeaths(){
+        /*
         function popHungry(){
             game.hungry = 0;
         
@@ -89,6 +90,7 @@ function popDeaths(){
     
             if(!game.population)    game.population = 0;
         }
+        */
     }
 
     function homelessDeaths(){

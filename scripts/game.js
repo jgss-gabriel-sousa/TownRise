@@ -5,7 +5,7 @@ import { buildinglisteners } from "./ui/buildingsUI.js";
 import { newWeather } from "./weather.js";
 import { advanceDay } from "./time/day.js";
 import { popUpdate } from "./ui/popUI.js";
-import { game } from "./gameData.js";
+import { game } from "../data/gameData.js";
 import { gameTick } from "./gameTick.js";
 import { eventsData } from "../data/eventsData.js";
 

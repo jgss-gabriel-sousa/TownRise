@@ -1,24 +1,50 @@
-import { resources } from "../resourcesData.js"
-import { popsData } from "../../data/popsData.js"
+import { resources } from "../../data/resourcesData.js"
 import { numberF, numberBalanceFormatted, translateSeason } from "../funcs.js"
-import { game } from "../gameData.js"
+import { game } from "../../data/gameData.js"
 
 export function resourcesUI(){
-    const div = document.getElementById("resources");
+    const element = document.getElementById("resources");
+    let html = "";
+
+    let res = {
+        food: [],
+        rawMaterial: [],
+        refinedMaterial: [],
+        endProduct: [],
+        luxury: [],
+    }
 
     for(let i = 0; i < resources.length; i++){
         const r = resources[i];
 
-        div.innerHTML += `
-            <button class="resources-btn" id="${r.id}">
-                <div>
-                    <img src="./img/icons/${r.id}.png">
-                    <p>${r.name}</p>
-                </div>
-                <p id="${r.id}-stat"></p>
-                <small id="${r.id}-balance-stat">0</small>
-            </button>
-        `;
+        if(r.type == "food")                res.food.push(r);
+        if(r.type == "raw material")        res.rawMaterial.push(r);
+        if(r.type == "refined material")    res.refinedMaterial.push(r);
+        if(r.type == "end product")         res.endProduct.push(r);
+        if(r.type == "luxury")              res.luxury.push(r);
+    }
+    
+    for(const t in res){
+        const type = res[t];
+
+        html += `<div class="resources-row">`;
+
+        for(let j = 0; j < type.length; j++){
+            const r = type[j];
+            
+            html += `
+                <button class="resources-btn" id="${r.id}">
+                    <div>
+                        <img src="./img/icons/${r.id}.png">
+                        <p>${r.name}</p>
+                    </div>
+                    <p id="${r.id}-stat"></p>
+                    <small id="${r.id}-balance-stat">0</small>
+                </button>
+            `
+        }
+        html += "</div>";
+        element.innerHTML = html;
     }
 }
 
@@ -27,8 +53,12 @@ export function savedGamesHTML(){
 
     if(villages == null ||villages == "null" || villages == "[]" || villages.length == 0){
         document.getElementById("load").classList.add("hidden");
+        document.getElementById("load-village").classList.add("hidden");
         document.getElementById("saved-villages").style.display = "none";
         return;
+    }
+    else{
+        document.getElementById("load").classList.remove("hidden");
     }
 
     villages = JSON.parse(villages);
@@ -45,6 +75,8 @@ export function updateDataInfo(){
     document.getElementById("totalDays").innerText = numberF(game.totalDays,"",0);
     document.getElementById("totalYears").innerText = numberF(game.year,"",0);
     document.getElementById("pop-stat").innerText = numberF(game.population,"",0);
+    document.getElementById("food-stat").innerText = numberF(game.food,"",0);
+    document.getElementById("food-consumption-stat").innerText = -numberF(game.food_consumption,"",1);
     document.getElementById("science-stat").innerText = numberF(game.science,"",0);
     
     let settledRate = 100-Math.round(((game.population - game.sheltered)/game.population)*100);

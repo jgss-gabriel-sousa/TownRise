@@ -1,4 +1,4 @@
-import { game } from "../gameData.js"
+import { game } from "../../data/gameData.js"
 
 export function stoneHouse(){
     const firewood_consumption = game.stoneHouse*0.025;

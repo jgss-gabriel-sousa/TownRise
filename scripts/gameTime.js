@@ -1,4 +1,4 @@
-import { game } from "./gameData.js"
+import { game } from "../data/gameData.js"
 import { newTurn } from "./game.js";
 
 let lastGameSpeed;

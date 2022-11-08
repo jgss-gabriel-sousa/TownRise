@@ -22,7 +22,7 @@ export function numberF(number,format,precision){
     if(precision == 0)
         return numberFormatted(Math.round(number));
     else
-        return numberFormatted(number.toFixed(2));
+        return number.toFixed(precision);
 }
 
 function balance(number,precision){

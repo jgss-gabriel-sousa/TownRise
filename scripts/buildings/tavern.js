@@ -1,4 +1,4 @@
-import { game } from "../gameData.js"
+import { game } from "../../data/gameData.js"
 
 export function tavern(){
     const grain_consumption = game.tavern*1;

@@ -2,6 +2,7 @@ export const popsData = [
     {
         id: "idle",
         name: "Ocioso",
+        food_consumption: 0.05,
         consumption: {
             grain: 0.03,
             fruit: 0.01,
@@ -11,6 +12,7 @@ export const popsData = [
     {
         id: "worker",
         name: "Trabalhador",
+        food_consumption: 0.1,
         consumption: {
             grain: 0.06,
             fruit: 0.02,
@@ -20,6 +22,7 @@ export const popsData = [
     {
         id: "farmer",
         name: "Fazendeiro",
+        food_consumption: 0.1,
         consumption: {
             grain: 0.06,
             fruit: 0.02,
@@ -29,6 +32,7 @@ export const popsData = [
     {
         id: "tailor",
         name: "Alfaiate",
+        food_consumption: 0.1,
         consumption: {
             grain: 0.06,
             fruit: 0.02,
@@ -38,6 +42,7 @@ export const popsData = [
     {
         id: "blacksmith",
         name: "Ferreiro",
+        food_consumption: 0.1,
         consumption: {
             grain: 0.06,
             fruit: 0.02,
@@ -47,6 +52,7 @@ export const popsData = [
     {
         id: "brewer",
         name: "Cervejeiro",
+        food_consumption: 0.1,
         consumption: {
             grain: 0.06,
             fruit: 0.02,
@@ -56,6 +62,7 @@ export const popsData = [
     {
         id: "lumberjack",
         name: "Lenhador",
+        food_consumption: 0.1,
         consumption: {
             grain: 0.06,
             fruit: 0.02,
@@ -65,6 +72,7 @@ export const popsData = [
     {
         id: "miner",
         name: "Minerador",
+        food_consumption: 0.1,
         consumption: {
             grain: 0.06,
             fruit: 0.02,
@@ -74,6 +82,7 @@ export const popsData = [
     {
         id: "academic",
         name: "Acadêmico",
+        food_consumption: 0.1,
         consumption: {
             grain: 0.06,
             fruit: 0.02,

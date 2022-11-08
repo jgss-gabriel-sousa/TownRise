@@ -1,4 +1,4 @@
-import { game } from "../gameData.js";
+import { game } from "../../data/gameData.js";
 import { advanceMonth } from "./month.js";
 
 export function advanceDay(){

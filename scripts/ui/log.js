@@ -1,4 +1,4 @@
-import {game} from "../gameData.js"
+import {game} from "../../data/gameData.js"
 
 const MAX_LOG_SIZE = 100;
 

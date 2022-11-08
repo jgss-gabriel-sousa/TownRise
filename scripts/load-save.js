@@ -1,4 +1,4 @@
-import { game } from "./gameData.js";
+import { game } from "../data/gameData.js";
 import { savedGamesHTML } from "./ui/ui.js";
 
 export async function saveGame(){

@@ -1,4 +1,4 @@
-import { game } from "./gameData.js";
+import { game } from "../data/gameData.js";
 
 export function jobs(){
     game.worker_jobs = (game.warehouse*5)+ (game.tavern*2);

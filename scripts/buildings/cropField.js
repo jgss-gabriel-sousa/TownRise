@@ -1,4 +1,4 @@
-import { game } from "../gameData.js"
+import { game } from "../../data/gameData.js"
 
 export function cropField(){    
     let jobSupply = game.farmer/game.farmer_jobs;

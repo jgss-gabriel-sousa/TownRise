@@ -1,4 +1,4 @@
-import { game } from "./gameData.js";
+import { game } from "../data/gameData.js";
 import { updateDataInfo } from "./ui/ui.js";
 import { buildingHTML, destroyBuilding } from "./ui/buildingsUI.js";
 

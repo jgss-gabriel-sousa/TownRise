@@ -1,4 +1,4 @@
-import { game } from "../scripts/gameData.js";
+import { game } from "../data/gameData.js";
 
 export const eventsData = {
     plague: {

@@ -1,4 +1,4 @@
-import { game } from "../gameData.js"
+import { game } from "../../data/gameData.js"
 
 export function mine(){    
     let jobSupply = game.miner/game.miner_jobs;

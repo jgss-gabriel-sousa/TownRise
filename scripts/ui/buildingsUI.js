@@ -1,5 +1,5 @@
 import { buildingsData } from "../../data/buildingsData.js";
-import { game } from "../gameData.js";
+import { game } from "../../data/gameData.js";
 
 export function buildingHTML(id){
     const city = document.getElementById("map-city");
