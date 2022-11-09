@@ -18,7 +18,7 @@ export function gameTick(){
 
     //HAPPINESS ################################################################################
 
-    game.happiness = average([1,!game.ale_lack,game.happinessImpacts]);
+    game.happiness = average([1,!game.ale_lack,game.impacts.happiness]);
     if(game.happiness > 1) game.happiness = 1;
     if(game.happiness < 0) game.happiness = 0;
 
@@ -61,11 +61,14 @@ export function gameTick(){
             game[resources[i].id] = 0;
 
         //If Resource Count > Resource Limit set to Resource Limit
+        /*
         if(game[resources[i].id] > game.resourceLimit)
             game[resources[i].id] = game.resourceLimit;
+        */
     }
 
-    game.food = (game.grain*0.22) + (game.meat*0.6) + (game.fruit*0.18);
+    // FOOD
+    game.food = (game.grain*0.25) + (game.meat*0.15) + (game.fruit*0.1) + (game.bread*0.25);
 
     //#############################################################################################
 
@@ -74,9 +77,9 @@ export function gameTick(){
     updateDataInfo();
     
     // RESET IMPACTS VARS
-    game.popDeathImpacts = 1;
-    game.popGrowthImpacts = 1;
-    game.happinessImpacts = 1;
+    for(const k in game.impacts) {
+        game.impacts[k] = 1;
+    }
 
-    //events();
+    events();
 }

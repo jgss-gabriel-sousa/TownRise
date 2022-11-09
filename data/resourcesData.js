@@ -1,17 +1,17 @@
 export const resources = [
     {
-        id: "grain",
-        name: "Grãos",
+        id: "meat",
+        name: "Carne",
         type: "food",
     },
     {
         id: "fruit",
-        name: "Frutas",
+        name: "Fruta",
         type: "food",
     },
     {
-        id: "meat",
-        name: "Carne",
+        id: "grain",
+        name: "Grão",
         type: "food",
     },
     {
@@ -19,29 +19,10 @@ export const resources = [
         name: "Pão",
         type: "food",
     },
-    {
-        id: "wood",
-        name: "Madeira",
-        type: "raw material",
-    },
-    {
-        id: "firewood",
-        name: "Lenha",
-        type: "end product",
-    },
+    //################################################################
     {
         id: "leather",
         name: "Couro",
-        type: "raw material",
-    },
-    {
-        id: "clothes",
-        name: "Roupas",
-        type: "end product",
-    },
-    {
-        id: "stone",
-        name: "Pedra",
         type: "raw material",
     },
     {
@@ -50,28 +31,51 @@ export const resources = [
         type: "raw material",
     },
     {
-        id: "tools",
-        name: "Ferramentas",
-        type: "end product",
+        id: "wood",
+        name: "Madeira",
+        type: "raw material",
     },
     {
-        id: "ale",
-        name: "Cerveja",
-        type: "food",
+        id: "stone",
+        name: "Pedra",
+        type: "raw material",
     },
-    {
-        id: "planks",
-        name: "Tábuas",
-        type: "refined material",
-    },
+    //################################################################
     {
         id: "steel",
         name: "Aço",
         type: "refined material",
     },
     {
+        id: "planks",
+        name: "Tábua",
+        type: "refined material",
+    },
+    //################################################################
+    {
+        id: "ale",
+        name: "Cerveja",
+        type: "end product",
+    },
+    {
+        id: "tools",
+        name: "Ferramenta",
+        type: "end product",
+    },
+    {
+        id: "firewood",
+        name: "Lenha",
+        type: "end product",
+    },
+    {
+        id: "clothes",
+        name: "Roupa",
+        type: "end product",
+    },
+    //################################################################
+    {
         id: "diamonds",
-        name: "Diamantes",
+        name: "Jóia",
         type: "luxury",
     },
 ]

@@ -6,7 +6,7 @@ export function foundry(){
 
     //###########################################
     
-    let jobSupply = game.blacksmith/game.blacksmith_jobs;
+    let jobSupply = game.artificer/game.artificer_jobs;
     if(jobSupply > 1) jobSupply = 1;
     if(!jobSupply) jobSupply = 0;
     

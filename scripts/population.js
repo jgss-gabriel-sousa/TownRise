@@ -20,14 +20,14 @@ export function populationUpdate(){
 export function popGrowth(){
     if(rand(0,10) != 0) return;
     
-    let popGrowth = rand(0,5)+((game.happiness/0.5) * game.popGrowthImpacts);
+    let popGrowth = rand(0,5)+((game.happiness/0.5) * game.impacts.popGrowth);
     popGrowth /= 100;
     
     popGrowth = Math.round(game.population * popGrowth);
     if(popGrowth < 1 && rand(0,4) == 0)
         popGrowth = 1;
 
-    let popDeath = Math.round((game.population*(rand(0,3)/100))*game.popDeathImpacts);
+    let popDeath = Math.round((game.population*(rand(0,3)/100))*game.impacts.popDeath);
     if(popDeath < 1 && rand(0,5) == 0)
         popDeath = 1;
 
@@ -38,9 +38,9 @@ export function popGrowth(){
 
     if(popDeath > popGrowth){
         if(popDeath-popGrowth == 1) 
-            logPush("1 pessoa morreu");
+            logPush("1 cidadão morreu");
         else                        
-            logPush((popDeath-popGrowth)+" pessoas morreram");
+            logPush((popDeath-popGrowth)+" cidadãos morreram");
     }    
 }
 
@@ -50,47 +50,20 @@ function popDeaths(){
     randDeaths();
     
     function hungryDeaths(){
-        /*
-        function popHungry(){
-            game.hungry = 0;
-        
-            if(game.grain+game.grain_balance < 0){
-                game.grain_lack = true;    
-                game.hungry += 0.22;
-            }
-            else{
-                game.grain_lack = false;    
-                game.hungry -= 0.22;
-            }
-            if(game.fruit+game.fruit_balance < 0){
-                game.fruit_lack = true;    
-                game.hungry += 0.18;
-            }
-            else{
-                game.fruit_lack = false;    
-                game.hungry -= 0.18;
-            }
-            if(game.meat+game.meat_balance < 0){
-                game.meat_lack = true;     
-                game.hungry += 0.60;
-            }
-            else{
-                game.meat_lack = false;    
-                game.hungry -= 0.60;
-            }
-        }popHungry();
+        game.hungry = 0;
+
+        game.hungry = (game.food_consumption - game.food)/game.food_consumption;
         
         if(game.hungry > 0){
             let popDeath = rand(0, Math.ceil(game.hungry * game.population));
     
             game.population -= popDeath;
     
-            if(popDeath > 1)        logPush(popDeath+" pessoas morreram de fome");
-            if(popDeath == 1)       logPush(popDeath+" pessoa morreu de fome");
+            if(popDeath > 1)        logPush(popDeath+" cidadãos morreram de fome");
+            if(popDeath == 1)       logPush(popDeath+" cidadão morreu de fome");
     
             if(!game.population)    game.population = 0;
         }
-        */
     }
 
     function homelessDeaths(){
@@ -136,8 +109,8 @@ function popDeaths(){
 
         game.population -= popDeath;
 
-        if(popDeath > 1)        logPush(popDeath+" pessoas morreram sem abrigo");
-        if(popDeath == 1)       logPush(popDeath+" pessoa morreu sem abrigo");
+        if(popDeath > 1)        logPush(popDeath+" cidadãos morreram sem abrigo");
+        if(popDeath == 1)       logPush(popDeath+" cidadão morreu sem abrigo");
     }
 
     function randDeaths(){
@@ -147,7 +120,7 @@ function popDeaths(){
             game.population--;
 
             const randDead = rand(0,2);
-            const baseMsg = "1 pessoa morreu ";
+            const baseMsg = "1 cidadão morreu ";
             if(randDead == 0) logPush(baseMsg+"de tanto rir");
             if(randDead == 1) logPush(baseMsg+"tentado voar, pulando de um penhasco");
         }
@@ -173,8 +146,8 @@ function popDeaths(){
         game.population -= popDeath;
         game.childrens -= childrenDeath;
 
-        if(popDeath > 1)        logPush(popDeath+" pessoas morreram sem agasalho");
-        if(popDeath == 1)       logPush(popDeath+" pessoa morreu sem agasalho");
+        if(popDeath > 1)        logPush(popDeath+" cidadãos morreram sem agasalho");
+        if(popDeath == 1)       logPush(popDeath+" cidadão morreu sem agasalho");
         if(childrenDeath > 1)   logPush(childrenDeath+" crianças morreram sem agasalho");
         if(childrenDeath == 1)  logPush(childrenDeath+" criança morreu sem agasalho");
     }

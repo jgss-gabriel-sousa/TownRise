@@ -1,4 +1,5 @@
 import { resources } from "../../data/resourcesData.js"
+import { popsData } from "../../data/popsData.js"
 import { numberF, numberBalanceFormatted, translateSeason } from "../funcs.js"
 import { game } from "../../data/gameData.js"
 
@@ -112,8 +113,53 @@ export function updateDataInfo(){
     professionsStat();
 }
 
+export function professionsUI(){
+    let html = `
+    <table>
+        <tr>
+            <td><img src="./img/icons/idle.png"></td>
+            <td><p>Ocioso:</p></td>
+            <td></td>
+            <td><p><span id="idle-stat">10</span></p></td>
+        </tr>
+    `;
+
+    for(let i = 1; i < popsData.length; i++){
+        const p = popsData[i];
+
+        html += `
+            <tr>
+                <td><img src="./img/icons/${p.id}.png"></td>
+                <td><p>${p.name}:</p></td>
+                <td><input id="${p.id}-input" class="professions-slider" type="range" value="0" step="1"></td>
+                <td><p><span id="${p.id}-stat">10</span>/<span id="${p.id}-jobs-stat">10</span></p></td>
+            </tr>
+        `;
+    }
+
+    html += "</table>"
+
+    document.getElementById("pops").innerHTML = html;
+}
+
 function professionsStat(){
     /*
+    let html = "";
+
+    for(const p in popsData){
+        const pop = popsData[p];
+            
+        html += `
+            <div class="pop-info" id="${pop.id}-info">
+                
+                <p>${pop.name}</p>
+                <p>${game[pop.id]}</p>
+            </div>
+        `
+    }
+
+    document.getElementById("pops").innerHTML = html;
+    */
     game.idle = game.population;
     for(let i = 1; i < popsData.length; i++){
         const j = popsData[i].id;
@@ -139,5 +185,4 @@ function professionsStat(){
 
     if(game.idle < 0) game.idle = 0;
     document.getElementById("idle-stat").innerText = game.idle;
-    */
 }

@@ -5,7 +5,7 @@ export const buildingsData = [
         spriteSize: "sm",
         spritePlace: "city",
         buttonRow: 0,
-        description: "Habitação para 4 pessoas",
+        description: "Habitação para 4 cidadãos",
         jobs: [
         ],
         build: [
@@ -24,7 +24,7 @@ export const buildingsData = [
         spriteSize: "sm",
         spritePlace: "city",
         buttonRow: 0,
-        description: "Habitação para 8 pessoas",
+        description: "Habitação para 8 cidadãos",
         jobs: [
         ],
         build: [

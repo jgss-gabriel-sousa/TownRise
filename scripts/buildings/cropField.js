@@ -10,8 +10,9 @@ export function cropField(){
     let weatherProductivity = 1;
 
     if(game.weather == "rain") weatherProductivity *= 4;
+    if(game.season == "winter") weatherProductivity *= 0;
 
-    const productivity = jobSupply*game.productivity*weatherProductivity;
+    const productivity = jobSupply*game.productivity*weatherProductivity*game.impacts.cropFieldProductivity;
     
     game.grain_balance += (game.cropField*0.5)*productivity;
 }

@@ -8,6 +8,12 @@ import { updateDataInfo } from "./ui/ui.js";
 import { deleteGame, loadGame, saveGame } from "./load-save.js";
 import { setGameSpeed, pauseGame } from "./gameTime.js";
 
+//Cancel reload of the page
+window.addEventListener("beforeunload", function (event) {
+    if(!game.gameOver)
+        event.returnValue = "\o/";
+});
+
 window.onclick = e => {
     //Build Constructions
     for(let i = 0; i < buildingsData.length; i++){

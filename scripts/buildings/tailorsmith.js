@@ -5,7 +5,7 @@ export function tailorsmith(){
     
     //###########################################
     
-    let jobSupply = game.tailor/game.tailor_jobs;
+    let jobSupply = game.artificer/game.artificer_jobs;
     if(jobSupply > 1) jobSupply = 1;
     if(!jobSupply) jobSupply = 0;
     

@@ -1,6 +1,6 @@
 import { rand, highScoreHTML, checkHighScore, shuffleArr } from "./funcs.js";
 import { soundStart, soundtrack } from "./sound.js";
-import { resourcesUI, savedGamesHTML } from "./ui/ui.js";
+import { resourcesUI, savedGamesHTML,professionsUI } from "./ui/ui.js";
 import { buildinglisteners } from "./ui/buildingsUI.js";
 import { newWeather } from "./weather.js";
 import { advanceDay } from "./time/day.js";
@@ -55,6 +55,7 @@ window.setTimeout(soundtrack, rand(1500,5000));
 soundStart();
 highScoreHTML();
 resourcesUI();
+professionsUI();
 savedGamesHTML();
 shuffleArr(eventsData);
 

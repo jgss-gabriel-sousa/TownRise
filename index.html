@@ -9,15 +9,15 @@
     <link rel="stylesheet" href="./styles/map.css">
     <link rel="stylesheet" href="./styles/menu.css">
     
-    <!-- Development 
+    <!-- Development -->
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js" defer></script>
     <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js" defer></script>
-      -->
+      
     
-    <!-- Production -->
+    <!-- Production 
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
-    
+    -->
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./scripts/game.js" type="module" defer></script>
@@ -36,7 +36,7 @@
             <input type="button" class="btn btn-active" value="Nova Vila" id="start">
             <input type="button" class="btn btn-active hidden" value="Carregar Vila" id="load">
             <br>
-            <p id="game-version">v0.12 &copy; JGSS</p>
+            <p id="game-version">v0.13 &copy; JGSS</p>
             <b><p id="highscore"></p></b>
         </div>
         <div id="load-game" class="container menu hidden">
@@ -70,6 +70,7 @@
                 </div>
                 <div id="buildings-menu2"></div>
             </div>
+            <div class="container" id="pops"></div>
         </div>
         <div id="middle-section" class="hidden">
             <div class="container" id="resources"></div>

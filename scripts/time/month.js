@@ -22,9 +22,6 @@ export function advanceMonth(){
 
         document.getElementById("map").classList.remove("map-autumn");
         document.getElementById("map").classList.add("map-winter");
-        
-        destroyBuilding("cropField",game.cropField);
-        game.cropField = 0;
     }  
     else if(game.season == "winter"){
         game.season = "spring";

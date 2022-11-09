@@ -10,7 +10,7 @@ export const eventsData = {
             <hr>
             <ul style="text-align:start;">
             Efeitos (durante 90 dias):
-                <li>+100% de Mortalidade</li>
+                <li>+200% de Mortalidade</li>
             </ul>
         `,
         onTrigger: () => {
@@ -18,7 +18,7 @@ export const eventsData = {
         },
         duration: 90,
         modifier: () => {
-            game.popDeathImpacts *= 2;
+            game.impacts.popDeath *= 4;
         },
     },
 
@@ -33,6 +33,7 @@ export const eventsData = {
             Efeitos (durante 30 dias):
                 <li>+20% de Crescimento Populacional</li>
                 <li>+20% de Felicidade</li>
+                <li>+40% de Produtividade das Plantações</li>
             </ul>
             `,
         onTrigger: () => {
@@ -47,8 +48,9 @@ export const eventsData = {
             return true;
         },
         modifier: () => {
-            game.popGrowthImpacts *= 1.2;
-            game.happinessImpacts *= 1.2;
+            game.impacts.popGrowth *= 1.2;
+            game.impacts.happiness *= 1.2;
+            game.impacts.cropFieldProductivity *= 1.4;
         },
         duration: 30,
     },
