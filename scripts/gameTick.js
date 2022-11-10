@@ -16,12 +16,6 @@ export function gameTick(){
     game.sheltered = 0;
     game.food_consumption = 0;
 
-    //HAPPINESS ################################################################################
-
-    game.happiness = average([1,!game.ale_lack,game.impacts.happiness]);
-    if(game.happiness > 1) game.happiness = 1;
-    if(game.happiness < 0) game.happiness = 0;
-
     //PRODUCTIVITY ################################################################################
 
     let toolsAccess = game.tools/game.population;
@@ -57,8 +51,12 @@ export function gameTick(){
         game[resources[i].id] += game[resources[i].id+"_balance"];
 
         //If Resource Count < 0 set to 0
-        if(game[resources[i].id] < 0)
+        if(game[resources[i].id] < 0){
             game[resources[i].id] = 0;
+
+            if(game[resources[i].id+"_balance"] < 0)
+                game[resources[i].id+"_lack"] = true;
+        }
 
         //If Resource Count > Resource Limit set to Resource Limit
         /*
@@ -67,7 +65,15 @@ export function gameTick(){
         */
     }
 
-    // FOOD
+
+    //HAPPINESS ################################################################################
+    
+    game.happiness = average([1,(game.ale_lack==false?1:0),game.sheltered/game.population])*game.impacts.happiness;
+    if(game.happiness > 1) game.happiness = 1;
+    if(game.happiness < 0) game.happiness = 0;
+
+    // FOOD ################################################################################
+
     game.food = (game.grain*0.25) + (game.meat*0.15) + (game.fruit*0.1) + (game.bread*0.25);
 
     //#############################################################################################

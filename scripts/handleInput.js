@@ -7,6 +7,7 @@ import { popBootstrap } from "./ui/popUI.js";
 import { updateDataInfo } from "./ui/ui.js";
 import { deleteGame, loadGame, saveGame } from "./load-save.js";
 import { setGameSpeed, pauseGame } from "./gameTime.js";
+import { jobs } from "./jobs.js";
 
 //Cancel reload of the page
 window.addEventListener("beforeunload", function (event) {
@@ -102,6 +103,7 @@ async function startSequence(type){
     if(type == "new-game")
         await selectGameDifficulty();
 
+    gameStart();
     newTurn();
     popBootstrap();
     buildingsBootstrap();
@@ -143,4 +145,14 @@ async function selectGameDifficulty(){
     if(difficulty == "easy")    game.gameDifficulty = "easy";
     if(difficulty == "normal")  game.gameDifficulty = "normal";
     if(difficulty == "hard")    game.gameDifficulty = "hard";
+}
+
+function gameStart(){
+    console.log(game.gameDifficulty)
+    if(game.gameDifficulty == "easy"){
+        game.lumbermill = 1;
+        game.cropField = 2;
+        game.house = 2;
+        game.meat = 50;
+    }
 }

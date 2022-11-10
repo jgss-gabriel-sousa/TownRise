@@ -2,7 +2,7 @@ import { game } from "../data/gameData.js";
 
 export const eventsData = {
     plague: {
-        rareness: 500*game.health,
+        rareness: 1000*game.health,
         title: "Praga",
         image: true,
         message: `

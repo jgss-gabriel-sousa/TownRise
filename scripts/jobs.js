@@ -1,6 +1,4 @@
 import { game } from "../data/gameData.js";
-import { popsData } from "../data/popsData.js";
-import { rand } from "./funcs.js";
 
 export function jobs(){
     game.worker_jobs = (game.warehouse*5)+(game.tavern*2)+(game.quarry*5)+(game.mine*5)+(game.lumbermill*3)+(game.sawmill*3);

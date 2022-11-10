@@ -55,9 +55,11 @@ function runEvents(){
 function updateModifiers(){
     for(const m in game.modifiers){
         const mod = game.modifiers[m];
-        console.log(m);
+        console.log(game.modifiers[m]);
         
-        game.modifiers[m].effect();
+        try{
+            game.modifiers[m].effect();
+        }catch(error){}
 
         mod.end--;
         if(mod.end == 0){

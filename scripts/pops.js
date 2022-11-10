@@ -64,8 +64,8 @@ function goodsConsumption(){
         if(popsData[p].hasOwnProperty("consumption")) {
             for(const goods in popsData[p].consumption) {
                 if(game.hasOwnProperty(goods+"_balance")) {
-                    const popCons = popsData[p].consumption[goods];
-                    game[goods+"_balance"] -= popCons;
+                    const popCsmpt = popsData[p].consumption[goods]*game[popsData[p].id]*difficulty;
+                    game[goods+"_balance"] -= popCsmpt;
                 }
             }
         }

@@ -17,7 +17,7 @@ export function sawmill(){
 
     const productivity = jobSupply*woodSupply*game.productivity;
 
-    game.firewood_balance += (game.sawmill*0.25)*productivity;
+    game.firewood_balance += (game.sawmill*0.75)*productivity;
 
     //###########################################
     game.wood_balance -= wood_consumption*productivity;

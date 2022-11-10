@@ -18,7 +18,7 @@ export function farm(){
 
     const productivity = jobSupply*woodSupply*game.productivity;
 
-    game.meat_balance += (game.farm*0.5)*productivity;
+    game.meat_balance += (game.farm*1)*productivity;
     game.leather_balance += (game.farm*0.5)*productivity;
 
     //###########################################

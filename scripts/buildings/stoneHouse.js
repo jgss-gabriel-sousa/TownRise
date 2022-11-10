@@ -9,6 +9,8 @@ export function stoneHouse(){
     if(firewoodSupply < 1) game.firewood_lack = true;
     if(game.season != "winter") firewoodSupply = 1;
 
+    if(firewoodSupply < 0.75) firewoodSupply = 0.75;
+
     game.sheltered += Math.round((game.stoneHouse*8)*firewoodSupply);
 
     if(game.sheltered > game.population) game.sheltered = game.population;

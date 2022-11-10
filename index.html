@@ -26,7 +26,7 @@
     <script src="https://kit.fontawesome.com/893953f084.js" crossorigin="anonymous"></script>
     
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-    <title>My Village</title>
+    <title>TownRise</title>
 </head>
 <body>
     <div id="main-interface">
@@ -36,7 +36,7 @@
             <input type="button" class="btn btn-active" value="Nova Vila" id="start">
             <input type="button" class="btn btn-active hidden" value="Carregar Vila" id="load">
             <br>
-            <p id="game-version">v0.13 &copy; JGSS</p>
+            <p id="game-version">v0.14 &copy; JGSS</p>
             <b><p id="highscore"></p></b>
         </div>
         <div id="load-game" class="container menu hidden">
@@ -58,15 +58,19 @@
                     <button class="btn building-menu" id="building-house">Habitações</button>
         
                     <button class="btn building-menu" id="building-farm">Agricultura</button>
+                    <!--
                     <button class="btn building-menu" id="building-pasture">Pecuária</button>
-        
+                    -->
+
                     <button class="btn building-menu" id="building-resources">Recursos</button>    
         
                     <button class="btn building-menu" id="building-manufacture">Manufaturas</button>
                     <button class="btn building-menu" id="building-businesses">Negócios</button>
                     <button class="btn building-menu" id="building-handicraft">Ofícios</button>
-        
+                    
+                    <!--
                     <button class="btn building-menu" id="building-others">Outros</button>
+                    -->
                 </div>
                 <div id="buildings-menu2"></div>
             </div>
@@ -99,30 +103,13 @@
                     </tr>
                     <tr id="food-info">
                         <td><p>Comida:</p></td>
-                        <td><p><span id="food-stat"></span> (<span id="food-consumption-stat"></span>)</p></td>
+                        <td><p><span id="food-stat"></span></p></td>
                     </tr>
                     <tr>
                         <td><p>Ciência:</p></td>
                         <td><p><span id="science-stat"></span></p></td>
                     </tr>
-                    <tr>
-                        <td><p>Armazenamento:</p></td>
-                        <td><p><span id="resource-limit-stat"></span></p></td>
-                    </tr>
-                    <hr>
-                    <tr>
-                        <td><p>Pop. Abrigada:</p></td>
-                        <td>
-                            <div class="progress-bar-background">
-                                <div id="settled-bar" class="progress-bar">
-                                    <div>
-                                        <span id="settled-stat"></span>%
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
+                    <tr id="productivity-info">
                         <td><p>Produtividade:</p></td>
                         <td>
                             <div class="progress-bar-background">
@@ -134,7 +121,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="happiness-info">
                         <td><p>Felicidade:</p></td>
                         <td>
                             <div class="progress-bar-background">

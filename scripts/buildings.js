@@ -41,10 +41,9 @@ export async function buildBuilding(buildingID){
     if(game.gamePaused) return;
 
     if(buildingID == "house"){
-        if(game.wood >= 4 && game.stone >= 2){
+        if(game.wood >= 4){
             game.house++;
             game.wood -= 4;
-            game.stone -= 2;
         }
         else return;
     }
@@ -95,10 +94,9 @@ export async function buildBuilding(buildingID){
         game.lumbermill++;
     }
     else if(buildingID == "sawmill"){
-        if(game.wood >= 20 && game.stone >= 10){
+        if(game.wood >= 20){
             game.sawmill++;
             game.wood -= 20;
-            game.stone -= 10;
         }
         else return;
     }
@@ -138,4 +136,5 @@ export async function buildBuilding(buildingID){
 
     buildingHTML(buildingID);
     updateDataInfo();
+    jobs();
 }

@@ -10,7 +10,6 @@ export const buildingsData = [
         ],
         build: [
             "4 Madeiras",
-            "2 Pedras",
         ],
         needs: [
             "0.1 Lenha (Inverno)"
@@ -69,14 +68,14 @@ export const buildingsData = [
         buttonRow: -1,
         description: "",
         jobs: [
+            "4 Fazendeiros"
         ],
         build: [
         ],
         needs: [
         ],
         result: [
-            "4 Empregos",
-            "0.5 Colheita"
+            "1 Grãos"
         ]
     },
     {
@@ -96,7 +95,7 @@ export const buildingsData = [
         ],
         result: [
             "4 Empregos",
-            "0.5 de Comida",
+            "1 de Carne",
             "0.5 de Couro",
         ]
     },
@@ -192,15 +191,14 @@ export const buildingsData = [
         jobs: [
         ],
         build: [
-            "20 Madeiras",
-            "10 Pedras"
+            "20 Madeiras"
         ],
         needs: [
             "0.5 Madeira"
         ],
         result: [
             "3 Empregos",
-            "0.25 Lenha"
+            "0.75 Lenha"
         ]
     },
     {

@@ -11,6 +11,7 @@ export const popsData = [
         name: "Trabalhador",
         food_consumption: 0.1,
         consumption: {
+            ale: 0.1
         },
     },
     {

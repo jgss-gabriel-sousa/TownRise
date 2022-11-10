@@ -6,12 +6,12 @@ export const resources = [
     },
     {
         id: "fruit",
-        name: "Fruta",
+        name: "Frutas",
         type: "food",
     },
     {
         id: "grain",
-        name: "Grão",
+        name: "Grãos",
         type: "food",
     },
     {
@@ -48,7 +48,7 @@ export const resources = [
     },
     {
         id: "planks",
-        name: "Tábua",
+        name: "Tábuas",
         type: "refined material",
     },
     //################################################################
@@ -59,7 +59,7 @@ export const resources = [
     },
     {
         id: "tools",
-        name: "Ferramenta",
+        name: "Ferramentas",
         type: "end product",
     },
     {
@@ -69,13 +69,13 @@ export const resources = [
     },
     {
         id: "clothes",
-        name: "Roupa",
+        name: "Roupas",
         type: "end product",
     },
     //################################################################
     {
         id: "diamonds",
-        name: "Jóia",
+        name: "Jóias",
         type: "luxury",
     },
 ]

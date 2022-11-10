@@ -56,6 +56,8 @@ export const game = {
     clothes: 50,
     tools: 50,
     ale: 10,
+    planks: 0,
+    steel: 0,
     
     grain_balance: 0,
     fruit_balance: 0,
@@ -69,7 +71,10 @@ export const game = {
     clothes_balance: 0,
     tools_balance: 0,
     ale_balance: 0,
+    planks_balance: 0,
+    steel_balance: 0,
     
+
     grain_lack: false,
     fruit_lack: false,
     meat_lack: false,
@@ -81,6 +86,7 @@ export const game = {
     clothes_lack: false,
     tools_lack: false,
     ale_lack: false,
+    steel_lack: false,
     
     productivity: 0,
     happiness: 0.5,

@@ -54,9 +54,10 @@ const buildings = [
     ["house",
         ["house","stoneHouse"]],
     ["farm",
-        ["cropField"/*,"orchard"*/]],
+        ["farm","cropField"/*,"orchard"*/]],
+        /*
     ["pasture", 
-        ["farm"]],
+        ["farm"]],*/
     ["resources", 
         ["lumbermill","mine","quarry"]],
     ["manufacture", 
@@ -68,9 +69,9 @@ const buildings = [
     /*
     ["scriptoriums", 
         ["school"]],
-    */
     ["others", 
         ["warehouse"]],
+    */
 ];
 
 function getBuildingName(element){

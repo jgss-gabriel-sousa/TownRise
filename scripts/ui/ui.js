@@ -49,6 +49,35 @@ export function resourcesUI(){
     }
 }
 
+export function professionsUI(){
+    let html = `
+    <table>
+        <tr>
+            <td><img src="./img/icons/idle.png"></td>
+            <td><p>Ocioso:</p></td>
+            <td></td>
+            <td><p><span id="idle-stat">10</span></p></td>
+        </tr>
+    `;
+
+    for(let i = 1; i < popsData.length; i++){
+        const p = popsData[i];
+
+        html += `
+            <tr>
+                <td><img src="./img/icons/${p.id}.png"></td>
+                <td><p>${p.name}:</p></td>
+                <td><input id="${p.id}-input" class="professions-slider" type="range" value="0" step="1"></td>
+                <td><p><span id="${p.id}-stat">10</span>/<span id="${p.id}-jobs-stat">10</span></p></td>
+            </tr>
+        `;
+    }
+
+    html += "</table>"
+
+    document.getElementById("pops").innerHTML = html;
+}
+
 export function savedGamesHTML(){
     let villages = localStorage.getItem("mv-saved-villages");
 
@@ -77,18 +106,12 @@ export function updateDataInfo(){
     document.getElementById("totalYears").innerText = numberF(game.year,"",0);
     document.getElementById("pop-stat").innerText = numberF(game.population,"",0);
     document.getElementById("food-stat").innerText = numberF(game.food,"",0);
-    document.getElementById("food-consumption-stat").innerText = -numberF(game.food_consumption,"",1);
     document.getElementById("science-stat").innerText = numberF(game.science,"",0);
-    
-    let settledRate = 100-Math.round(((game.population - game.sheltered)/game.population)*100);
-    if(settledRate > 100) settledRate = 100;
-    if(!settledRate) settledRate = 0;
-    document.getElementById("settled-stat").innerText = settledRate;
         
     document.getElementById("productivity-stat").innerText = Math.round(game.productivity*100);
     document.getElementById("happiness-stat").innerText = Math.round(game.happiness*100);
     document.getElementById("health-stat").innerText = Math.round(game.health*100);
-    document.getElementById("resource-limit-stat").innerText = numberF(game.resourceLimit,"",0);
+    //document.getElementById("resource-limit-stat").innerText = numberF(game.resourceLimit,"",0);
 
     for(let i = 0; i < resources.length; i++){
         const r = resources[i].id;
@@ -106,40 +129,10 @@ export function updateDataInfo(){
     document.getElementById("season").innerText = translateSeason(game.season);
 
     document.getElementById("productivity-bar").style.width = Math.round(game.productivity*100).toString()+"%";
-    document.getElementById("settled-bar").style.width = settledRate.toString()+"%";
     document.getElementById("happiness-bar").style.width = Math.round(game.happiness*100).toString()+"%";
     document.getElementById("health-bar").style.width = Math.round(game.health*100).toString()+"%";
 
     professionsStat();
-}
-
-export function professionsUI(){
-    let html = `
-    <table>
-        <tr>
-            <td><img src="./img/icons/idle.png"></td>
-            <td><p>Ocioso:</p></td>
-            <td></td>
-            <td><p><span id="idle-stat">10</span></p></td>
-        </tr>
-    `;
-
-    for(let i = 1; i < popsData.length; i++){
-        const p = popsData[i];
-
-        html += `
-            <tr>
-                <td><img src="./img/icons/${p.id}.png"></td>
-                <td><p>${p.name}:</p></td>
-                <td><input id="${p.id}-input" class="professions-slider" type="range" value="0" step="1"></td>
-                <td><p><span id="${p.id}-stat">10</span>/<span id="${p.id}-jobs-stat">10</span></p></td>
-            </tr>
-        `;
-    }
-
-    html += "</table>"
-
-    document.getElementById("pops").innerHTML = html;
 }
 
 function professionsStat(){

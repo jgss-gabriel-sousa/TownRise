@@ -20,15 +20,15 @@ export function populationUpdate(){
 export function popGrowth(){
     if(rand(0,10) != 0) return;
     
-    let popGrowth = rand(0,5)+((game.happiness/0.5) * game.impacts.popGrowth);
+    let popGrowth = rand(0,5)+((game.happiness/0.5));
     popGrowth /= 100;
     
-    popGrowth = Math.round(game.population * popGrowth);
-    if(popGrowth < 1 && rand(0,4) == 0)
+    popGrowth = Math.round((game.population * popGrowth)*game.impacts.popGrowth);
+    if(popGrowth < 1 && rand(0,Math.round(4/game.impacts.popGrowth)) == 0)
         popGrowth = 1;
 
     let popDeath = Math.round((game.population*(rand(0,3)/100))*game.impacts.popDeath);
-    if(popDeath < 1 && rand(0,5) == 0)
+    if(popDeath < 1 && rand(0,Math.round(5/game.impacts.popDeath)) == 0)
         popDeath = 1;
 
     game.popGrowth = popGrowth/game.population;
@@ -55,7 +55,7 @@ function popDeaths(){
         game.hungry = (game.food_consumption - game.food)/game.food_consumption;
         
         if(game.hungry > 0){
-            let popDeath = rand(0, Math.ceil(game.hungry * game.population));
+            let popDeath = rand(1, Math.ceil(game.hungry * game.population));
     
             game.population -= popDeath;
     
@@ -69,7 +69,7 @@ function popDeaths(){
     function homelessDeaths(){
         let homelessRate = 1;
         if(game.population)
-            homelessRate = (game.population - game.sheltered)/game.population;
+            homelessRate = (1/(game.sheltered/game.population))-1;
             
         if(!homelessRate || homelessRate < 0) homelessRate = 0;
 
@@ -101,7 +101,6 @@ function popDeaths(){
         homelessDeathChance = Math.round(homelessDeathChance);
 
         let popDeath = rand(0,100) < homelessDeathChance;
-        let childrenDeath = 0;
 
         if(popDeath){
             popDeath = Math.ceil((rand(0,homelessDeathChance)/100)*homelessPops);
