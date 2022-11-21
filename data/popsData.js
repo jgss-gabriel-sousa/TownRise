@@ -8,16 +8,6 @@ export const popsData = {
             clothes: 0.01,
         },
     },
-    worker:{
-        name: "Trabalhador",
-        jobs: true,
-        food_consumption: 0.05,
-        consumption: {
-            ale: 0.02,
-            clothes: 0.01,
-            tools: 0.01,
-        },
-    },
     farmer:{
         name: "Fazendeiro",
         jobs: true,
@@ -28,13 +18,33 @@ export const popsData = {
             tools: 0.01,
         },
     },
-    artificer:{
-        name: "Artífice",
+    worker:{
+        name: "Trabalhador",
         jobs: true,
         food_consumption: 0.05,
         consumption: {
             ale: 0.02,
             clothes: 0.01,
+            tools: 0.01,
+        },
+    },
+    miner:{
+        name: "Minerador",
+        jobs: true,
+        food_consumption: 0.05,
+        consumption: {
+            ale: 0.02,
+            clothes: 0.01,
+            tools: 0.02,
+        },
+    },
+    artificer:{
+        name: "Artífice",
+        jobs: true,
+        food_consumption: 0.05,
+        consumption: {
+            ale: 0.03,
+            clothes: 0.015,
             tools: 0.02,
         },
     },/*
