@@ -1,262 +1,268 @@
-export const buildingsData = [
-    {
-        id: "house",
-        name: "Casa",
+export const buildingsData = {
+    shack: {
+        name: "Cabana",
         spriteSize: "sm",
         spritePlace: "city",
-        buttonRow: 0,
         description: "Habitação para 4 cidadãos",
-        jobs: [
-        ],
-        build: [
-            "4 Madeiras",
-        ],
-        needs: [
-            "0.1 Lenha (Inverno)"
-        ],
-        result: [
-        ]
+        build: {
+            wood: 4
+        },
+        everyday_needs: {
+        },
+        winter_needs: {
+            firewood: 0.1
+        },
+        production: {
+        },
+        popLimit: 4,
     },
-    {
-        id: "stoneHouse",
-        name: "Casa de Pedra",
-        spriteSize: "sm",
-        spritePlace: "city",
-        buttonRow: 0,
-        description: "Habitação para 8 cidadãos",
-        jobs: [
-        ],
-        build: [
-            "6 Madeiras",
-            "10 Pedras",
-            "2 Ferros",
-        ],
-        needs: [
-            "0.02 Lenha (Inverno)"
-        ],
-        result: [
-        ]
-    },
-    {
-        id: "school",
-        name: "Escola",
+    house: {
+        name: "Casa",
         spriteSize: "md",
         spritePlace: "city",
-        buttonRow: 5,
-        description: "",
-        jobs: [
-            "4 Acadêmicos"
-        ],
-        build: [
-            "12 Madeiras",
-            "4 Pedras",
-            "4 Ferros"
-        ],
-        needs: [
-            "0.2 Lenha",
-            "0.5 Pedra"
-        ],
-        result: [
-            "1 de Ciência"
-        ]
+        description: "Habitação para 8 cidadãos",
+        build: {
+            wood: 6,
+            stone: 12,
+            iron: 2,
+            planks: 2,
+        },
+        everyday_needs: {
+        },
+        winter_needs: {
+            firewood: 0.05
+        },
+        production: {
+        },
+        popLimit: 8,
     },
-    {
-        id: "cropField",
+    nobleHouse: {
+        name: "Casa Nobre",
+        spriteSize: "md",
+        spritePlace: "city",
+        description: "Habitação para 16 cidadãos",
+        build: {
+            wood: 6,
+            stone: 24,
+            iron: 4,
+            planks: 8,
+        },
+        everyday_needs: {
+        },
+        winter_needs: {
+            firewood: 0.02
+        },
+        production: {
+        },
+        popLimit: 16,
+    },
+    cropField: {
         name: "Plantação",
         spriteSize: "lg",
         spritePlace: "farms",
-        buttonRow: -1,
-        description: "",
-        jobs: [
-            "4 Fazendeiros"
-        ],
-        build: [
-        ],
-        needs: [
-        ],
-        result: [
-            "1 Grãos"
-        ]
+        description: "A produção é quadruplicada em dias chuvosos. Já durante o inverno, não há produção",
+        jobs: {
+            farmer: 4,
+        },
+        build: {
+            wood: 10,
+        },
+        everyday_needs: {
+        },
+        production: {
+            grain: 2,
+        }
     },
-    {
-        id: "farm",
+    farm: {
         name: "Fazenda",
         spriteSize: "lg",
         spritePlace: "farms",
-        buttonRow: 10,
         description: "",
-        jobs: [
-        ],
-        build: [
-            "10 Madeiras"
-        ],
-        needs: [
-            "0.5 Madeira"
-        ],
-        result: [
-            "4 Empregos",
-            "1 de Carne",
-            "0.5 de Couro",
-        ]
+        jobs: {
+            farmer: 4,
+        },
+        build: {
+            wood: 10,
+        },
+        everyday_needs: {
+            grain: 1
+        },
+        production: {
+            meat: 2,
+            leather: 0.25
+        }
     },
-    {
-        id: "tailorsmith",
+    orchard: {
+        name: "Pomar",
+        spriteSize: "lg",
+        spritePlace: "farms",
+        description: "",
+        jobs: {
+            farmer: 4,
+        },
+        build: {
+            wood: 10,
+        },
+        everyday_needs: {
+        },
+        production: {
+            fruit: 1,
+        }
+    },
+    mill: {
+        name: "Moinho",
+        spriteSize: "lg",
+        spritePlace: "farms",
+        description: "",
+        jobs: {
+            worker: 4,
+        },
+        build: {
+            wood: 20,
+            stone: 10,
+            planks: 5,
+        },
+        everyday_needs: {
+            grain: 4,
+        },
+        production: {
+            flour: 1,
+        }
+    },
+    bakery: {
+        name: "Padaria",
+        spriteSize: "md",
+        spritePlace: "manufactories",
+        description: "",
+        jobs: {
+            worker: 2,
+            artificer: 2,
+        },
+        build: {
+            wood: 20,
+            stone: 10,
+            planks: 5,
+        },
+        everyday_needs: {
+            flour: 6,
+        },
+        production: {
+            bread: 4,
+        }
+    },
+    tailorsmith: {
         name: "Alfaiate",
         spriteSize: "md",
         spritePlace: "city",
-        buttonRow: 15,
         description: "",
-        jobs: [
-        ],
-        build: [
-            "10 Madeiras"
-        ],
-        needs: [
-            "1 Couro"
-        ],
-        result: [
-            "3 Empregos",
-            "1 Roupa"
-        ]
+        jobs: {
+            artificer: 3,
+        },
+        build: {
+            wood: 10
+        },
+        everyday_needs: {
+            leather: 1
+        },
+        production: {
+            clothes: 1,
+        }
     },
-    {
-        id: "foundry",
+    foundry: {
         name: "Fundição",
         spriteSize: "md",
         spritePlace: "city",
-        buttonRow: 15,
         description: "",
-        jobs: [
-        ],
-        build: [
-            "10 Pedras"
-        ],
-        needs: [
-            "0.25 Lenha",
-            "0.25 Ferro"
-        ],
-        result: [
-            "3 Empregos",
-            "1 Ferramenta"
-        ]
+        jobs: {
+            artificer: 3,
+        },
+        build: {
+            wood: 10,
+            stone: 10
+        },
+        everyday_needs: {
+            firewood: 6,
+            iron: 0.75,
+        },
+        production: {
+            tools: 1,
+            //steel: 0.5
+        }
     },
-    {
-        id: "tavern",
+    tavern: {
         name: "Taverna",
         spriteSize: "md",
         spritePlace: "city",
-        buttonRow: 15,
         description: "",
-        jobs: [
-            "1 Cervejeiro",
-            "2 Trabalhadores",
-        ],
-        build: [
-            "12 Madeiras",
-            "6 Pedras",
-            "4 Ferros",
-        ],
-        needs: [
-            "1 Comida"
-        ],
-        result: [
-            "0.5 Cerveja"
-        ]
+        jobs: {
+            artificer: 1,
+            worker: 3,
+        },
+        build: {
+            wood: 12,
+            planks: 10,
+            stone: 6,
+            iron: 4,
+        },
+        everyday_needs: {
+            grain: 9,
+            fruit: 4.5,
+        },
+        production: {
+            ale: 3,
+        }
     },
-    {
-        id: "lumbermill",
+    lumbermill: {
         name: "Madeireira",
-        spriteSize: "sm",
+        spriteSize: "md",
         spritePlace: "manufactories",
-        buttonRow: 20,
         description: "",
-        jobs: [
-        ],
-        build: [
-        ],
-        needs: [
-        ],
-        result: [
-            "3 Empregos",
-            "1 Madeira"
-        ]
+        jobs: {
+            worker: 6,
+        },
+        build: {
+        },
+        everyday_needs: {
+        },
+        production: {
+            wood: 2,
+        }
     },
-    {
-        id: "sawmill",
+    sawmill: {
         name: "Serraria",
         spriteSize: "md",
         spritePlace: "manufactories",
-        buttonRow: 20,
         description: "",
-        jobs: [
-        ],
-        build: [
-            "20 Madeiras"
-        ],
-        needs: [
-            "0.5 Madeira"
-        ],
-        result: [
-            "3 Empregos",
-            "0.75 Lenha"
-        ]
+        jobs: {
+            worker: 3,
+        },
+        build: {
+        },
+        everyday_needs: {
+            wood: 4,
+        },
+        production: {
+            firewood: 8,
+            planks: 2,
+        }
     },
-    {
-        id: "warehouse",
-        name: "Armazém",
-        spriteSize: "lg",
-        spritePlace: "manufactories",
-        buttonRow: 30,
-        description: "",
-        jobs: [
-        ],
-        build: [
-            "50 Madeiras"
-        ],
-        needs: [
-            "1 Madeira"
-        ],
-        result: [
-            "5 Empregos",
-            "50 Armazenamento"
-        ]
-    },
-    {
-        id: "quarry",
-        name: "Pedreira",
-        spriteSize: "lg",
-        spritePlace: "manufactories",
-        buttonRow: 40,
-        description: "",
-        jobs: [
-            "5 Mineradores"
-        ],
-        build: [
-            "30 Madeiras"
-        ],
-        needs: [
-        ],
-        result: [
-            "1 Pedra"
-        ]
-    },
-    {
-        id: "mine",
+    mine: {
         name: "Mina",
         spriteSize: "lg",
         spritePlace: "manufactories",
-        buttonRow: 40,
         description: "",
-        jobs: [
-            "5 Mineradores"
-        ],
-        build: [
-            "30 Pedras"
-        ],
-        needs: [
-        ],
-        result: [
-            "1 Ferro"
-        ]
+        jobs: {
+            miner: 30,
+        },
+        build: {
+            wood: 30,
+            planks: 20,
+        },
+        everyday_needs: {
+        },
+        production: {
+            stone: 4,
+            iron: 3,
+        }
     },
-]
+}

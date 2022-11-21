@@ -22,18 +22,26 @@ function foodConsumption(){
     if(game.grain > 0){
         grain_csmpt = 0.25;
         variation += 0.25;
-    }  
+    }else{
+        game.grain_lack = true;
+    }
     if(game.meat > 0){
         meat_csmpt = 0.15;
         variation += 0.25;
+    }else{
+        game.meat_lack = true;
     }   
     if(game.fruit > 0){
         fruit_csmpt = 0.1;
         variation += 0.25;
+    }else{
+        game.fruit_lack = true;
     }  
     if(game.bread > 0){
         bread_csmpt = 0.25;
         variation += 0.25;
+    }else{
+        game.bread_lack = true;
     }  
 
     if(variation == 0)
@@ -45,9 +53,9 @@ function foodConsumption(){
     bread_csmpt /= variation;
 
     for(const p in popsData){
-        game.food_consumption += popsData[p].food_consumption*game[popsData[p].id]*difficulty;
+        game.food_consumption += popsData[p].food_consumption*game[p]*difficulty;
 
-        const baseCsmpt = (popsData[p].food_consumption*game[popsData[p].id]*difficulty)/variation;
+        const baseCsmpt = (popsData[p].food_consumption*game[p]*difficulty)/variation;
         
         game.grain_balance -= baseCsmpt*grain_csmpt;
         game.meat_balance -= baseCsmpt*meat_csmpt;
@@ -57,14 +65,13 @@ function foodConsumption(){
 }
 
 function goodsConsumption(){
-
     for(const p in popsData) {
         const evt = popsData[p];
 
         if(popsData[p].hasOwnProperty("consumption")) {
             for(const goods in popsData[p].consumption) {
                 if(game.hasOwnProperty(goods+"_balance")) {
-                    const popCsmpt = popsData[p].consumption[goods]*game[popsData[p].id]*difficulty;
+                    const popCsmpt = popsData[p].consumption[goods]*game[p]*difficulty;
                     game[goods+"_balance"] -= popCsmpt;
                 }
             }

@@ -1,15 +1,25 @@
+#map-section {
+    position: relative;
+    width: 100%;
+}
+
 #map {
-    display: flex;
+    --marginWidth: 0px;
+    --marginHeight: 0px;
+    --sm_img_size: 48px;
+    --md_img_size: 64px;
+    --lg_img_size: 72px;
+
     height: 100%;
-    margin: 10px;
+    width: 100%;
     justify-items: center;
     flex-direction: column;
     flex-wrap: wrap;
     align-content: center;
     justify-content: space-evenly;
     align-items: center;
-    border: 2px solid black;
-    background-image: url("../img/grass.png");
+    border: 1px solid black;
+    background-image: url("../img/grass.webp");
     background-repeat: repeat;
     -webkit-transition: 2s -webkit-filter linear;
     -moz-transition: 2s -moz-filter linear;
@@ -17,6 +27,9 @@
     -ms-transition: 2s -ms-filter linear;
     -o-transition: 2s -o-filter linear;
     transition: 2s filter linear, 2s -webkit-filter linear;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
 }
 
 .map-winter {
@@ -32,31 +45,36 @@
 }
 
 .map-div {
+    margin: 1em;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
 }
+.map-div:first-child {
+    margin-top: 45px;
+}
 
 .map-item {
     filter: drop-shadow(2px 2px 2px #333);
-    margin: -6px;
+    margin: var(--marginHeight) var(--marginWidth);
+    line-height: 0;
 }
 
 .map-item-sm img {
-    height: 32px;
-    width: 32px;
+    height: var(--sm_img_size);
+    width: var(--sm_img_size);
 }
 
 .map-item-md img {
-    height: 48px;
-    width: 48px;
+    height: var(--md_img_size);
+    width: var(--md_img_size);
 }
 
 .map-item-lg img {
-    height: 64px;
-    width: 64px;
+    height: var(--lg_img_size);
+    width: var(--lg_img_size);
 }
 
 #map-canvas {
@@ -67,7 +85,6 @@
 
 @media only screen and (max-width: 960px) {
     #map {
-        width: auto;
         min-height: 300px;
     }
 }

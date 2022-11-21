@@ -1,140 +1,141 @@
 import { game } from "../data/gameData.js";
 import { updateDataInfo } from "./ui/ui.js";
-import { buildingHTML, destroyBuilding } from "./ui/buildingsUI.js";
-
+import { buildingHTML, destroyBuildingHTML,updateMapItemsScale } from "./ui/buildingsUI.js";
+import { average } from "./funcs.js";
 import { jobs } from "./jobs.js";
+import { buildingsData } from "../data/buildingsData.js";
 
-import { house } from "./buildings/house.js";
-import { stoneHouse } from "./buildings/stoneHouse.js";
-import { school } from "./buildings/school.js";
 import { cropField } from "./buildings/cropField.js";
-import { farm } from "./buildings/farm.js";
-import { tailorsmith } from "./buildings/tailorsmith.js";
-import { foundry } from "./buildings/foundry.js";
-import { lumbermill } from "./buildings/lumbermill.js";
-import { sawmill } from "./buildings/sawmill.js";
-import { warehouse } from "./buildings/warehouse.js";
-import { quarry } from "./buildings/quarry.js";
-import { mine } from "./buildings/mine.js";
-import { tavern } from "./buildings/tavern.js";
+import { homes } from "./buildings/homes.js";
 
 export function buildingsUpdate(){
     jobs();
 
-    house();
-    stoneHouse();
-    school();
+    //Specific Updates
+    cropField();
+
+    generalUpdate();
+
+    homes();
+
+
+    updateMapItemsScale();
+
+/*
+    //school();
     cropField();
     farm();
+    orchard();
     tailorsmith();
     foundry();
     lumbermill();
     sawmill();
-    warehouse();
-    quarry();
+    //warehouse();
+    //quarry();
     mine();
-    tavern();
+    tavern();*/
 }
 
-export async function buildBuilding(buildingID){
-    if(!game.gameStarted) return;
-    if(game.gamePaused) return;
+function generalUpdate(){
+    for(const b in buildingsData){
+        const building = buildingsData[b];
 
-    if(buildingID == "house"){
-        if(game.wood >= 4){
-            game.house++;
-            game.wood -= 4;
+        let allInputSupply = [];
+        let allJobSupply = [];
+
+        //Jobs
+        for(const j in building.jobs){
+            let jobSupply = game[j]/game[j+"_jobs"];
+
+            if(jobSupply > 1) jobSupply = 1;
+            if(!jobSupply) jobSupply = 0;
+
+            allJobSupply.push(jobSupply);
         }
-        else return;
-    }
-    else if(buildingID == "stoneHouse"){
-        if(game.wood >= 6 && game.stone >= 10 && game.iron >= 2){
-            game.stoneHouse++;
-            game.wood -= 6;
-            game.stone -= 10;
-            game.iron -= 2;
 
-            if(game.house > 0){
-                game.house--;
-                destroyBuilding("house",1);
+        //Calculate Input/Needs Supply
+        for(const c in building.everyday_needs){
+            const inputConsumption = building.everyday_needs[c] * game[b];
+            let inputSupply =  game[c]/inputConsumption;
+            
+            if(inputSupply > 1) inputSupply = 1;
+            if(inputSupply < 1) game[c+"_lack"] = true;
+            if(!inputSupply) inputSupply = 0;
+
+            allInputSupply.push(inputSupply);
+        }
+
+        if(allJobSupply.length == 0) allJobSupply.push(1);
+        if(allInputSupply.length == 0) allInputSupply.push(1);
+
+        const jobSupply = average(allJobSupply);
+        const inputSupply = average(allInputSupply);
+        const productivityImpacts = game.impacts.hasOwnProperty(b+"_productivity") ? game.impacts[b+"_productivity"] : 1;
+        const productivity = (jobSupply * inputSupply * game.productivity) * productivityImpacts;
+
+        //Discount Input/Needs Supply (based in productivity)
+        for(const c in building.everyday_needs){
+            const inputConsumption = building.everyday_needs[c] * game[b] * productivity;
+
+            //console.log(c+": "+inputConsumption)
+            game[c+"_balance"] -= inputConsumption;
+        }
+
+        //Winter Needs
+        if(game.season == "winter" && building.hasOwnProperty("winter_needs")){
+            for(const c in building.winter_needs){
+                const wNeedConsumption = building.winter_needs[c] * game[b];
+
+                game[c+"_balance"] -= wNeedConsumption;
             }
         }
-        else return;
-    }
-    else if(buildingID == "school"){
-        if(game.wood >= 12 && game.stone >= 4 && game.iron >= 4){
-            game.school++;
-            game.wood -= 12;
-            game.stone -= 4;
-            game.iron -= 4;
+
+        //Production
+        for(const p in building.production){
+            /*
+            console.log("Total: "+p+": "+building.production[p] * game[b] * productivity)
+            console.log("building.production: "+building.production[p])
+            console.log("game."+b+": "+game[b])
+            console.log("productivity: "+productivity)
+            */
+            game[p+"_balance"] += building.production[p] * game[b] * productivity;
         }
-        else return;
     }
-    else if(buildingID == "cropField"){
-        game.cropField++;
-    }
-    else if(buildingID == "farm"){
-        game.farm++;
-    }
-    else if(buildingID == "tailorsmith"){
-        if(game.wood >= 10){
-            game.tailorsmith++;
-            game.wood -= 10;
-        }
-        else return;
-    }
-    else if(buildingID == "foundry"){
-        if(game.stone >= 10){
-            game.foundry++;
-            game.stone -= 10;
-        }
-        else return;
-    }
-    else if(buildingID == "lumbermill"){
-        game.lumbermill++;
-    }
-    else if(buildingID == "sawmill"){
-        if(game.wood >= 20){
-            game.sawmill++;
-            game.wood -= 20;
-        }
-        else return;
-    }
-    else if(buildingID == "warehouse"){
-        if(game.wood >= 50){
-            game.warehouse++;
-            game.wood -= 50;
-        }
-        else return;
-    }
-    else if(buildingID == "quarry"){
-        if(game.wood >= 30){
-            game.quarry++;
-            game.wood -= 30;
-        }
-        else return;
-    }
-    else if(buildingID == "mine"){
-        if(game.stone >= 30){
-            game.mine++;
-            game.stone -= 30;
-        }
-        else return;
-    }
-    else if(buildingID == "tavern"){
-        if(game.wood >= 12 && game.stone >= 6 && game.iron >= 4){
-            game.tavern++;
-            game.wood -= 12;
-            game.stone -= 3;
-            game.iron -= 5;
-        }
-        else return;
-    }
-    else{
-        return;
+}
+
+export function buildBuilding(id){
+    if(!game.gameStarted) return;
+    if(game.gamePaused && game.day != 1) return;
+    
+    const building = buildingsData[id];
+
+    for(const n in building.build){
+        if(game[n] < building.build[n])
+            return;
     }
 
-    buildingHTML(buildingID);
+    game[id]++;
+
+    for(const n in building.build){
+        game[n] -= building.build[n];
+    }
+
+    buildingHTML(id);
+    updateMapItemsScale();
+    updateDataInfo();
+    jobs();
+}
+
+export function destroyBuilding(id, qty){
+    destroyBuildingHTML(id, qty);
+
+    game[id] -= qty;
+    
+    const building = buildingsData[id];
+    for(const n in building.build){
+        game[n] += building.build[n]*0.5;
+    }
+
     updateDataInfo();
     jobs();
 }

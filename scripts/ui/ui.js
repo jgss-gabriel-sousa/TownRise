@@ -2,6 +2,7 @@ import { resources } from "../../data/resourcesData.js"
 import { popsData } from "../../data/popsData.js"
 import { numberF, numberBalanceFormatted, translateSeason } from "../funcs.js"
 import { game } from "../../data/gameData.js"
+import { modifiersData } from "../../data/modifiersData.js";
 
 export function resourcesUI(){
     const element = document.getElementById("resources");
@@ -15,14 +16,12 @@ export function resourcesUI(){
         luxury: [],
     }
 
-    for(let i = 0; i < resources.length; i++){
-        const r = resources[i];
-
-        if(r.type == "food")                res.food.push(r);
-        if(r.type == "raw material")        res.rawMaterial.push(r);
-        if(r.type == "refined material")    res.refinedMaterial.push(r);
-        if(r.type == "end product")         res.endProduct.push(r);
-        if(r.type == "luxury")              res.luxury.push(r);
+    for(const r in resources){
+        if(resources[r].type == "food")                res.food.push(r);
+        if(resources[r].type == "raw material")        res.rawMaterial.push(r);
+        if(resources[r].type == "refined material")    res.refinedMaterial.push(r);
+        if(resources[r].type == "end product")         res.endProduct.push(r);
+        if(resources[r].type == "luxury")              res.luxury.push(r);
     }
     
     for(const t in res){
@@ -32,15 +31,15 @@ export function resourcesUI(){
 
         for(let j = 0; j < type.length; j++){
             const r = type[j];
-            
+
             html += `
-                <button class="resources-btn" id="${r.id}">
+                <button class="resources-btn" id="${r}">
                     <div>
-                        <img src="./img/icons/${r.id}.png">
-                        <p>${r.name}</p>
+                        <img src="./img/icons/${r}.png">
+                        <p>${resources[r].name}</p>
                     </div>
-                    <p id="${r.id}-stat"></p>
-                    <small id="${r.id}-balance-stat">0</small>
+                    <p id="${r}-stat"></p>
+                    <small id="${r}-balance-stat">0</small>
                 </button>
             `
         }
@@ -60,15 +59,15 @@ export function professionsUI(){
         </tr>
     `;
 
-    for(let i = 1; i < popsData.length; i++){
-        const p = popsData[i];
+    for(const p in popsData){
+        if(p == "idle") continue;
 
         html += `
             <tr>
-                <td><img src="./img/icons/${p.id}.png"></td>
-                <td><p>${p.name}:</p></td>
-                <td><input id="${p.id}-input" class="professions-slider" type="range" value="0" step="1"></td>
-                <td><p><span id="${p.id}-stat">10</span>/<span id="${p.id}-jobs-stat">10</span></p></td>
+                <td><img src="./img/icons/${p}.png"></td>
+                <td><p>${popsData[p].name}:</p></td>
+                <td><input id="${p}-input" class="professions-slider" type="range" value="0" step="1"></td>
+                <td><p><span id="${p}-stat">10</span>/<span id="${p}-jobs-stat">10</span></p></td>
             </tr>
         `;
     }
@@ -78,44 +77,83 @@ export function professionsUI(){
     document.getElementById("pops").innerHTML = html;
 }
 
-export function savedGamesHTML(){
-    let villages = localStorage.getItem("mv-saved-villages");
+export function updateDataInfo(){
+    const statsElements = ["totalDays","day","year","population","popLimit","food","knowledge"];
+    statsElements.forEach(e => {
+        document.getElementById(e+"-stat").innerText = numberF(game[e],"",0);
+    });
 
-    if(villages == null ||villages == "null" || villages == "[]" || villages.length == 0){
-        document.getElementById("load").classList.add("hidden");
-        document.getElementById("load-village").classList.add("hidden");
-        document.getElementById("saved-villages").style.display = "none";
-        return;
-    }
-    else{
-        document.getElementById("load").classList.remove("hidden");
-    }
+    document.getElementById("season").innerText = translateSeason(game.season);
+    document.getElementById("score-stat").innerText = numberF(game.score,"",0);
 
-    villages = JSON.parse(villages);
-    let html;
+    resourcesStat();
+    professionsStat();
 
-    for(let i = 0; i < villages.length; i++){
-        html += `<option value="${villages[i].villageName}">${villages[i].villageName}</option>`;
-    }
+    modifiersUI();
 
-    document.getElementById("village-to-load").innerHTML = html;
+    //Bars
+    const barsElements = ["productivity","happiness","lifeQuality"];
+    barsElements.forEach(e => {
+        document.getElementById(e+"-bar").style.width = Math.round(game[e]*100).toString()+"%";
+        document.getElementById(e+"-stat").innerText = numberF(game[e]*100,"",0);
+    });
 }
 
-export function updateDataInfo(){
-    document.getElementById("totalDays").innerText = numberF(game.totalDays,"",0);
-    document.getElementById("totalYears").innerText = numberF(game.year,"",0);
-    document.getElementById("pop-stat").innerText = numberF(game.population,"",0);
-    document.getElementById("food-stat").innerText = numberF(game.food,"",0);
-    document.getElementById("science-stat").innerText = numberF(game.science,"",0);
+export function modifiersUI(){
+    function createTippy(id){
+        let desc = "<h4>"+modifiersData[id].name+"</h4>";
+        modifiersData[id].description.forEach(e => {
+            desc += `<p>${e}</p>`;
+        });
+
+        tippy("#"+id+"-modifier", {
+            content: desc,
+            allowHTML: true,
+        });
+    }
+    function createModElement(id){
+        document.getElementById("active-modifiers").innerHTML += `
+            <div class="container modifier-icon" id="${id}-modifier">
+                <img src="./img/icons/modifiers/${id}.png">
+                <small>${game.modifiers[id]}</small>
+            </div>
+        `;
+
+        createTippy(id);
+    }
+    function updateModElement(id){
+        document.querySelector("#"+id+"-modifier small").innerText = game.modifiers[id];
+    }
+    function deleteModElement(id){
+        document.getElementById(id+"-modifier").remove();
+    }
+    //###############################################################3
+
+    for(const m in game.modifiers){
+        if(document.getElementById(m+"-modifier") == null){
+            createModElement(m);
+        }
+        else{
+            updateModElement(m);
+        }
+    }
+
+    for(const m in game.modifiers){
+        if(document.getElementById(m+"-modifier")._tippy == undefined)
+            createTippy(m);
+    }
+
+    document.querySelectorAll(".modifier-icon").forEach(e => {
+        const elID = e.id.slice(0, -9);
         
-    document.getElementById("productivity-stat").innerText = Math.round(game.productivity*100);
-    document.getElementById("happiness-stat").innerText = Math.round(game.happiness*100);
-    document.getElementById("health-stat").innerText = Math.round(game.health*100);
-    //document.getElementById("resource-limit-stat").innerText = numberF(game.resourceLimit,"",0);
+        if(!game.modifiers.hasOwnProperty(elID)){
+            deleteModElement(elID);
+        }
+    });
+}
 
-    for(let i = 0; i < resources.length; i++){
-        const r = resources[i].id;
-
+function resourcesStat(){
+    for(const r in resources){
         document.getElementById(r+"-stat").innerText = numberF(Math.floor(game[r]),"",0);
         document.getElementById(r+"-balance-stat").innerText = numberBalanceFormatted(game[r+"_balance"]);
 
@@ -124,47 +162,21 @@ export function updateDataInfo(){
         else
             document.getElementById(r+"-stat").classList.remove("lack");
     }
-
-    document.getElementById("day").innerText = game.day;
-    document.getElementById("season").innerText = translateSeason(game.season);
-
-    document.getElementById("productivity-bar").style.width = Math.round(game.productivity*100).toString()+"%";
-    document.getElementById("happiness-bar").style.width = Math.round(game.happiness*100).toString()+"%";
-    document.getElementById("health-bar").style.width = Math.round(game.health*100).toString()+"%";
-
-    professionsStat();
 }
 
 function professionsStat(){
-    /*
-    let html = "";
-
-    for(const p in popsData){
-        const pop = popsData[p];
-            
-        html += `
-            <div class="pop-info" id="${pop.id}-info">
-                
-                <p>${pop.name}</p>
-                <p>${game[pop.id]}</p>
-            </div>
-        `
-    }
-
-    document.getElementById("pops").innerHTML = html;
-    */
     game.idle = game.population;
-    for(let i = 1; i < popsData.length; i++){
-        const j = popsData[i].id;
-        
+    for(const j in popsData){     
+        if(j == "idle") continue;
+           
         game[j] = Number(document.getElementById(j+"-input").value);
 
         game.idle -= game[j];
     }
 
-    for(let i = 1; i < popsData.length; i++){
-        const j = popsData[i].id;
-        
+    for(const j in popsData){
+        if(j == "idle") continue;
+
         if(game[j+"_jobs"] == 0)   
             document.getElementById(j+"-input").disabled = true;
         else

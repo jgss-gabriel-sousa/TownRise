@@ -1,9 +1,11 @@
 import {game} from "../../data/gameData.js"
 import { numberF } from "../funcs.js"
 
-const MAX_LOG_SIZE = 100;
+const MAX_LOG_SIZE = 50;
 
 export function logPush(msg){
+    return;  //Deprecated
+
     const logSize = document.getElementById("log").childNodes.length;
 
     if(logSize >= MAX_LOG_SIZE){

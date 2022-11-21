@@ -1,5 +1,7 @@
 import { game } from "../data/gameData.js";
-import { savedGamesHTML } from "./ui/ui.js";
+import { popsData } from "../data/popsData.js";
+import { savedGamesHTML } from "./ui/load-saveUI.js";
+import { updateDataInfo } from "./ui/ui.js";
 
 export async function saveGame(){
     if(game.villageName == ""){
@@ -59,7 +61,6 @@ export function loadGame(name){
     for(let i = 0; i < villages.length; i++){
         const element = villages[i];
         
-
         if(element.villageName == name){
             Object.keys(game).forEach((key, index) => {
                 game[key] = element[key];

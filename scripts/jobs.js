@@ -1,8 +1,20 @@
+import { buildingsData } from "../data/buildingsData.js";
+import { popsData } from "../data/popsData.js";
 import { game } from "../data/gameData.js";
 
 export function jobs(){
-    game.worker_jobs = (game.warehouse*5)+(game.tavern*2)+(game.quarry*5)+(game.mine*5)+(game.lumbermill*3)+(game.sawmill*3);
-    game.farmer_jobs = (game.cropField*4)+(game.farm*4);
-    game.academic_jobs = (game.school*4);
-    game.artificer_jobs = (game.tavern)+(game.foundry*3)+(game.tailorsmith*3);
+    for(const p in popsData){
+        if(popsData[p].jobs == false) continue;
+        
+        game[p+"_jobs"] = 0;
+    }
+
+    for(const b in buildingsData){
+        if(buildingsData[b].hasOwnProperty("jobs")){
+            for(const j in buildingsData[b].jobs){
+                const jobs = buildingsData[b].jobs[j] * game[b];
+                game[j+"_jobs"] += jobs;
+            }
+        }
+    }
 }

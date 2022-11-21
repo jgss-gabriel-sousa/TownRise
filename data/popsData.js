@@ -1,38 +1,50 @@
-export const popsData = [
-    {
-        id: "idle",
+export const popsData = {
+    idle:{
         name: "Ocioso",
+        jobs: false,
+        food_consumption: 0.025,
+        consumption: {
+            ale: 0.01,
+            clothes: 0.01,
+        },
+    },
+    worker:{
+        name: "Trabalhador",
+        jobs: true,
         food_consumption: 0.05,
         consumption: {
+            ale: 0.02,
+            clothes: 0.01,
+            tools: 0.01,
         },
     },
-    {
-        id: "worker",
-        name: "Trabalhador",
-        food_consumption: 0.1,
-        consumption: {
-            ale: 0.1
-        },
-    },
-    {
-        id: "farmer",
+    farmer:{
         name: "Fazendeiro",
-        food_consumption: 0.1,
+        jobs: true,
+        food_consumption: 0.05,
         consumption: {
+            ale: 0.02,
+            clothes: 0.01,
+            tools: 0.01,
         },
     },
-    {
-        id: "artificer",
+    artificer:{
         name: "Artífice",
-        food_consumption: 0.1,
+        jobs: true,
+        food_consumption: 0.05,
         consumption: {
+            ale: 0.02,
+            clothes: 0.01,
+            tools: 0.02,
         },
-    },
-    {
-        id: "academic",
+    },/*
+    academic:{
         name: "Acadêmico",
+        jobs: true,
         food_consumption: 0.1,
         consumption: {
+            ale: 0.5,
+            clothes: 0.03,
         },
-    },
-]
+    },*/
+}

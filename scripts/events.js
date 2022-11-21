@@ -1,16 +1,21 @@
 import { rand } from "./funcs.js";
 import { game } from "../data/gameData.js"
 import { pauseGame, playGame } from "./gameTime.js";
+import { modifiersUI } from "./ui/ui.js";
 
 import { eventsData } from "../data/eventsData.js";
+import { modifiersData } from "../data/modifiersData.js";
 
 export function events(){
     newEvents();
     runEvents();
+    
     updateModifiers();
 }
 
 function newEvents(){
+    if(game.day == 1) return;
+
     for(const e in eventsData){
         const evt = eventsData[e];
 
@@ -25,18 +30,17 @@ function newEvents(){
             Swal.fire({
                 title: evt.title,
                 html: evt.message,
-                imageUrl: "../img/events/"+e+".webp",
-                imageHeight: 200,
+                width: "70%",
+                height: "100%",
+                imageUrl: "./img/events/"+e+".webp",
+                imageHeight: 250,
                 allowOutsideClick: false,
             }).then(() => {
                 playGame();
             });
 
             if(evt.hasOwnProperty("modifier")){
-                game.modifiers[e] = {
-                    end: evt.duration,
-                    effect: evt.modifier,
-                };
+                game.modifiers[evt.modifier] = modifiersData[evt.modifier].duration;
             }
 
             break; //Only one event per day
@@ -54,16 +58,13 @@ function runEvents(){
 
 function updateModifiers(){
     for(const m in game.modifiers){
-        const mod = game.modifiers[m];
-        console.log(game.modifiers[m]);
-        
-        try{
-            game.modifiers[m].effect();
-        }catch(error){}
+        game.modifiers[m]--;
+        modifiersData[m].effect();
 
-        mod.end--;
-        if(mod.end == 0){
+        if(game.modifiers[m] == 0){
             delete game.modifiers[m];
         }
     }
+
+    modifiersUI();
 }

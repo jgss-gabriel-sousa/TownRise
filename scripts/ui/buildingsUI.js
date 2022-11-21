@@ -1,46 +1,114 @@
 import { buildingsData } from "../../data/buildingsData.js";
 import { game } from "../../data/gameData.js";
+import { resources } from "../../data/resourcesData.js";
+import { popsData } from "../../data/popsData.js";
 
 export function buildingHTML(id){
     const city = document.getElementById("map-city");
     const farms = document.getElementById("map-farms");
     const manufactories = document.getElementById("map-manufactories");
 
-    let exists = false;
+    const building = buildingsData[id];
 
-    buildingsData.forEach(element => {
-        if(element.id == id){
-            exists = true;
+    let buildingHTML = `
+    <div class="map-item map-item-${building.spriteSize} map-${building.spritePlace} map-${id}">
+        <img src="./img/buildings/${id}.png">
+    </div>`;
 
-            let buildingHTML = `<div class="map-item map-item-${element.spriteSize} map-${element.spritePlace} map-${element.id}">
-                                    <img src="./img/${element.id}.png">
-                                </div>`;
-
-            if(element.spritePlace == "city")           city.innerHTML += buildingHTML;
-            if(element.spritePlace == "farms")          farms.innerHTML += buildingHTML;
-            if(element.spritePlace == "manufactories")  manufactories.innerHTML += buildingHTML;
-        }
-    });
-
-    if(exists)
-        return true;
-    else
-        return false;
+    if(building.spritePlace == "city")           city.innerHTML += buildingHTML;
+    if(building.spritePlace == "farms")          farms.innerHTML += buildingHTML;
+    if(building.spritePlace == "manufactories")  manufactories.innerHTML += buildingHTML;
 }
 
 export function buildingsBootstrap(){
-    buildingsData.forEach(element => {
-        const count = document.querySelectorAll("map-"+element.id).length;
+    for(const b in buildingsData){
+        const count = document.querySelectorAll("map-"+b).length;
 
-        if(game[element.id] > count){
-            for(let i = 0; i < game[element.id]-count; i++){
-                buildingHTML(element.id);
+        if(game[b] > count){
+            for(let i = 0; i < game[b]-count; i++){
+                buildingHTML(b);
             }
         }
-    });
+    }
+    
+    buildinglisteners();
+    
+    for(const b in buildingsData){
+        const building = buildingsData[b];
+        let contentHTML = `<div class="building-tippy">`;
+
+        if(Object.keys(building.build).length > 0){
+            contentHTML += `<p>Construir</p><ul>`;
+            for(const k in building.build){
+                contentHTML += `<li>${resources[k].name+": "}${building.build[k]}</li>`;
+            }
+            contentHTML += `</ul>`;
+        }
+
+        if(Object.keys(building.everyday_needs).length > 0){
+            if(contentHTML != `<div class="building-tippy">`)
+                contentHTML += "<hr>";
+
+            contentHTML += `<p>Manutenção</p><ul>`;
+            for(const k in building.everyday_needs){
+                contentHTML += `<li>${resources[k].name+": "}${building.everyday_needs[k]}</li>`;
+            }
+            contentHTML += `</ul>`;
+        }
+
+        if(building.hasOwnProperty("winter_needs") && Object.keys(building.winter_needs).length > 0){
+            if(contentHTML != `<div class="building-tippy">`)
+                contentHTML += "<hr>";
+
+            contentHTML += `<p>Manutenção no Inverno</p><ul>`;
+            for(const k in building.winter_needs){
+                contentHTML += `<li>${resources[k].name+": "}${building.winter_needs[k]}</li>`;
+            }
+            contentHTML += `</ul>`;
+        }
+
+        if(Object.keys(building.production).length > 0){
+            if(contentHTML != `<div class="building-tippy">`)
+                contentHTML += "<hr>";
+
+            contentHTML += `<p>Produção</p><ul>`;
+            for(const k in building.production){
+                contentHTML += `<li>${resources[k].name+": "}${building.production[k]}</li>`;
+            }
+            contentHTML += `</ul>`;
+        }
+
+        if(building.hasOwnProperty("jobs") && Object.keys(building.jobs).length > 0){
+            if(contentHTML != `<div class="building-tippy">`)
+                contentHTML += "<hr>";
+
+            contentHTML += `<p>Empregos</p><ul>`;
+            for(const k in building.jobs){
+                contentHTML += `<li>${popsData[k].name+": "}${building.jobs[k]}</li>`;
+            }
+            contentHTML += `</ul>`;
+        }
+
+        if(building.description){
+            if(contentHTML != `<div class="building-tippy">`)
+                contentHTML += "<hr>";
+            
+            contentHTML += `${building.description}`;
+        }
+
+        contentHTML += `</div>`;
+
+        tippy("#add-"+b, {
+            content: contentHTML,
+            maxWidth: 250,
+            placement: "right",
+            allowHTML: true,
+            interactive: true,
+        });
+    }
 }
 
-export function destroyBuilding(id, qty){
+export function destroyBuildingHTML(id, qty){
     const elements = document.querySelectorAll(".map-"+id);
 
     if(qty > elements.length) qty = elements.length;
@@ -50,38 +118,53 @@ export function destroyBuilding(id, qty){
     }
 }
 
+export function updateMapItemsScale(){
+    const mapItems = document.querySelectorAll(".map-item").length;
+
+    //Margins
+    let mWidth = -Math.round(mapItems * 0.1);
+    let mHeight = -Math.round(mapItems * 0.05);
+
+    if(mWidth < -15) mWidth = -15;
+    if(mHeight < -7) mHeight = -7;
+    
+    //IMG Sizes
+    let modifier = Math.round(mapItems*0.1);
+    if(modifier > 32) modifier = 32;
+
+    let smSize = 48 - modifier;
+    let mdSize = 64 - modifier;
+    let lgSize = 72 - modifier;
+
+    //Set CSS
+    document.querySelector("#map").style.setProperty("--marginWidth", mWidth+"px");
+    document.querySelector("#map").style.setProperty("--marginHeight", mHeight+"px");   
+    document.querySelector("#map").style.setProperty("--sm_img_size", smSize+"px");   
+    document.querySelector("#map").style.setProperty("--md_img_size", mdSize+"px");   
+    document.querySelector("#map").style.setProperty("--lg_img_size", lgSize+"px");   
+}
+
 const buildings = [
     ["house",
-        ["house","stoneHouse"]],
+        ["shack","house","nobleHouse"]],
     ["farm",
-        ["farm","cropField"/*,"orchard"*/]],
+        ["farm","cropField","orchard"]],
         /*
     ["pasture", 
         ["farm"]],*/
     ["resources", 
-        ["lumbermill","mine","quarry"]],
+        ["lumbermill","mine",/*"quarry"*/]],
     ["manufacture", 
-        ["sawmill"]],
+        ["mill","sawmill"]],
     ["businesses", 
-        ["tavern"]],
+        ["bakery","tavern"]],
     ["handicraft", 
         ["tailorsmith","foundry"]],
     /*
     ["scriptoriums", 
         ["school"]],
-    ["others", 
-        ["warehouse"]],
     */
 ];
-
-function getBuildingName(element){
-    for(let i = 0; i < buildingsData.length; i++) {
-        const b = buildingsData[i];
-
-        if(b.id == element)
-            return b.name;
-    }
-}
 
 let selectedBuildingMenuType = "";
 function hideAllBuildingBtns(){
@@ -95,8 +178,9 @@ function hideAllBuildingBtns(){
             document.getElementById("add-"+element).classList.add("hidden");
         }
     }
+    document.getElementById("rmv-building").classList.remove("rmv-active");
+    game.destroyBuildingCheck = false;
 }
-
 
 export function buildinglisteners(){
     for(let i = 0; i < buildings.length; i++){
@@ -104,14 +188,14 @@ export function buildinglisteners(){
 
         for(let j = 0; j < building[1].length; j++){
             const element = building[1][j];
-            const name = getBuildingName(element);
+            const name = buildingsData[element].name;
 
             document.getElementById("buildings-menu2").innerHTML += `
                 <button class="btn building-menu hidden" id="add-${element}">${name}</button>
             `;
         }
         
-        document.getElementById("building-"+building[0]).addEventListener("click",()=>{
+        document.getElementById("building-"+building[0]).addEventListener("click", () => {
             if(selectedBuildingMenuType != building[0]){
                 hideAllBuildingBtns();
                 selectedBuildingMenuType = building[0];   
@@ -124,21 +208,15 @@ export function buildinglisteners(){
             });
         });
     }
-/*
-    if(selectedBuildingMenuType != building[0]){
-        for(let i = 0; i < buildings.length; i++){
-            const building = buildings[i];
-            for(let j = 0; j < building[1].length; j++){
-                console.log(building[1][j])
-                if(document.getElementById("add-"+building[1][j]))
-                    document.getElementById("add-"+building[1][j]).classList.add("hidden");
-            }
+
+    document.getElementById("rmv-building").addEventListener("click", () => {
+        if(game.destroyBuildingCheck){
+            game.destroyBuildingCheck = false;
+            document.getElementById("rmv-building").classList.remove("rmv-active");
+        }else{
+            game.destroyBuildingCheck = true;
+            document.getElementById("rmv-building").classList.add("rmv-active");
         }
-        
-    }
-    */
-    document.getElementById("buildings-menu").addEventListener("click",()=>{
-        ;
     });
 }
     

@@ -1,11 +1,11 @@
-import { rand } from "../funcs.js";
 import { game } from "../../data/gameData.js";
-import { logPush } from "../ui/log.js";
 import { advanceYear } from "./year.js";
-import { destroyBuilding } from "../ui/buildingsUI.js";
-import { popGrowth } from "../population.js";
+import { shuffleArr } from "../funcs.js";
+import { eventsData } from "../../data/eventsData.js";
 
 export function advanceMonth(){
+    shuffleArr(eventsData);
+    
     if(game.season == "spring"){
         game.season = "summer";
 

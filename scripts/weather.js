@@ -6,12 +6,12 @@ export function newWeather(){
 
     switch(game.season){
         case "spring":
-            if(rand(0,100) < 30)
+            if(rand(0,100) < 40)
                 game.weather = "rain";
             break;
             
         case "summer":
-            if(rand(0,100) < 50)
+            if(rand(0,100) < 40)
                 game.weather = "rain";
             break;
 
@@ -21,7 +21,7 @@ export function newWeather(){
             break;
 
         case "winter":
-            if(rand(0,100) < 50)
+            if(rand(0,100) < 25)
                 game.weather = "snow";
             break;
     }

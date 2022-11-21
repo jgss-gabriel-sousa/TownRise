@@ -1,81 +1,66 @@
-export const resources = [
-    {
-        id: "meat",
+export const resources = {
+    meat:{
         name: "Carne",
         type: "food",
     },
-    {
-        id: "fruit",
+    fruit:{
         name: "Frutas",
         type: "food",
     },
-    {
-        id: "grain",
+    grain:{
         name: "Grãos",
         type: "food",
     },
-    {
-        id: "bread",
+    bread:{
         name: "Pão",
         type: "food",
     },
     //################################################################
-    {
-        id: "leather",
+    leather:{
         name: "Couro",
         type: "raw material",
     },
-    {
-        id: "iron",
+    iron:{
         name: "Ferro",
         type: "raw material",
     },
-    {
-        id: "wood",
+    wood:{
         name: "Madeira",
         type: "raw material",
     },
-    {
-        id: "stone",
+    stone:{
         name: "Pedra",
         type: "raw material",
     },
     //################################################################
-    {
-        id: "steel",
+    /*
+    steel:{
         name: "Aço",
         type: "refined material",
-    },
-    {
-        id: "planks",
+    },*/
+    planks:{
         name: "Tábuas",
         type: "refined material",
     },
+    flour:{
+        name: "Farinha",
+        type: "refined material",
+    },
     //################################################################
-    {
-        id: "ale",
+    ale:{
         name: "Cerveja",
         type: "end product",
     },
-    {
-        id: "tools",
+    tools:{
         name: "Ferramentas",
         type: "end product",
     },
-    {
-        id: "firewood",
+    firewood:{
         name: "Lenha",
         type: "end product",
     },
-    {
-        id: "clothes",
+    clothes:{
         name: "Roupas",
         type: "end product",
     },
-    //################################################################
-    {
-        id: "diamonds",
-        name: "Jóias",
-        type: "luxury",
-    },
-]
+}

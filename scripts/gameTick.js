@@ -8,13 +8,22 @@ import { populationUpdate } from "./population.js";
 import { events } from "./events.js";
 
 export function gameTick(){
+    if(game.gameOver) return;
+
+    //Calculate Score
+    let difficultyBonus = 1;
+    if(game.gameDifficulty == "hard") difficultyBonus *= 2;
+    if(game.gameDifficulty == "easy") difficultyBonus /= 10;
+
+    game.score = Math.floor(((game.popRecord * game.totalDays * game.happiness)/2000)*difficultyBonus);
+
     // RESET RESOURCES BALANCES
-    for(let i = 0; i < resources.length; i++){
-        game[resources[i].id+"_balance"] = 0;
-        game[resources[i].id+"_lack"] = false;
+    for(const r in resources){
+        game[r+"_balance"] = 0;
+        game[r+"_lack"] = false;
     }
-    game.sheltered = 0;
     game.food_consumption = 0;
+    game.popLimit = 10;
 
     //PRODUCTIVITY ################################################################################
 
@@ -28,11 +37,9 @@ export function gameTick(){
     if(game.gameDifficulty == "normal")     toolsPopConsumption = 1/(game.seasonLength*4); // 1 por Ano
     if(game.gameDifficulty == "easy")       toolsPopConsumption = 0.5/(game.seasonLength*4); // 0.5 por Ano
 
-    game.tools_balance -= game.population*toolsPopConsumption;
-
     const seasonProductivity = game.season == "winter" ? 0.5 : 1;
 
-    game.productivity = average([toolsAccess,game.happiness,game.health,seasonProductivity,game.productivityTech]);
+    game.productivity = average([1,toolsAccess,seasonProductivity]);
 
     if(game.productivity > 1) game.productivity = 1;
     
@@ -46,29 +53,22 @@ export function gameTick(){
 
     //Resource Calc ###############################################################################
 
-    for(let i = 0; i < resources.length; i++){
+    for(const r in resources){
         //Add to Resource Count the Balance
-        game[resources[i].id] += game[resources[i].id+"_balance"];
+        game[r] += game[r+"_balance"];
 
         //If Resource Count < 0 set to 0
-        if(game[resources[i].id] < 0){
-            game[resources[i].id] = 0;
+        if(game[r] < 0){
+            game[r] = 0;
 
-            if(game[resources[i].id+"_balance"] < 0)
-                game[resources[i].id+"_lack"] = true;
+            if(game[r+"_balance"] < 0)
+                game[r+"_lack"] = true;
         }
-
-        //If Resource Count > Resource Limit set to Resource Limit
-        /*
-        if(game[resources[i].id] > game.resourceLimit)
-            game[resources[i].id] = game.resourceLimit;
-        */
     }
-
 
     //HAPPINESS ################################################################################
     
-    game.happiness = average([1,(game.ale_lack==false?1:0),game.sheltered/game.population])*game.impacts.happiness;
+    game.happiness = average([1,(game.ale_lack==false?1:0),game.lifeQuality])*game.impacts.happiness;
     if(game.happiness > 1) game.happiness = 1;
     if(game.happiness < 0) game.happiness = 0;
 

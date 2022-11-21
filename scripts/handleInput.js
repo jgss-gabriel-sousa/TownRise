@@ -1,13 +1,17 @@
-import { buildingsData } from "../data/buildingsData.js";
-import { buildBuilding } from "./buildings.js";
-import { buildingsBootstrap } from "./ui/buildingsUI.js";
 import { checkGameOver, newTurn } from "./game.js";
 import { game } from "../data/gameData.js";
-import { popBootstrap } from "./ui/popUI.js";
-import { updateDataInfo } from "./ui/ui.js";
 import { deleteGame, loadGame, saveGame } from "./load-save.js";
 import { setGameSpeed, pauseGame } from "./gameTime.js";
+
+import { popBootstrap } from "./ui/popUI.js";
+import { updateDataInfo } from "./ui/ui.js";
+import { selectGameDifficultyUI, gameOptionsUI } from "./ui/options.js";
+import { buildingsBootstrap } from "./ui/buildingsUI.js";
+
 import { jobs } from "./jobs.js";
+import { buildBuilding, destroyBuilding } from "./buildings.js";
+
+import { buildingsData } from "../data/buildingsData.js";
 
 //Cancel reload of the page
 window.addEventListener("beforeunload", function (event) {
@@ -16,12 +20,15 @@ window.addEventListener("beforeunload", function (event) {
 });
 
 window.onclick = e => {
-    //Build Constructions
-    for(let i = 0; i < buildingsData.length; i++){
-        const r = buildingsData[i];
-        
-        if(e.target.id == "add-"+r.id){
-            buildBuilding(r.id);
+    //Buildings
+    const b = e.target.id.replace(/^add-/, "");
+    if(buildingsData.hasOwnProperty(b)){
+        buildBuilding(b);
+    }
+    if(game.destroyBuildingCheck){
+        if(e.target.parentNode.classList.contains("map-item")){
+            const building = e.target.parentNode.classList[3].substring(4)
+            destroyBuilding(building, 1);
         }
     }
 
@@ -71,6 +78,9 @@ window.onclick = e => {
         document.getElementById("start-game").classList.add("hidden");
         document.getElementById("load-game").classList.remove("hidden");
     } 
+    if(e.target.id == "options"){
+        gameOptionsUI();
+    } 
     if(e.target.id == "back-to-start"){
         document.getElementById("start-game").classList.remove("hidden");
         document.getElementById("load-game").classList.add("hidden");
@@ -92,23 +102,26 @@ window.onclick = e => {
     }    
     if(e.target.id == "save-game"){
         saveGame();
-    }   
+    } 
 }
 
-document.querySelector("#volume input").addEventListener("change", () => {
-    localStorage.setItem("mv-volume", document.querySelector("#volume input").value);
-});
+for(let i = 0; i < document.querySelectorAll(".professions-slider").length; i++){
+    document.querySelectorAll(".professions-slider")[i].addEventListener("input", () => {
+        updateDataInfo();
+        jobs();
+    });
+}
 
 async function startSequence(type){
     if(type == "new-game")
-        await selectGameDifficulty();
+        await selectGameDifficultyUI();
 
     gameStart();
     newTurn();
     popBootstrap();
     buildingsBootstrap();
     game.gameStarted = true;
-    game.gamePaused = false;
+    game.gamePaused = true;
     document.getElementById("start-game").classList.add("hidden");
     document.getElementById("game-version").remove();
     document.getElementById("pause").classList.add("btn-active");
@@ -118,37 +131,12 @@ async function startSequence(type){
     document.getElementById("5x").classList.remove("hidden");
     document.getElementById("10x").classList.remove("hidden");
     document.getElementById("left-section").style.display = "flex";
-    document.getElementById("middle-section").style.display = "flex";
-    document.getElementById("right-section").style.display = "flex";
-}
-
-async function selectGameDifficulty(){
-    const inputOptions = new Promise((resolve) => {
-        resolve({
-            "easy": "Fácil",
-            "normal": "Normal",
-            "hard": "Difícil"
-        })
-    })
-    
-    const { value: difficulty } = await Swal.fire({
-        title: "Dificuldade",
-        input: "radio",
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        inputOptions: inputOptions,
-        inputValidator: (value) => {
-            if(!value) return "Você precisa escolher uma dificuldade";
-        }
-    });
-    
-    if(difficulty == "easy")    game.gameDifficulty = "easy";
-    if(difficulty == "normal")  game.gameDifficulty = "normal";
-    if(difficulty == "hard")    game.gameDifficulty = "hard";
+    document.getElementById("info-section").style.display = "flex";
+    document.getElementById("map").style.display = "flex";
+    //document.getElementById("options-section").style.display = "flex";
 }
 
 function gameStart(){
-    console.log(game.gameDifficulty)
     if(game.gameDifficulty == "easy"){
         game.lumbermill = 1;
         game.cropField = 2;

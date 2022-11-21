@@ -9,16 +9,14 @@ export function populationUpdate(){
     if(game.gameDifficulty == "hard")       difficulty = 1;
     if(game.gameDifficulty == "normal")     difficulty = 0.75;
     if(game.gameDifficulty == "easy")       difficulty = 0.5;
-    
+
     popsUpdate(difficulty);
-
     popGrowth();
-
     popDeaths();
 }
 
-export function popGrowth(){
-    if(rand(0,10) != 0) return;
+export function popGrowth(){        
+    if(rand(0,5) != 0) return;
     
     let popGrowth = rand(0,5)+((game.happiness/0.5));
     popGrowth /= 100;
@@ -27,14 +25,17 @@ export function popGrowth(){
     if(popGrowth < 1 && rand(0,Math.round(4/game.impacts.popGrowth)) == 0)
         popGrowth = 1;
 
-    let popDeath = Math.round((game.population*(rand(0,3)/100))*game.impacts.popDeath);
-    if(popDeath < 1 && rand(0,Math.round(5/game.impacts.popDeath)) == 0)
-        popDeath = 1;
+    let popDeath = Math.round((game.population*(rand(0,5)/100))*game.impacts.popDeath)
+    if(popDeath > game.population)
+        popDeath = game.population;
+    popDeath = rand(0,popDeath+1);
 
     game.popGrowth = popGrowth/game.population;
     game.popDeath = popDeath/game.population;
 
+    const oldPop = game.population;
     game.population = game.population + popGrowth - popDeath;
+    if(game.population > oldPop && game.population > game.popLimit) game.population = oldPop;
 
     if(popDeath > popGrowth){
         if(popDeath-popGrowth == 1) 
@@ -47,15 +48,14 @@ export function popGrowth(){
 function popDeaths(){
     hungryDeaths();
     homelessDeaths();
-    randDeaths();
+    withoutClothesDeaths();
+    //randDeaths();
     
     function hungryDeaths(){
-        game.hungry = 0;
-
-        game.hungry = (game.food_consumption - game.food)/game.food_consumption;
+        const hungry = (game.food_consumption - game.food)/game.food_consumption;
         
-        if(game.hungry > 0){
-            let popDeath = rand(1, Math.ceil(game.hungry * game.population));
+        if(hungry > 0){
+            let popDeath = rand(1, Math.ceil(hungry * game.population));
     
             game.population -= popDeath;
     
@@ -69,11 +69,10 @@ function popDeaths(){
     function homelessDeaths(){
         let homelessRate = 1;
         if(game.population)
-            homelessRate = (1/(game.sheltered/game.population))-1;
-            
+            homelessRate = (1/(game.popLimit/game.population))-1;
         if(!homelessRate || homelessRate < 0) homelessRate = 0;
 
-        const homelessPops = game.population-game.sheltered;
+        const homelessPops = game.population-game.popLimit;
 
         let homelessDeathChance;
         if(game.gameDifficulty == "hard")   homelessDeathChance = 5;
@@ -110,6 +109,17 @@ function popDeaths(){
 
         if(popDeath > 1)        logPush(popDeath+" cidadãos morreram sem abrigo");
         if(popDeath == 1)       logPush(popDeath+" cidadão morreu sem abrigo");
+    }
+
+    function withoutClothesDeaths(){
+        let popWithoutClothes = game.population - Math.floor(game.clothes);
+        if(popWithoutClothes > 1) game.clothes_lack = true;
+
+        let deathChance = 25;
+        if(game.season == "winter") deathChance *= 4;
+        
+        const popDeath = Math.round((rand(0,deathChance)/100)*popWithoutClothes);
+        game.population -= popDeath;
     }
 
     function randDeaths(){

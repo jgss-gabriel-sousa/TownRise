@@ -7,17 +7,15 @@
     
     width: 50%;
     border: 3px solid green;
+    border-radius: 0.5em;
     box-shadow: 0px 0px 5px 1px black;
     padding: 10px;
     align-items: center;
     justify-content: center;
 }
-.menu h1{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
 .menu img{
     width: 100px;
-    margin: 10px;
+    margin-bottom: 5px;
 }
 .menu p{
     font-size: 18px;

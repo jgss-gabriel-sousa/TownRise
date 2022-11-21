@@ -86,14 +86,13 @@ export function translateSeason(season){
 
 export function average(array){
     let total = 0;
-    let count = 0;
 
-    array.forEach(function(item, index) {
-        total += item;
-        count++;
+    array.forEach(e => {
+        total += e;
     });
 
-    return total / count;
+    if(array.length == 0) return 0;
+    return total / array.length;
 }
 
 if(localStorage.getItem("mv-game-version") != document.getElementById("game-version").innerText){
@@ -106,7 +105,7 @@ if(highscore == null) highscore = 0;
 
 
 export function highScoreHTML(){
-    document.getElementById("highscore").innerText = "Recorde: "+highscore;
+    document.getElementById("highscore").innerText = "Recorde: "+numberF(highscore,"",0);
 }
 
 export function checkHighScore(value){

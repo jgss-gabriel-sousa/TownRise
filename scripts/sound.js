@@ -6,8 +6,6 @@ const NUMBER_OF_SONGS = 8;
 export function soundStart(){
     if(!localStorage.getItem("mv-volume"))
         localStorage.setItem("mv-volume", "0.5");
-
-    document.querySelector("#volume input").value = localStorage.getItem("mv-volume");
 }
 
 export function soundtrack(){

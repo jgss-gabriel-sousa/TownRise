@@ -13,6 +13,7 @@ body {
 
 #main-interface {
     display: flex;
+    justify-content: space-evenly;
 }
 
 p {
@@ -20,19 +21,9 @@ p {
     font-size: 12px;
 }
 
-ul {
-    padding: 0;
-    list-style-position: inside;
-}
-
-li {
-    margin: 5px;
-    font-size: 16px;
-    padding-left: 20px;
-}
-
-li::marker {
-    padding-left: 0;
+h4 {
+    margin: 0;
+    text-align: center;
 }
 
 select {
@@ -53,13 +44,9 @@ select {
 }
 
 .data {
-    text-align: start;
-    min-width: 250px
+    padding: 5px 10px;
 }
 
-#infos {
-    margin: 0px 10px;
-}
 #infos td:first-child {
     text-align: end;
     width: 30%;
@@ -83,14 +70,17 @@ select {
     font-weight: bold;
     margin: 4px;
     font-family: Arial, Helvetica, sans-serif;
+    border-radius: 0.5em;
+    border: 1px solid #333;
 }
 
 .btn:hover{
     background-color: #005e3b;
-    box-shadow: 0px 1px 2px 1px black;
+    box-shadow: 0px 1px 2px 1px #555;
+    transform: translateY(-2px);
 }
 
-.small-btn {
+.time-btn {
     background-color: #04AA6D;
     border: none;
     color: white;
@@ -102,6 +92,14 @@ select {
 
 .btn-active {
     background-color: #005e3b;
+}
+
+.rmv-btn {
+    background-color: indianred;
+}
+.rmv-active,.rmv-btn:hover {
+    background-color: rgb(173, 50, 50);
+    box-shadow: 0px 1px 2px 1px #333;
 }
 
 .container.data p {
@@ -119,7 +117,7 @@ select {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 0;
+    padding: 5px;
     border: 0;
     align-self: center;
     background-color: transparent;
@@ -128,6 +126,8 @@ select {
 .resources-row{
     display: flex;
     margin: 5px 5px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .resources-btn{
@@ -136,7 +136,7 @@ select {
 	font: inherit;
 	cursor: normal;
 	outline: inherit;
-    background-color: #f0f0f0;
+    background-color: #e2e2e2;
 	padding: 0;
 	border: 1px solid;
     margin: 0;
@@ -162,11 +162,10 @@ select {
     border-bottom: 1px solid #333;
 }
 
-#middle-section {
+#info-section {
     flex-direction: column;
-    width: 100%;
-    min-width: 300px;
-    min-height: 600px;
+    width: 25%;
+    min-width: 250px;
 }
 
 #log {
@@ -174,6 +173,7 @@ select {
     font-size: 12px;
     overflow-y: scroll;
     height: 100px;
+    width: 100%;
 }
 
 button:hover span {
@@ -194,7 +194,7 @@ button:hover span b {
     flex-direction: row;
     width: min-content;
     height: min-content;
-    padding: 10px;
+    padding: 5px;
 }
 #buildings-menu button{
     word-wrap: break-word;
@@ -206,6 +206,22 @@ button:hover span b {
     flex-wrap: wrap;
     justify-content: flex-start;
     min-width: 120px;
+}
+
+#time{
+    align-items: center;
+    padding: 5px;
+}
+#time p{
+    margin: 5px;
+}
+#game-time{
+    display: flex;
+}
+#game-time .time-btn{
+    width: 40px;
+    margin: 5px;
+    padding: 5px;
 }
 
 .tooltip {
@@ -267,14 +283,18 @@ button:hover span b {
 #pops > table > tbody > tr > td:nth-child(2) {
     text-align: end;
 }
+#pops > table > tbody > tr > td:nth-child(4) {
+    min-width: 45px;
+}
 #pops input {
     width: 90%;
+    min-width: 50px;
 }
 
 .professions-slider {
     -webkit-appearance: none;
     appearance: none;
-    height: 25px;
+    height: 10px;
     background: #d3d3d3;
     outline: none;
     opacity: 1;
@@ -292,7 +312,7 @@ button:hover span b {
 .professions-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 25px;
+    width: 15px;
     height: 25px;
     background: #005e3b;
 }
@@ -317,22 +337,13 @@ button:hover span b {
     opacity: 0;
 }
 
-#right-section {
-    align-content: center;
-    flex-direction: column;
-}
-
-#options{
+#game-options {
     display: flex;
+    justify-content: center;
 }
 
 #save {
-    height: fit-content;
-    flex-direction: row;
     text-align: center;
-    background-color: transparent;
-    border: 0;
-    padding: 10px;
 }
 
 #save div{
@@ -355,7 +366,55 @@ button:hover span b {
     padding: 0 5px;
 }
 
+#active-modifiers {
+    position: absolute;
+    z-index: 999;
+    display: flex;
+    flex-wrap: wrap;
+    left: 0;
+    top: 0;
+}
+#active-modifiers div{
+    width: 40px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    justify-content: center;
+}
+#active-modifiers small{
+    margin-top: 1px;
+    background-color: #b6b6b6;
+    border-top: 1px solid #777;
+}
+#active-modifiers img{
+    width: 24px;
+    height: 24px;
+    align-self: center;
+}
 
+.building-tippy{
+    min-width: 200px;
+    padding: 10px;
+}  
+.building-tippy ul{
+    padding: 0;
+    list-style-type: none;
+    margin: 0;
+}  
+.building-tippy li{
+    padding-left: 1em;
+    margin: 0;
+}  
+.building-tippy li::marker{
+    padding-left: 0;
+}  
+.building-tippy p{
+    text-align: start;
+    width: 100%;
+    margin: 0;
+    font-weight: normal;
+}
 
 @media only screen and (max-width: 960px) {
     body {
@@ -367,53 +426,35 @@ button:hover span b {
     }
     
     #left-section{
-        margin: auto;
-        display: flex;
-        flex-direction: row;
-    }
-
-    #right-section{
-        margin: auto;
-        flex-direction: row;
-        align-content: stretch;
-    }
-    #professions {
-        align-items: center;
-    }
-    #professions input {
-        margin: 10px 5px;
-    }
-
-    .buildings-btn {
-        flex-direction: row;
-    }
-    .buildings-btn button {
-        margin: 10px;
-    }
-
-    #right-section > div {
-        display: flex;
+        width: auto;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
     }
+    #info-section{
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    #options-section{
+        flex-direction: row;
+    }
 
-    #log {
-        height: 100%;
-        width: 200px;
-        line-height: normal;
+    #resources {
+        max-width: 50%;
     }
 }
 
 @media only screen and (max-width: 650px) {
-    #right-section {
+    #options-section {
         flex-direction: column;
     }
-}
-
-@media only screen and (max-width: 550px) {
-    #left-section{
+    #info-section {
         flex-direction: column;
+    }
+    #resources {
+        max-width: 100%;
     }
 }
 
