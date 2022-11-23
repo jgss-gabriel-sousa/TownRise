@@ -11,11 +11,19 @@ export const resources = {
         name: "Grãos",
         type: "food",
     },
+    milk:{
+        name: "Leite",
+        type: "food",
+    },
     bread:{
         name: "Pão",
         type: "food",
     },
     //################################################################
+    coal:{
+        name: "Carvão",
+        type: "raw material",
+    },
     leather:{
         name: "Couro",
         type: "raw material",
@@ -33,11 +41,14 @@ export const resources = {
         type: "raw material",
     },
     //################################################################
-    /*
     steel:{
         name: "Aço",
         type: "refined material",
-    },*/
+    },
+    butter:{
+        name: "Manteiga",
+        type: "refined material",
+    },
     planks:{
         name: "Tábuas",
         type: "refined material",
@@ -47,6 +58,10 @@ export const resources = {
         type: "refined material",
     },
     //################################################################
+    weapon:{
+        name: "Armas",
+        type: "end product",
+    },
     ale:{
         name: "Cerveja",
         type: "end product",

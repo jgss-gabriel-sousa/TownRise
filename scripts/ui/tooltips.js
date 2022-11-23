@@ -5,7 +5,7 @@ import { numberF } from "../funcs.js";
 const tooltipUpdateRate = 750;
 const tooltipMaxWidth = 500;
 
-const tippyElements = ["pop-info","productivity-info","happiness-info","food-info"];
+const tippyElements = ["pop-info","productivity-info","happiness-info","food-info","score-info"];
 tippyElements.forEach(e => {
     tippy("#"+e, {
         maxWidth: tooltipMaxWidth,
@@ -40,5 +40,15 @@ setInterval(() => {
     document.querySelector("#food-info")._tippy.setContent(`
         <p><b>Consumo Diário:</b> ${numberF(game.food_consumption,"",1)}</p>
         <p><b>Estoque aproximado para:</b> ${numberF(game.food/game.food_consumption,"",0)} dias</p>
+    `);
+
+    const paramsSum = game.popRecord + (1+game.weapon) + game.totalDays + game.happiness;
+    document.querySelector("#score-info")._tippy.setContent(`
+        <p><b>Composição da Pontuação</b></p>
+        <br>
+        <p><b>Armas:</b> ${numberF(((1+game.weapon)/paramsSum)*game.score,"",0)}</p>
+        <p><b>Dias Totais:</b> ${numberF((game.totalDays/paramsSum)*game.score,"",0)}</p>
+        <p><b>Felicidade:</b> ${numberF((game.happiness/paramsSum)*game.score,"",0)}</p>
+        <p><b>População Recorde:</b> ${numberF((game.popRecord/paramsSum)*game.score,"",0)}</p>
     `);
 },tooltipUpdateRate);

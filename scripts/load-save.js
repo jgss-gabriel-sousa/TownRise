@@ -67,6 +67,11 @@ export function loadGame(name){
             });
         }
     }
+
+    for(const j in popsData){
+        if(j == "idle") continue;
+        document.getElementById(j+"-input").value = game[j];
+    }
 }
 
 export function deleteGame(name){

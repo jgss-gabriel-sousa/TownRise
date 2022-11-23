@@ -42,7 +42,7 @@
             <input type="button" class="btn btn-active" value="Nova Vila" id="start">
             <input type="button" class="btn btn-active" value="Carregar Vila" id="load">
             <input type="button" class="btn btn-active" value="Opções" id="options">
-            <p id="game-version">v0.15 &copy; JGSS</p>
+            <p id="game-version">v0.16 &copy; JGSS</p>
             <b><p id="highscore"></p></b>
         </div>
         <div id="load-game" class="container menu hidden">
@@ -69,22 +69,16 @@
                 </div>
                 <p><span>Dia </span><span id="totalDays-stat">1</span><span> - Ano </span><span id="year-stat">0</span></p>
                 <p><span id="day-weather"><i class="fa-solid fa-sun"></i></span> <span id="day-stat">1</span> - <span id="season">Primavera</span></p>
-                <p>Pontuação: <span id="score-stat"></span></p>
+                <p id="score-info">Pontuação: <span id="score-stat"></span></p>
             </div>
             <div class="container hidden" id="buildings-menu">
                 <div id="buildings-menu1">
-                    <button class="btn building-menu" id="building-house">Habitações</button>
-        
                     <button class="btn building-menu" id="building-farm">Agricultura</button>
-                    <!--
-                    <button class="btn building-menu" id="building-pasture">Pecuária</button>
-                    -->
-
-                    <button class="btn building-menu" id="building-resources">Recursos</button>    
-        
+                    <button class="btn building-menu" id="building-house">Habitações</button>   
                     <button class="btn building-menu" id="building-manufacture">Manufaturas</button>
                     <button class="btn building-menu" id="building-businesses">Negócios</button>
                     <button class="btn building-menu" id="building-handicraft">Ofícios</button>
+                    <button class="btn building-menu" id="building-resources">Recursos</button> 
                     
                     <button class="btn building-menu rmv-btn" id="rmv-building">Destruir</button>
                 </div>
@@ -93,11 +87,13 @@
             <div class="container" id="pops"></div>
         </div>
         <div id="map-section">
-            <div id="active-modifiers"></div>
-            <div class="hidden container grass-spring" id="map">
-                <div class="map-div" id="map-city"></div>
-                <div class="map-div" id="map-farms"></div>
-                <div class="map-div" id="map-manufactories"></div>
+            <div class="hidden">
+                <div id="active-modifiers"></div>
+                <div class="hidden container grass-spring" id="map">
+                    <div class="map-div" id="map-city"></div>
+                    <div class="map-div" id="map-farms"></div>
+                    <div class="map-div" id="map-manufactories"></div>
+                </div>
             </div>
         </div>
         <div id="info-section" class="hidden">
@@ -116,7 +112,7 @@
                         <td><p>Comida:</p></td>
                         <td><p><span id="food-stat"></span></p></td>
                     </tr>
-                    <tr>
+                    <tr class="hidden">
                         <td><p>Conhecimento:</p></td>
                         <td><p><span id="knowledge-stat"></span></p></td>
                     </tr>

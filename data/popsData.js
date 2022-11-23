@@ -47,7 +47,8 @@ export const popsData = {
             clothes: 0.015,
             tools: 0.02,
         },
-    },/*
+    },
+    /*
     academic:{
         name: "Acadêmico",
         jobs: true,

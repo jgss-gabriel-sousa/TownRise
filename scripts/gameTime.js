@@ -6,13 +6,13 @@ let lastGameSpeed;
 export function setGameSpeed(speed){
     lastGameSpeed = speed;
 
-    if(speed == "1x")       game.gameSpeed = 1500;
-    else if(speed == "5x")  game.gameSpeed = 500;
-    else if(speed == "10x") game.gameSpeed = 100;
+    if(speed == "1x")       game.gameSpeed = 1000;
+    else if(speed == "5x")  game.gameSpeed = 350;
+    else if(speed == "10x") game.gameSpeed = 75;
     else{
         lastGameSpeed = "1x";
         speed = "1x";
-        game.gameSpeed = 1500;
+        game.gameSpeed = 1000;
     }
 
     clearTimeout(game.gameTick);

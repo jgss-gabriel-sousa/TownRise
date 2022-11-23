@@ -18,7 +18,7 @@ export function populationUpdate(){
 export function popGrowth(){        
     if(rand(0,5) != 0) return;
     
-    let popGrowth = rand(0,5)+((game.happiness/0.5));
+    let popGrowth = rand(0,5)+((game.lifeQuality/0.5));
     popGrowth /= 100;
     
     popGrowth = Math.round((game.population * popGrowth)*game.impacts.popGrowth);
@@ -118,7 +118,10 @@ function popDeaths(){
         let deathChance = 25;
         if(game.season == "winter") deathChance *= 4;
         
-        const popDeath = Math.round((rand(0,deathChance)/100)*popWithoutClothes);
+        let popDeath = Math.round((rand(0,deathChance)/100)*popWithoutClothes);
+
+        if(popDeath < 0) popDeath = 0;
+
         game.population -= popDeath;
     }
 

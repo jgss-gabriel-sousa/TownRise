@@ -7,7 +7,7 @@ export const buildingsData = {
         build: {
             wood: 4
         },
-        everyday_needs: {
+        maintenance: {
         },
         winter_needs: {
             firewood: 0.1
@@ -27,7 +27,7 @@ export const buildingsData = {
             iron: 2,
             planks: 2,
         },
-        everyday_needs: {
+        maintenance: {
         },
         winter_needs: {
             firewood: 0.05
@@ -47,7 +47,7 @@ export const buildingsData = {
             iron: 4,
             planks: 8,
         },
-        everyday_needs: {
+        maintenance: {
         },
         winter_needs: {
             firewood: 0.02
@@ -60,14 +60,14 @@ export const buildingsData = {
         name: "Plantação",
         spriteSize: "lg",
         spritePlace: "farms",
-        description: "A produção é quadruplicada em dias chuvosos. Já durante o inverno, não há produção",
+        description: "A produção é quadruplicada em dias chuvosos. Durante o Inverno, não há produção",
         jobs: {
-            farmer: 4,
+            farmer: 6,
         },
         build: {
             wood: 10,
         },
-        everyday_needs: {
+        maintenance: {
         },
         production: {
             grain: 2,
@@ -84,26 +84,27 @@ export const buildingsData = {
         build: {
             wood: 10,
         },
-        everyday_needs: {
+        maintenance: {
             grain: 1
         },
         production: {
-            meat: 2,
-            leather: 0.25
+            meat: 0.5,
+            leather: 0.25,
+            milk: 1,
         }
     },
     orchard: {
         name: "Pomar",
         spriteSize: "lg",
         spritePlace: "farms",
-        description: "",
+        description: "Durante o Inverno, não há produção",
         jobs: {
             farmer: 4,
         },
         build: {
             wood: 10,
         },
-        everyday_needs: {
+        maintenance: {
         },
         production: {
             fruit: 1,
@@ -122,17 +123,38 @@ export const buildingsData = {
             stone: 10,
             planks: 5,
         },
-        everyday_needs: {
+        maintenance: {
             grain: 4,
         },
         production: {
-            flour: 1,
+            flour: 3,
+        }
+    },
+    dairy: {
+        name: "Leitaria",
+        spriteSize: "md",
+        spritePlace: "city",
+        description: "",
+        jobs: {
+            artificer: 2,
+        },
+        build: {
+            wood: 20,
+            stone: 10,
+            planks: 10,
+        },
+        maintenance: {
+            milk: 3,
+        },
+        production: {
+            butter: 2.4,
+            //cheese: 1.6,
         }
     },
     bakery: {
         name: "Padaria",
         spriteSize: "md",
-        spritePlace: "manufactories",
+        spritePlace: "city",
         description: "",
         jobs: {
             worker: 2,
@@ -143,11 +165,12 @@ export const buildingsData = {
             stone: 10,
             planks: 5,
         },
-        everyday_needs: {
-            flour: 6,
+        maintenance: {
+            flour: 4,
+            butter: 2.5,
         },
         production: {
-            bread: 4,
+            bread: 8,
         }
     },
     tailorsmith: {
@@ -161,7 +184,7 @@ export const buildingsData = {
         build: {
             wood: 10
         },
-        everyday_needs: {
+        maintenance: {
             leather: 1
         },
         production: {
@@ -171,22 +194,63 @@ export const buildingsData = {
     foundry: {
         name: "Fundição",
         spriteSize: "md",
+        spritePlace: "manufactories",
+        description: "",
+        jobs: {
+            worker: 3,
+            artificer: 3,
+        },
+        build: {
+            wood: 20,
+            stone: 50
+        },
+        maintenance: {
+            coal: 4,
+            iron: 1,
+        },
+        production: {
+            steel: 0.5
+        }
+    },
+    blacksmith: {
+        name: "Ferreiro",
+        spriteSize: "md",
         spritePlace: "city",
         description: "",
         jobs: {
             artificer: 3,
         },
         build: {
-            wood: 10,
-            stone: 10
+            wood: 30,
+            stone: 30
         },
-        everyday_needs: {
+        maintenance: {
             firewood: 6,
-            iron: 0.75,
+            iron: 0.5,
         },
         production: {
             tools: 1,
-            //steel: 0.5
+        }
+    },
+    armory: {
+        name: "Armeiro",
+        spriteSize: "md",
+        spritePlace: "city",
+        description: "",
+        jobs: {
+            artificer: 3,
+        },
+        build: {
+            wood: 30,
+            stone: 30
+        },
+        maintenance: {
+            firewood: 6,
+            planks: 3,
+            steel: 2,
+        },
+        production: {
+            weapon: 1,
         }
     },
     tavern: {
@@ -204,7 +268,7 @@ export const buildingsData = {
             stone: 6,
             iron: 4,
         },
-        everyday_needs: {
+        maintenance: {
             grain: 9,
             fruit: 4.5,
         },
@@ -222,7 +286,7 @@ export const buildingsData = {
         },
         build: {
         },
-        everyday_needs: {
+        maintenance: {
         },
         production: {
             wood: 2,
@@ -238,12 +302,12 @@ export const buildingsData = {
         },
         build: {
         },
-        everyday_needs: {
-            wood: 4,
+        maintenance: {
+            wood: 1,
         },
         production: {
-            firewood: 8,
-            planks: 2,
+            firewood: 4,
+            planks: 0.8,
         }
     },
     mine: {
@@ -255,14 +319,51 @@ export const buildingsData = {
             miner: 30,
         },
         build: {
-            wood: 30,
+            wood: 50,
             planks: 20,
         },
-        everyday_needs: {
+        maintenance: {
         },
         production: {
-            stone: 4,
-            iron: 3,
+            stone: 3,
+            iron: 0.5,
+        }
+    },
+    deepMine: {
+        name: "Mina Profunda",
+        spriteSize: "lg",
+        spritePlace: "manufactories",
+        description: "",
+        jobs: {
+            miner: 30,
+        },
+        build: {
+            wood: 120,
+            planks: 48,
+        },
+        maintenance: {
+        },
+        production: {
+            coal: 2,
+            iron: 1.5,
+        }
+    },
+    huntingCabin: {
+        name: "Caçador",
+        spriteSize: "sm",
+        spritePlace: "manufactories",
+        description: "",
+        jobs: {
+            worker: 4,
+        },
+        build: {
+            wood: 15,
+        },
+        maintenance: {
+        },
+        production: {
+            meat: 0.5,
+            leather: 0.75
         }
     },
 }

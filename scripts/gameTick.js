@@ -15,7 +15,7 @@ export function gameTick(){
     if(game.gameDifficulty == "hard") difficultyBonus *= 2;
     if(game.gameDifficulty == "easy") difficultyBonus /= 10;
 
-    game.score = Math.floor(((game.popRecord * game.totalDays * game.happiness)/2000)*difficultyBonus);
+    game.score = Math.floor(((game.popRecord * (1+game.weapon) * game.totalDays * game.happiness)/2000)*difficultyBonus);
 
     // RESET RESOURCES BALANCES
     for(const r in resources){
@@ -74,7 +74,7 @@ export function gameTick(){
 
     // FOOD ################################################################################
 
-    game.food = (game.grain*0.25) + (game.meat*0.15) + (game.fruit*0.1) + (game.bread*0.25);
+    game.food = (game.grain*0.25) + (game.meat*0.15) + (game.fruit*0.1) + (game.bread*0.25) + (game.milk*0.25);
 
     //#############################################################################################
 

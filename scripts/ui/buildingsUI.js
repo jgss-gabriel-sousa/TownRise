@@ -37,7 +37,18 @@ export function buildingsBootstrap(){
         const building = buildingsData[b];
         let contentHTML = `<div class="building-tippy">`;
 
+        if(building.hasOwnProperty("jobs") && Object.keys(building.jobs).length > 0){
+            contentHTML += `<p>Empregos</p><ul>`;
+            for(const k in building.jobs){
+                contentHTML += `<li>${popsData[k].name+": "}${building.jobs[k]}</li>`;
+            }
+            contentHTML += `</ul>`;
+        }
+
         if(Object.keys(building.build).length > 0){
+            if(contentHTML != `<div class="building-tippy">`)
+                contentHTML += "<hr>";
+
             contentHTML += `<p>Construir</p><ul>`;
             for(const k in building.build){
                 contentHTML += `<li>${resources[k].name+": "}${building.build[k]}</li>`;
@@ -45,13 +56,13 @@ export function buildingsBootstrap(){
             contentHTML += `</ul>`;
         }
 
-        if(Object.keys(building.everyday_needs).length > 0){
+        if(Object.keys(building.maintenance).length > 0){
             if(contentHTML != `<div class="building-tippy">`)
                 contentHTML += "<hr>";
 
             contentHTML += `<p>Manutenção</p><ul>`;
-            for(const k in building.everyday_needs){
-                contentHTML += `<li>${resources[k].name+": "}${building.everyday_needs[k]}</li>`;
+            for(const k in building.maintenance){
+                contentHTML += `<li>${resources[k].name+": "}${building.maintenance[k]}</li>`;
             }
             contentHTML += `</ul>`;
         }
@@ -74,17 +85,6 @@ export function buildingsBootstrap(){
             contentHTML += `<p>Produção</p><ul>`;
             for(const k in building.production){
                 contentHTML += `<li>${resources[k].name+": "}${building.production[k]}</li>`;
-            }
-            contentHTML += `</ul>`;
-        }
-
-        if(building.hasOwnProperty("jobs") && Object.keys(building.jobs).length > 0){
-            if(contentHTML != `<div class="building-tippy">`)
-                contentHTML += "<hr>";
-
-            contentHTML += `<p>Empregos</p><ul>`;
-            for(const k in building.jobs){
-                contentHTML += `<li>${popsData[k].name+": "}${building.jobs[k]}</li>`;
             }
             contentHTML += `</ul>`;
         }
@@ -145,25 +145,18 @@ export function updateMapItemsScale(){
 }
 
 const buildings = [
-    ["house",
-        ["shack","house","nobleHouse"]],
     ["farm",
         ["farm","cropField","orchard"]],
-        /*
-    ["pasture", 
-        ["farm"]],*/
-    ["resources", 
-        ["lumbermill","mine",/*"quarry"*/]],
+    ["house",
+        ["shack","house","nobleHouse"]],
     ["manufacture", 
-        ["mill","sawmill"]],
+        ["dairy","mill","sawmill"]],
     ["businesses", 
         ["bakery","tavern"]],
     ["handicraft", 
-        ["tailorsmith","foundry"]],
-    /*
-    ["scriptoriums", 
-        ["school"]],
-    */
+        ["tailorsmith","armory","blacksmith"]],
+    ["resources", 
+        ["huntingCabin","foundry","lumbermill","mine","deepMine"]],
 ];
 
 let selectedBuildingMenuType = "";

@@ -86,7 +86,7 @@ export function updateDataInfo(){
     document.getElementById("season").innerText = translateSeason(game.season);
     document.getElementById("score-stat").innerText = numberF(game.score,"",0);
 
-    resourcesStat();
+    resourcesStatAndLack();
     professionsStat();
 
     modifiersUI();
@@ -152,7 +152,7 @@ export function modifiersUI(){
     });
 }
 
-function resourcesStat(){
+function resourcesStatAndLack(){
     for(const r in resources){
         document.getElementById(r+"-stat").innerText = numberF(Math.floor(game[r]),"",0);
         document.getElementById(r+"-balance-stat").innerText = numberBalanceFormatted(game[r+"_balance"]);

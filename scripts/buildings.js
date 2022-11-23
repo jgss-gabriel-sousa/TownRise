@@ -6,6 +6,7 @@ import { jobs } from "./jobs.js";
 import { buildingsData } from "../data/buildingsData.js";
 
 import { cropField } from "./buildings/cropField.js";
+import { orchard } from "./buildings/orchard.js";
 import { homes } from "./buildings/homes.js";
 
 export function buildingsUpdate(){
@@ -13,6 +14,7 @@ export function buildingsUpdate(){
 
     //Specific Updates
     cropField();
+    orchard();
 
     generalUpdate();
 
@@ -25,7 +27,6 @@ export function buildingsUpdate(){
     //school();
     cropField();
     farm();
-    orchard();
     tailorsmith();
     foundry();
     lumbermill();
@@ -54,8 +55,8 @@ function generalUpdate(){
         }
 
         //Calculate Input/Needs Supply
-        for(const c in building.everyday_needs){
-            const inputConsumption = building.everyday_needs[c] * game[b];
+        for(const c in building.maintenance){
+            const inputConsumption = building.maintenance[c] * game[b];
             let inputSupply =  game[c]/inputConsumption;
             
             if(inputSupply > 1) inputSupply = 1;
@@ -74,8 +75,8 @@ function generalUpdate(){
         const productivity = (jobSupply * inputSupply * game.productivity) * productivityImpacts;
 
         //Discount Input/Needs Supply (based in productivity)
-        for(const c in building.everyday_needs){
-            const inputConsumption = building.everyday_needs[c] * game[b] * productivity;
+        for(const c in building.maintenance){
+            const inputConsumption = building.maintenance[c] * game[b] * productivity;
 
             //console.log(c+": "+inputConsumption)
             game[c+"_balance"] -= inputConsumption;
@@ -105,7 +106,7 @@ function generalUpdate(){
 
 export function buildBuilding(id){
     if(!game.gameStarted) return;
-    if(game.gamePaused && game.day != 1) return;
+    if(game.gamePaused) return;
     
     const building = buildingsData[id];
 
