@@ -94,3 +94,8 @@ export function average(array){
     if(array.length == 0) return 0;
     return total / array.length;
 }
+
+export function preloadImage(url){
+    const img = new Image();
+    img.src = url;
+}

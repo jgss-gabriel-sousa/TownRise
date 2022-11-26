@@ -1,4 +1,4 @@
-import { rand, shuffleArr } from "./funcs.js";
+import { rand, shuffleArr, preloadImage } from "./funcs.js";
 import { soundStart, soundtrack } from "./sound.js";
 import { resourcesUI,professionsUI } from "./ui/ui.js";
 import { savedGamesHTML } from "./ui/load-saveUI.js";
@@ -20,15 +20,23 @@ function gameBootstrap(){
 
     for(const k in buildingsData){
         game[k] = 0;
+
+        preloadImage("./img/buildings/"+k+".png");
     }
     for(const k in resources){
         game[k] = 0;
         game[k+"_balance"] = 0;
         game[k+"_lack"] = 0;
+
+        preloadImage("./img/icons/"+k+".png");
     }
     for(const k in popsData){
         game[k] = 0;
         game[k+"_jobs"] = 0;
+    }
+    for(const k in eventsData){
+        if(eventsData[k].image)
+            preloadImage("./img/events/"+k+".webp");
     }
 
     game.fruit = 50;
