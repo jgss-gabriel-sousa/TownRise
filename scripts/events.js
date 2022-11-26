@@ -14,7 +14,7 @@ export function events(){
 }
 
 function newEvents(){
-    if(game.day == 1) return;
+    if(game.totalDays <= 90) return;
 
     for(const e in eventsData){
         const evt = eventsData[e];

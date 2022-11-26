@@ -1,4 +1,10 @@
 export const resources = {
+    /*
+    gold:{
+        name: "Ouro",
+        type: "special",
+    },*/
+    //################################################################
     meat:{
         name: "Carne",
         type: "food",

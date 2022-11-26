@@ -46,6 +46,15 @@ export function resourcesUI(){
         html += "</div>";
         element.innerHTML = html;
     }
+
+    /*
+    for(const r in resources){
+        tippy("#"+r, {
+            allowHTML: true,
+            theme: "townrise",
+        });
+    }
+    */
 }
 
 export function professionsUI(){
@@ -109,6 +118,7 @@ export function modifiersUI(){
         tippy("#"+id+"-modifier", {
             content: desc,
             allowHTML: true,
+            theme: "townrise",
         });
     }
     function createModElement(id){
@@ -161,7 +171,13 @@ function resourcesStatAndLack(){
             document.getElementById(r+"-stat").classList.add("lack");
         else
             document.getElementById(r+"-stat").classList.remove("lack");
-    }
+        
+        /*
+        document.querySelector("#"+r)._tippy.setContent(`
+            <p><b>Balanço:</b> ${numberBalanceFormatted(game[r+"_balance"])}</p>
+        `);
+        */
+    }    
 }
 
 function professionsStat(){

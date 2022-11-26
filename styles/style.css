@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+@import "./tippy.css";
 * {
     cursor: url("../img/cursor.png"), auto;
     font-family: 'Roboto', sans-serif;
@@ -17,7 +18,7 @@ body {
 }
 
 p {
-    margin: 2px;
+    margin: 0;
     font-size: 12px;
 }
 
@@ -112,6 +113,9 @@ select {
     align-items: stretch;
     width: min-content;
 }
+#left-section div{
+    margin-bottom: -1px;
+}
 
 #resources{
     display: flex;
@@ -147,9 +151,7 @@ select {
     text-overflow: ellipsis;
     overflow: hidden; 
     white-space: nowrap;
-}
-.resources-btn p{
-    margin: 0;
+    margin-left: -1px;
 }
 .resources-btn img{
     width: 16px;

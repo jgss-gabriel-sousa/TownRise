@@ -1,7 +1,7 @@
 import { rand } from "./funcs.js"
 
 var audio = new Audio();
-const NUMBER_OF_SONGS = 8;
+const NUMBER_OF_SONGS = 3;
 
 export function soundStart(){
     if(!localStorage.getItem("mv-volume"))

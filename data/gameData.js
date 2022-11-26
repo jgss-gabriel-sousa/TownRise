@@ -23,6 +23,15 @@ export const game = {
         orchard_productivity: 1,
     },
 
+    army: {
+        infantry: 0,
+        mercenary: 0,
+        pikemen: 0,
+        archery: 0,
+        lightCavalry: 0,
+        heavyCavalry: 0,
+    },
+
     population: 10,
     lastYear_population: 10,
     popRecord: 0,
@@ -36,9 +45,9 @@ export const game = {
     happiness: 0.5,
     lifeQuality: 1,
     
-    totalDays: 0,
+    totalDays: 1,
     season: "spring",
-    day: 0,
+    day: 1,
     year: 0,
     weather: "sun",
 }

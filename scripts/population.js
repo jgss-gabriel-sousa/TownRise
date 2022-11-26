@@ -13,9 +13,11 @@ export function populationUpdate(){
     popsUpdate(difficulty);
     popGrowth();
     popDeaths();
+    
+    if(game.population > game.popRecord) game.popRecord = game.population;
 }
 
-export function popGrowth(){        
+export function popGrowth(){
     if(rand(0,5) != 0) return;
     
     let popGrowth = rand(0,5)+((game.lifeQuality/0.5));
@@ -89,12 +91,13 @@ function popDeaths(){
             const MAX_CLOTHES_DEATH_CHANCE = 2;
             
             let clothesLack = game.clothes/game.population;
+            if(!clothesLack) clothesLack = 0.001;
+
             let clothesLackDeathChance = 1/clothesLack;
-            if(clothesLackDeathChance > MAX_CLOTHES_DEATH_CHANCE) clothesLackDeathChance = 2;
+            if(clothesLack > 1) clothesLackDeathChance = 0
+            if(clothesLackDeathChance > MAX_CLOTHES_DEATH_CHANCE) clothesLackDeathChance = MAX_CLOTHES_DEATH_CHANCE;
 
             homelessDeathChance *= clothesLackDeathChance;
-
-            game.clothes_lack = true;
         }
         
         homelessDeathChance = Math.round(homelessDeathChance);
@@ -107,8 +110,8 @@ function popDeaths(){
 
         game.population -= popDeath;
 
-        if(popDeath > 1)        logPush(popDeath+" cidadãos morreram sem abrigo");
-        if(popDeath == 1)       logPush(popDeath+" cidadão morreu sem abrigo");
+        if(popDeath > 1)    logPush(popDeath+" cidadãos morreram sem abrigo");
+        if(popDeath == 1)   logPush(popDeath+" cidadão morreu sem abrigo");
     }
 
     function withoutClothesDeaths(){

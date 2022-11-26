@@ -104,6 +104,7 @@ export function buildingsBootstrap(){
             placement: "right",
             allowHTML: true,
             interactive: true,
+            theme: "townrise",
         });
     }
 }
@@ -125,7 +126,7 @@ export function updateMapItemsScale(){
     let mWidth = -Math.round(mapItems * 0.1);
     let mHeight = -Math.round(mapItems * 0.05);
 
-    if(mWidth < -15) mWidth = -15;
+    if(mWidth < -10) mWidth = -10;
     if(mHeight < -7) mHeight = -7;
     
     //IMG Sizes

@@ -10,6 +10,7 @@ tippyElements.forEach(e => {
     tippy("#"+e, {
         maxWidth: tooltipMaxWidth,
         allowHTML: true,
+        theme: "townrise",
     });
 });
 

@@ -94,22 +94,3 @@ export function average(array){
     if(array.length == 0) return 0;
     return total / array.length;
 }
-
-if(localStorage.getItem("mv-game-version") != document.getElementById("game-version").innerText){
-    localStorage.setItem("mv-highscore", "0");
-    localStorage.setItem("mv-game-version", document.getElementById("game-version").innerText);
-}
-
-let highscore = localStorage.getItem("mv-highscore");
-if(highscore == null) highscore = 0;
-
-
-export function highScoreHTML(){
-    document.getElementById("highscore").innerText = "Recorde: "+numberF(highscore,"",0);
-}
-
-export function checkHighScore(value){
-    if(value > highscore){
-        localStorage.setItem("mv-highscore", value.toString());
-    }
-}

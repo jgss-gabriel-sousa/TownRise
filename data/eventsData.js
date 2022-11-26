@@ -45,7 +45,7 @@ export const eventsData = {
             if(game.season != "spring") return false;
             if(game.modifiers.hasOwnProperty("plague")) return false;
             if(game.modifiers.hasOwnProperty("drought")) return false;
-            if(game.day%game.seasonLength != 1) return false;
+            if(game.day%game.seasonLength == 1) return false;
 
             return true;
         },
