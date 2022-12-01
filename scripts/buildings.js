@@ -126,25 +126,16 @@ export function buildBuilding(id){
     jobs();
 }
 
+let constructInPause = false;
 function pauseError(){
-    console.log("pause");
+    if(!constructInPause){
+        Swal.fire({
+            text: "O jogo está pausado, você não pode construir.",
+            confirmButtonText: "Ok",
+        })
 
-    Swal.fire({
-        title: "Deseja mesmo Desistir?",
-        icon: "warning",
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        showCancelButton: true,
-        confirmButtonColor: "#d33",
-        confirmButtonText: "Desistir",
-        cancelButtonText: "Voltar",
-    }).then((result) => {
-        if(result.isConfirmed){
-            game.gameOver = true;
-            game.gameSurrender = true;
-            checkGameOver();
-        }
-    });
+        constructInPause = true;
+    }
 }
 
 export function destroyBuilding(id, qty){
