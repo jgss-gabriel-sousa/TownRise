@@ -135,6 +135,7 @@ function pauseError(){
         })
 
         constructInPause = true;
+        setTimeout(()=>{constructInPause = false}, 60000);
     }
 }
 
