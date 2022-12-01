@@ -4,7 +4,7 @@ import { game } from "../data/gameData.js";
 
 export function jobs(){
     for(const p in popsData){
-        if(popsData[p].jobs == false) continue;
+        if(p == "idle") continue;
         
         game[p+"_jobs"] = 0;
     }

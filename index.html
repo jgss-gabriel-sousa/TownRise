@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/map.css">
     <link rel="stylesheet" href="./styles/menu.css">
+    <link rel="stylesheet" href="./styles/combat.css">
     
     <!-- Development
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js" defer></script>
@@ -42,7 +43,7 @@
             <input type="button" class="btn btn-active" value="Nova Vila" id="start">
             <input type="button" class="btn btn-active" value="Carregar Vila" id="load">
             <input type="button" class="btn btn-active" value="Opções" id="options">
-            <p>v<span id="game-version">0.16</span>.2 &copy; JGSS</p>
+            <p>v<span id="game-version">0.17</span>.0 &copy; JGSS</p>
         </div>
         <div id="load-game" class="container menu hidden">
             <h1>Carregar Vila</h1>
@@ -155,5 +156,56 @@
         </div>
     </div>
     <div id="pops"></div>
+    <div class="hidden" id="combat">
+        <div id="combat-container">
+            <div id="combat-info">
+                <div id="allies-info">
+                    <h1>Aliados</h1>
+                    <table>
+                        <tr><td>Ataque: </td><td>0</td></tr>
+                        <tr><td>Defesa: </td><td>0</td></tr>
+                        <tr><td>Moral: </td><td>0</td></tr>
+                        <tr><td>General: </td><td>0</td></tr>
+                        <tr><td>Sorte: </td><td>0</td></tr>
+                    </table>
+                </div>
+                <div id="enemies-info">
+                    <h1>Inimigos</h1>
+                    <table>
+                        <tr><td>Ataque: </td><td>0</td></tr>
+                        <tr><td>Defesa: </td><td>0</td></tr>
+                        <tr><td>Moral: </td><td>0</td></tr>
+                        <tr><td>General: </td><td>0</td></tr>
+                        <tr><td>Sorte: </td><td>0</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div id="combat-map">
+                <div id="allies-side">
+                    <div class="calvary-line">
+                        <div class="combat-unity calvary"><img src="./img/army/calvary.png"></div>
+                    </div>
+                    <div class="infantry-line">
+                        <div class="combat-unity infantry"><img src="./img/army/infantry.png"></div>
+                        <div class="combat-unity infantry"><img src="./img/army/infantry.png"></div>
+                        <div class="combat-unity infantry"><img src="./img/army/infantry.png"></div>
+                        <div class="combat-unity infantry"><img src="./img/army/infantry.png"></div>
+                        <div class="combat-unity infantry"><img src="./img/army/infantry.png"></div>
+                        <div class="combat-unity infantry"><img src="./img/army/infantry.png"></div>
+                        <div class="combat-unity infantry"><img src="./img/army/infantry.png"></div>
+                    </div>
+                    <div class="archery-line">
+                        <div class="combat-unity archery"><img src="./img/army/archery.png"></div>
+                    </div>
+                </div>
+                <div id="enemies-side">
+                    <div class="combat-unity"><img src="./img/pop0.png"></div>
+                    <div class="combat-unity"><img src="./img/pop0.png"></div>
+                    <div class="combat-unity"><img src="./img/pop0.png"></div>
+                    <div class="combat-unity"><img src="./img/pop0.png"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

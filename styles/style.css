@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 @import "./tippy.css";
+
 * {
     cursor: url("../img/cursor.png"), auto;
     font-family: 'Roboto', sans-serif;
@@ -10,6 +11,7 @@ body {
     background: #67B26F;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    margin: 0;
 }
 
 #main-interface {
@@ -69,7 +71,7 @@ select {
     padding: 8px;
     text-decoration: none;
     font-weight: bold;
-    margin: 4px;
+    margin: 2px;
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 0.5em;
     border: 1px solid #333;
@@ -77,7 +79,6 @@ select {
 
 .btn:hover{
     background-color: #005e3b;
-    box-shadow: 0px 1px 2px 1px #555;
     transition: 0.1s all;
     transform: scale(1.025);
 }
@@ -97,11 +98,10 @@ select {
 }
 
 .rmv-btn {
-    background-color: indianred;
+    background-color: #cd5c5c;
 }
 .rmv-active,.rmv-btn:hover {
-    background-color: rgb(173, 50, 50);
-    box-shadow: 0px 1px 2px 1px #333;
+    background-color: #ad3232;
 }
 
 .container.data p {
@@ -119,56 +119,48 @@ select {
 
 #resources{
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    padding: 5px;
     border: 0;
-    align-self: center;
     background-color: transparent;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .resources-row{
-    display: flex;
-    margin: 5px 5px;
-    justify-content: center;
-    flex-wrap: wrap;
+    margin-bottom: 0.5em;
+    width: 95px;
 }
-
+.resources-row p:first-child{
+    font-size: 12px;
+    overflow: hidden;
+    font-weight: bold;
+    text-align: center;
+    background-color: #d3d3d3;
+    border-bottom: 1px solid #999;
+    padding: 2px;
+}
 .resources-btn{
-	background: none;
-	color: inherit;
-	font: inherit;
-	cursor: normal;
-	outline: inherit;
+    display: flex;
+    cursor: normal;
     background-color: #e2e2e2;
-	padding: 0;
-	border: 1px solid;
-    margin: 0;
+    padding: 5px;
     font-size: 12px;
     font-weight: bold;
-    width: 50px;
-    text-overflow: ellipsis;
-    overflow: hidden; 
-    white-space: nowrap;
-    margin-left: -1px;
+    overflow: hidden;
+    justify-content: space-between;
+    align-items: center;
 }
 .resources-btn img{
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     object-fit: contain;
     filter: drop-shadow(1px 1px 1px black);
-}
-.resources-btn div{
-    background-color: rgb(180, 180, 180);
-    padding: 2px;
-    border-bottom: 1px solid #333;
 }
 
 #info-section {
     flex-direction: column;
     width: 25%;
-    min-width: 270px;
+    min-width: 300px;
 }
 
 #log {
@@ -213,10 +205,10 @@ button:hover span b {
 
 #time{
     align-items: center;
-    padding: 5px;
+    padding: 5px 10px;
 }
 #time p{
-    margin: 5px;
+    margin: 2px;
 }
 #game-time{
     display: flex;
@@ -426,6 +418,7 @@ button:hover span b {
 
     #main-interface {
         flex-wrap: wrap;
+        justify-content: space-evenly;
     }
     
     #left-section{
@@ -434,18 +427,20 @@ button:hover span b {
         flex-wrap: wrap;
         justify-content: center;
     }
+    #map-section {
+        margin: 10px 20px;
+    }
     #info-section{
         flex-direction: row;
         justify-content: center;
-        align-items: center;
         width: 100%;
+        margin: 10px
+    }
+    #resources{
+        margin-left: 5px
     }
     #options-section{
         flex-direction: row;
-    }
-
-    #resources {
-        max-width: 50%;
     }
 }
 

@@ -10,7 +10,7 @@ export const buildingsData = {
         maintenance: {
         },
         winter_needs: {
-            firewood: 0.1
+            wood: 0.1
         },
         production: {
         },
@@ -22,15 +22,15 @@ export const buildingsData = {
         spritePlace: "city",
         description: "Habitação para 8 cidadãos",
         build: {
-            wood: 6,
-            stone: 12,
+            wood: 12,
+            stone: 24,
             iron: 2,
-            planks: 2,
+            planks: 4,
         },
         maintenance: {
         },
         winter_needs: {
-            firewood: 0.05
+            wood: 0.05
         },
         production: {
         },
@@ -42,15 +42,15 @@ export const buildingsData = {
         spritePlace: "city",
         description: "Habitação para 16 cidadãos",
         build: {
-            wood: 6,
-            stone: 24,
+            wood: 24,
+            bricks: 8,
             iron: 4,
             planks: 8,
         },
         maintenance: {
         },
         winter_needs: {
-            firewood: 0.02
+            wood: 0.02
         },
         production: {
         },
@@ -117,6 +117,7 @@ export const buildingsData = {
         description: "",
         jobs: {
             worker: 4,
+            patrician: 1,
         },
         build: {
             wood: 20,
@@ -124,6 +125,7 @@ export const buildingsData = {
             planks: 5,
         },
         maintenance: {
+            gold: 3,
             grain: 4,
         },
         production: {
@@ -159,6 +161,7 @@ export const buildingsData = {
         jobs: {
             worker: 2,
             artificer: 2,
+            patrician: 1,
         },
         build: {
             wood: 20,
@@ -166,6 +169,7 @@ export const buildingsData = {
             planks: 5,
         },
         maintenance: {
+            gold: 3,
             flour: 4,
             butter: 2.5,
         },
@@ -179,7 +183,7 @@ export const buildingsData = {
         spritePlace: "city",
         description: "",
         jobs: {
-            artificer: 3,
+            artificer: 2,
         },
         build: {
             wood: 10
@@ -197,14 +201,15 @@ export const buildingsData = {
         spritePlace: "manufactories",
         description: "",
         jobs: {
-            worker: 3,
-            artificer: 3,
+            worker: 4,
+            artificer: 2,
         },
         build: {
             wood: 20,
             stone: 50
         },
         maintenance: {
+            gold: 2,
             coal: 4,
             iron: 1,
         },
@@ -218,14 +223,14 @@ export const buildingsData = {
         spritePlace: "city",
         description: "",
         jobs: {
-            artificer: 3,
+            artificer: 2,
         },
         build: {
             wood: 30,
             stone: 30
         },
         maintenance: {
-            firewood: 6,
+            wood: 1,
             iron: 0.5,
         },
         production: {
@@ -245,7 +250,7 @@ export const buildingsData = {
             stone: 30
         },
         maintenance: {
-            firewood: 6,
+            wood: 1,
             planks: 3,
             steel: 2,
         },
@@ -259,8 +264,7 @@ export const buildingsData = {
         spritePlace: "city",
         description: "",
         jobs: {
-            artificer: 1,
-            worker: 3,
+            worker: 2,
         },
         build: {
             wood: 12,
@@ -306,8 +310,27 @@ export const buildingsData = {
             wood: 1,
         },
         production: {
-            firewood: 4,
-            planks: 0.8,
+            planks: 0.5,
+        }
+    },
+    brickyard: {
+        name: "Olaria",
+        spriteSize: "md",
+        spritePlace: "manufactories",
+        description: "",
+        jobs: {
+            worker: 3,
+        },
+        build: {
+            wood: 15,
+            stone: 40,
+        },
+        maintenance: {
+            wood: 1,
+            stone: 2,
+        },
+        production: {
+            bricks: 0.5,
         }
     },
     mine: {

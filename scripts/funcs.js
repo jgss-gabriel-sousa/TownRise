@@ -99,3 +99,18 @@ export function preloadImage(url){
     const img = new Image();
     img.src = url;
 }
+
+export function blankSpaceRmv(string){
+    return string.replace(/\s/g, "_");
+}
+
+export function accentsTidy(string){
+    let r = string.toLowerCase();
+    const non_asciis = {'a': '[àáâãäå]', 'ae': 'æ', 'c': 'ç', 'e': '[èéêë]', 'i': '[ìíîï]', 'n': 'ñ', 'o': '[òóôõö]', 'oe': 'œ', 'u': '[ùúûűü]', 'y': '[ýÿ]'};
+    
+    for(i in non_asciis){
+        r = r.replace(new RegExp(non_asciis[i], 'g'), i);
+    }
+
+    return r;
+}

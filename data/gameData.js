@@ -23,14 +23,8 @@ export const game = {
         orchard_productivity: 1,
     },
 
-    army: {
-        infantry: 0,
-        mercenary: 0,
-        pikemen: 0,
-        archery: 0,
-        lightCavalry: 0,
-        heavyCavalry: 0,
-    },
+    army: {},
+    armyPower: 0,
 
     population: 10,
     lastYear_population: 10,

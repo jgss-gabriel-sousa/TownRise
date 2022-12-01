@@ -1,9 +1,8 @@
 export const resources = {
-    /*
     gold:{
         name: "Ouro",
         type: "special",
-    },*/
+    },
     //################################################################
     meat:{
         name: "Carne",
@@ -24,6 +23,20 @@ export const resources = {
     bread:{
         name: "Pão",
         type: "food",
+    },
+    //################################################################
+    flour:{
+        name: "Farinha",
+        type: "raw food",
+    },
+    butter:{
+        name: "Manteiga",
+        type: "raw food",
+    },
+    //################################################################
+    ale:{
+        name: "Cerveja",
+        type: "beverage",
     },
     //################################################################
     coal:{
@@ -51,16 +64,12 @@ export const resources = {
         name: "Aço",
         type: "refined material",
     },
-    butter:{
-        name: "Manteiga",
-        type: "refined material",
-    },
     planks:{
         name: "Tábuas",
         type: "refined material",
     },
-    flour:{
-        name: "Farinha",
+    bricks:{
+        name: "Tijolos",
         type: "refined material",
     },
     //################################################################
@@ -68,16 +77,8 @@ export const resources = {
         name: "Armas",
         type: "end product",
     },
-    ale:{
-        name: "Cerveja",
-        type: "end product",
-    },
     tools:{
         name: "Ferramentas",
-        type: "end product",
-    },
-    firewood:{
-        name: "Lenha",
         type: "end product",
     },
     clothes:{

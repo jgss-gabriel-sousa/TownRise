@@ -1,7 +1,6 @@
 export const popsData = {
     idle:{
         name: "Ocioso",
-        jobs: false,
         food_consumption: 0.025,
         consumption: {
             ale: 0.01,
@@ -10,7 +9,6 @@ export const popsData = {
     },
     farmer:{
         name: "Fazendeiro",
-        jobs: true,
         food_consumption: 0.05,
         consumption: {
             ale: 0.02,
@@ -20,7 +18,6 @@ export const popsData = {
     },
     worker:{
         name: "Trabalhador",
-        jobs: true,
         food_consumption: 0.05,
         consumption: {
             ale: 0.02,
@@ -30,7 +27,6 @@ export const popsData = {
     },
     miner:{
         name: "Minerador",
-        jobs: true,
         food_consumption: 0.05,
         consumption: {
             ale: 0.02,
@@ -40,7 +36,6 @@ export const popsData = {
     },
     artificer:{
         name: "Artífice",
-        jobs: true,
         food_consumption: 0.05,
         consumption: {
             ale: 0.03,
@@ -48,14 +43,20 @@ export const popsData = {
             tools: 0.02,
         },
     },
-    /*
-    academic:{
-        name: "Acadêmico",
-        jobs: true,
+    patrician:{
+        name: "Patrício",
         food_consumption: 0.1,
         consumption: {
-            ale: 0.5,
+            ale: 0.05,
             clothes: 0.03,
         },
-    },*/
+    },
+    noble:{
+        name: "Nobre",
+        food_consumption: 0.2,
+        consumption: {
+            ale: 0.1,
+            clothes: 0.05,
+        },
+    },
 }

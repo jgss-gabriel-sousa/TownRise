@@ -9,15 +9,21 @@ export function resourcesUI(){
     let html = "";
 
     let res = {
-        food: [],
-        rawMaterial: [],
-        refinedMaterial: [],
-        endProduct: [],
-        luxury: [],
+        special: ["Especial"],
+        food: ["Alimentos"],
+        rawFood: ["Alimentos Brutos"],
+        beverage: ["Bebidas"],
+        rawMaterial: ["Matérias Primas"],
+        refinedMaterial: ["Materiais Refinados"],
+        endProduct: ["Produtos"],
+        luxury: ["Luxos"],
     }
 
     for(const r in resources){
+        if(resources[r].type == "special")             res.special.push(r);
         if(resources[r].type == "food")                res.food.push(r);
+        if(resources[r].type == "raw food")            res.rawFood.push(r);
+        if(resources[r].type == "beverage")            res.beverage.push(r);
         if(resources[r].type == "raw material")        res.rawMaterial.push(r);
         if(resources[r].type == "refined material")    res.refinedMaterial.push(r);
         if(resources[r].type == "end product")         res.endProduct.push(r);
@@ -29,32 +35,58 @@ export function resourcesUI(){
 
         html += `<div class="resources-row">`;
 
-        for(let j = 0; j < type.length; j++){
+        if(type.length > 1)
+            html += `<p id="resource-type-${t}">${type[0]}</p>`;
+
+        for(let j = 1; j < type.length; j++){
             const r = type[j];
 
             html += `
-                <button class="resources-btn" id="${r}">
-                    <div>
-                        <img src="./img/icons/${r}.png">
-                        <p>${resources[r].name}</p>
-                    </div>
-                    <p id="${r}-stat"></p>
-                    <small id="${r}-balance-stat">0</small>
-                </button>
+            <div class="resources-btn" id="${r}">
+                <img id="${r}-img" src="./img/icons/${r}.png">
+                <p id="${r}-stat"></p>
+                <small id="${r}-balance-stat">0</small>
+            </div>
             `
         }
         html += "</div>";
         element.innerHTML = html;
     }
 
-    /*
+    const resourcesTypeDesc = {
+        special: "Produtos especiais",
+        food: "Alimentos consumidos pela população",
+        rawFood: "Alimentos que não serão consumidos diretamente, mas são necessários na cadeia de produção",
+        beverage: "Bebidas consumidas pela população, mas que não são necessariamente alimentos",
+        rawMaterial: "Recursos mais básicos",
+        refinedMaterial: "Recursos refinados de matérias primas, que podem ter uso diretamente ou podem se encaixar em alguma cadeia de produção",
+        endProduct: "Produtos do fim da cadeia de produção",
+        luxury: "Produtos de alto valor agregado, que trazem prestígio",
+    }
+
+    for(const r in resourcesTypeDesc){
+        tippy("#resource-type-"+r, {
+            content: resourcesTypeDesc[r],
+            theme: "townrise",
+        });
+    }
+
     for(const r in resources){
-        tippy("#"+r, {
+        tippy("#"+r+"-img", {
+            allowHTML: true,
+            theme: "townrise",
+        });
+        /*
+        tippy("#"+r+"-stat", {
+            allowHTML: true,
+            theme: "townrise",
+        });
+        */
+        tippy("#"+r+"-balance-stat", {
             allowHTML: true,
             theme: "townrise",
         });
     }
-    */
 }
 
 export function professionsUI(){
@@ -172,11 +204,21 @@ function resourcesStatAndLack(){
         else
             document.getElementById(r+"-stat").classList.remove("lack");
         
-        /*
-        document.querySelector("#"+r)._tippy.setContent(`
-            <p><b>Balanço:</b> ${numberBalanceFormatted(game[r+"_balance"])}</p>
+        document.querySelector("#"+r+"-img")._tippy.setContent(`
+            <p><b>${resources[r].name}</b></p>
         `);
-        */
+
+        let balanceContent = `<b>Produção: ${numberF(game[r+"_totalProduction"],"",1)}</b>`;
+        for(const p in game[r+"_production"]){
+            const prod = numberF(game[r+"_production"][p],"",1);
+            balanceContent += `<p>${p}: ${prod}</p>`
+        }
+        balanceContent += `<hr><b>Consumo: ${numberF(game[r+"_totalConsumption"],"",1)}</b>`;
+        for(const c in game[r+"_consumption"]){
+            const cons = numberF(-game[r+"_consumption"][c],"",1);
+            balanceContent += `<p>${c}: ${cons}</p>`
+        }
+        document.querySelector("#"+r+"-balance-stat")._tippy.setContent(balanceContent);
     }    
 }
 

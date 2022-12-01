@@ -151,7 +151,7 @@ const buildings = [
     ["house",
         ["shack","house","nobleHouse"]],
     ["manufacture", 
-        ["dairy","mill","sawmill"]],
+        ["dairy","mill","brickyard","sawmill"]],
     ["businesses", 
         ["bakery","tavern"]],
     ["handicraft", 

@@ -6,11 +6,13 @@ import { newWeather } from "./weather.js";
 import { advanceDay } from "./time/day.js";
 import { popUpdate } from "./ui/popUI.js";
 import { game } from "../data/gameData.js";
-import { foodCalc, gameTick, happinessCalc, productivityCalc } from "./gameTick.js";
+import { resetResource, foodCalc, gameTick, happinessCalc, productivityCalc } from "./gameTick.js";
 import { eventsData } from "../data/eventsData.js";
 import { resources } from "../data/resourcesData.js";
 import { buildingsData } from "../data/buildingsData.js";
 import { popsData } from "../data/popsData.js";
+import { armyData } from "../data/armyData.js";
+import { combat } from "./army.js";
 
 function gameBootstrap(){
     if(localStorage.getItem("mv-game-version") != document.getElementById("game-version").innerText){
@@ -25,14 +27,16 @@ function gameBootstrap(){
     }
     for(const k in resources){
         game[k] = 0;
-        game[k+"_balance"] = 0;
-        game[k+"_lack"] = 0;
+        resetResource(k);
 
         preloadImage("./img/icons/"+k+".png");
     }
     for(const k in popsData){
         game[k] = 0;
         game[k+"_jobs"] = 0;
+    }
+    for(const k in armyData){
+        game[k] = 0;
     }
     for(const k in eventsData){
         if(eventsData[k].image)
@@ -41,7 +45,6 @@ function gameBootstrap(){
 
     game.fruit = 50;
     game.wood = 20;
-    game.firewood = 20;
     game.stone = 10;
     game.clothes = 50;
     game.tools = 50;
@@ -65,6 +68,8 @@ function gameBootstrap(){
     shuffleArr(eventsData);
 
     setInterval(popUpdate, 100);
+
+    combat();
 }gameBootstrap();
 
 export function checkGameOver(){

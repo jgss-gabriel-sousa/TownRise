@@ -4,6 +4,7 @@ import { buildingHTML, destroyBuildingHTML,updateMapItemsScale } from "./ui/buil
 import { average } from "./funcs.js";
 import { jobs } from "./jobs.js";
 import { buildingsData } from "../data/buildingsData.js";
+import { resourceChange } from "./resources.js";
 
 import { cropField } from "./buildings/cropField.js";
 import { orchard } from "./buildings/orchard.js";
@@ -78,8 +79,7 @@ function generalUpdate(){
         for(const c in building.maintenance){
             const inputConsumption = building.maintenance[c] * game[b] * productivity;
 
-            //console.log(c+": "+inputConsumption)
-            game[c+"_balance"] -= inputConsumption;
+            resourceChange("consumption", c, building.name, inputConsumption);
         }
 
         //Winter Needs
@@ -87,27 +87,26 @@ function generalUpdate(){
             for(const c in building.winter_needs){
                 const wNeedConsumption = building.winter_needs[c] * game[b];
 
-                game[c+"_balance"] -= wNeedConsumption;
+                resourceChange("consumption", c, building.name, wNeedConsumption);
             }
         }
 
         //Production
         for(const p in building.production){
-            /*
-            console.log("Total: "+p+": "+building.production[p] * game[b] * productivity)
-            console.log("building.production: "+building.production[p])
-            console.log("game."+b+": "+game[b])
-            console.log("productivity: "+productivity)
-            */
-            game[p+"_balance"] += building.production[p] * game[b] * productivity;
+            const prod = building.production[p] * game[b] * productivity;
+            
+            resourceChange("production", p, building.name, prod);
         }
     }
 }
 
 export function buildBuilding(id){
     if(!game.gameStarted) return;
-    if(game.gamePaused) return;
-    
+    if(game.gamePaused){
+        pauseError();
+        return;
+    }
+
     const building = buildingsData[id];
 
     for(const n in building.build){
@@ -125,6 +124,27 @@ export function buildBuilding(id){
     updateMapItemsScale();
     updateDataInfo();
     jobs();
+}
+
+function pauseError(){
+    console.log("pause");
+
+    Swal.fire({
+        title: "Deseja mesmo Desistir?",
+        icon: "warning",
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        confirmButtonText: "Desistir",
+        cancelButtonText: "Voltar",
+    }).then((result) => {
+        if(result.isConfirmed){
+            game.gameOver = true;
+            game.gameSurrender = true;
+            checkGameOver();
+        }
+    });
 }
 
 export function destroyBuilding(id, qty){

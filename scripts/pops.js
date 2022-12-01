@@ -1,5 +1,6 @@
 import { game } from "../data/gameData.js"
 import { popsData } from "../data/popsData.js"
+import { resourceChange } from "./resources.js"
 
 let difficulty;
 
@@ -65,24 +66,25 @@ function foodConsumption(){
         game.food_consumption += popsData[p].food_consumption*game[p]*difficulty;
 
         const baseCsmpt = (popsData[p].food_consumption*game[p]*difficulty)/variation;
-        
-        game.grain_balance -= baseCsmpt*grain_csmpt;
-        game.milk_balance -= baseCsmpt*milk_csmpt;
-        game.meat_balance -= baseCsmpt*meat_csmpt;
-        game.fruit_balance -= baseCsmpt*fruit_csmpt;
-        game.bread_balance -= baseCsmpt*bread_csmpt;
+
+        resourceChange("consumption", "grain", "População", baseCsmpt*grain_csmpt);
+        resourceChange("consumption", "milk", "População", baseCsmpt*milk_csmpt);
+        resourceChange("consumption", "meat", "População", baseCsmpt*meat_csmpt);
+        resourceChange("consumption", "fruit", "População", baseCsmpt*fruit_csmpt);
+        resourceChange("consumption", "bread", "População", baseCsmpt*bread_csmpt);
     }
 }
 
 function goodsConsumption(){
     for(const p in popsData) {
-        const evt = popsData[p];
+        const pop = popsData[p];
 
-        if(popsData[p].hasOwnProperty("consumption")) {
-            for(const goods in popsData[p].consumption) {
+        if(pop.hasOwnProperty("consumption")) {
+            for(const goods in pop.consumption) {
                 if(game.hasOwnProperty(goods+"_balance")) {
-                    const popCsmpt = popsData[p].consumption[goods]*game[p]*difficulty;
-                    game[goods+"_balance"] -= popCsmpt;
+                    const popCsmpt = pop.consumption[goods]*game[p]*difficulty;
+                    
+                    resourceChange("consumption", goods, "População", popCsmpt);
                 }
             }
         }

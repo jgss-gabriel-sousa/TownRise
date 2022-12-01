@@ -8,22 +8,22 @@ export function homes(){
 }
 
 function shack(){
-    let firewoodSupply = 1;
-    if(game.season == "winter" && game.firewood_lack) firewoodSupply = 0.25;
+    let woodSupply = 1;
+    if(game.season == "winter" && game.wood_lack) woodSupply = 0.25;
 
-    game.popLimit += buildingsData["shack"].popLimit * game["shack"] * firewoodSupply;
+    game.popLimit += buildingsData["shack"].popLimit * game["shack"] * woodSupply;
 }
 
 function house(){
-    let firewoodSupply = 1;
-    if(game.season == "winter" && game.firewood_lack) firewoodSupply = 0.5;
+    let woodSupply = 1;
+    if(game.season == "winter" && game.wood_lack) woodSupply = 0.5;
 
-    game.popLimit += buildingsData["house"].popLimit * game["house"] * firewoodSupply;
+    game.popLimit += buildingsData["house"].popLimit * game["house"] * woodSupply;
 }
 
 function nobleHouse(){
-    let firewoodSupply = 1;
-    if(game.season == "winter" && game.firewood_lack) firewoodSupply = 0.75;
+    let woodSupply = 1;
+    if(game.season == "winter" && game.wood_lack) woodSupply = 0.75;
 
-    game.popLimit += buildingsData["nobleHouse"].popLimit * game["nobleHouse"] * firewoodSupply;
+    game.popLimit += buildingsData["nobleHouse"].popLimit * game["nobleHouse"] * woodSupply;
 }
