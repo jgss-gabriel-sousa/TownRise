@@ -136,17 +136,4 @@ function popDeaths(){
 
         game.population -= popDeath;
     }
-
-    function randDeaths(){
-        const randDeathChance = 1;
-
-        if(rand(0, 1000) < randDeathChance){
-            game.population--;
-
-            const randDead = rand(0,2);
-            const baseMsg = "1 cidadão morreu ";
-            if(randDead == 0) logPush(baseMsg+"de tanto rir");
-            if(randDead == 1) logPush(baseMsg+"tentado voar, pulando de um penhasco");
-        }
-    }
 }
