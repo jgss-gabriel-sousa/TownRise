@@ -21,7 +21,6 @@ export function buildingsUpdate(){
 
     homes();
 
-
     updateMapItemsScale();
 
 /*
