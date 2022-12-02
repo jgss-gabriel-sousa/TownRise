@@ -220,6 +220,9 @@ button:hover span b {
 .lack {
     color: red;
 }
+.rlack {
+    background-color: #cd5c5c;
+}
 
 #game-options {
     display: flex;

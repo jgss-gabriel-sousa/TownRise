@@ -51,7 +51,11 @@ export function buildingsBootstrap(){
 
             contentHTML += `<p>Construir</p><ul>`;
             for(const k in building.build){
-                contentHTML += `<li>${resources[k].name+": "}${building.build[k]}</li>`;
+                contentHTML += "<li";
+                if(game[k] < building.build[k])
+                    contentHTML += ` class="rlack"`;
+
+                contentHTML += `>${resources[k].name+": "}${building.build[k]}</li>`;
             }
             contentHTML += `</ul>`;
         }
