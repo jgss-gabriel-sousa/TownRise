@@ -72,6 +72,16 @@ function gameBootstrap(){
     combat();
 }gameBootstrap();
 
+
+export function gameStartItems(){
+    if(game.gameDifficulty == "easy"){
+        game.lumbermill = 1;
+        game.cropField = 2;
+        game.house = 2;
+        game.meat = 50;
+    }
+}
+
 export function checkGameOver(){
     if(!game.population || game.gameOver){
         game.gameOver = true;

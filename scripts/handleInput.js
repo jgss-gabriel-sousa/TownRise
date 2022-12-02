@@ -1,4 +1,4 @@
-import { checkGameOver, newTurn } from "./game.js";
+import { checkGameOver, gameStartItems } from "./game.js";
 import { game } from "../data/gameData.js";
 import { deleteGame, loadGame, saveGame } from "./load-save.js";
 import { setGameSpeed, pauseGame } from "./gameTime.js";
@@ -12,6 +12,7 @@ import { jobs } from "./jobs.js";
 import { buildBuilding, destroyBuilding } from "./buildings.js";
 
 import { buildingsData } from "../data/buildingsData.js";
+import { populationStart } from "./population.js";
 
 //Cancel reload of the page
 window.addEventListener("beforeunload", function (event) {
@@ -116,13 +117,15 @@ async function startSequence(type){
     if(type == "new-game")
         await selectGameDifficultyUI();
 
-    gameStart();
+    gameStartItems();
     updateDataInfo();
-    //newTurn();
     popBootstrap();
     buildingsBootstrap();
+    populationStart();
+
     game.gameStarted = true;
     game.gamePaused = true;
+
     document.getElementById("start-game").classList.add("hidden");
     document.getElementById("game-version").remove();
     document.getElementById("pause").classList.add("btn-active");
@@ -134,14 +137,4 @@ async function startSequence(type){
     document.getElementById("left-section").style.display = "flex";
     document.getElementById("info-section").style.display = "flex";
     document.getElementById("map").style.display = "flex";
-    //document.getElementById("options-section").style.display = "flex";
-}
-
-function gameStart(){
-    if(game.gameDifficulty == "easy"){
-        game.lumbermill = 1;
-        game.cropField = 2;
-        game.house = 2;
-        game.meat = 50;
-    }
 }

@@ -3,13 +3,15 @@ import { game } from "../data/gameData.js";
 import { rand } from "./funcs.js";
 import { logPush } from "./ui/log.js";
 
-export function populationUpdate(){
-    let difficulty;
+let difficulty;
 
+export function populationStart(){
     if(game.gameDifficulty == "hard")       difficulty = 1;
     if(game.gameDifficulty == "normal")     difficulty = 0.75;
     if(game.gameDifficulty == "easy")       difficulty = 0.5;
+}
 
+export function populationUpdate(){
     popsUpdate(difficulty);
     popGrowth();
     popDeaths();
@@ -54,6 +56,8 @@ function popDeaths(){
     //randDeaths();
     
     function hungryDeaths(){
+        if(rand(0,5) != 0) return;
+
         const hungry = (game.food_consumption - game.food)/game.food_consumption;
         
         if(hungry > 0){
@@ -69,6 +73,8 @@ function popDeaths(){
     }
 
     function homelessDeaths(){
+        if(rand(0,5) != 0) return;
+        
         let homelessRate = 1;
         if(game.population)
             homelessRate = (1/(game.popLimit/game.population))-1;
@@ -115,13 +121,16 @@ function popDeaths(){
     }
 
     function withoutClothesDeaths(){
+        if(rand(0,5) != 0) return;
+
         let popWithoutClothes = game.population - Math.floor(game.clothes);
         if(popWithoutClothes > 1) game.clothes_lack = true;
 
-        let deathChance = 25;
+        let deathChance = 10;
         if(game.season == "winter") deathChance *= 4;
         
-        let popDeath = Math.round((rand(0,deathChance)/100)*popWithoutClothes);
+        let popDeath = Math.round((rand(0,deathChance)/100)*popWithoutClothes * difficulty);
+        popDeath = Math.round(popDeath );
 
         if(popDeath < 0) popDeath = 0;
 
@@ -141,30 +150,3 @@ function popDeaths(){
         }
     }
 }
-
-//OLD Pop Death
-/*
-    if(season == "winter"){
-        let popWithoutClothes = Math.round(game.population-game.clothes);
-        if(popWithoutClothes < 0) popWithoutClothes = 0;
-        if(popWithoutClothes > 0) clothes_lack = true;
-
-        let childrensWithoutOuterwear = 0;
-        if(popWithoutClothes > 0)
-            childrensWithoutOuterwear = Math.round((popWithoutClothes/game.population)*game.childrens);
-        if(!childrensWithoutOuterwear) childrensWithoutOuterwear = 0;
-        if(!childrensWithoutOuterwear || childrensWithoutOuterwear < 0) childrensWithoutOuterwear = 0;
-
-        popDeath = Math.round((rand(0,25)/100)*popWithoutClothes);
-        childrenDeath = Math.round((rand(0,50)/100)*childrensWithoutOuterwear);
-
-        game.population -= popDeath;
-        game.childrens -= childrenDeath;
-
-        if(popDeath > 1)        logPush(popDeath+" cidadãos morreram sem agasalho");
-        if(popDeath == 1)       logPush(popDeath+" cidadão morreu sem agasalho");
-        if(childrenDeath > 1)   logPush(childrenDeath+" crianças morreram sem agasalho");
-        if(childrenDeath == 1)  logPush(childrenDeath+" criança morreu sem agasalho");
-    }
-    game.clothes_balance -= (game.population*0.0125)+(game.childrens*0.00625);
-*/
