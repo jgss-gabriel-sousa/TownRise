@@ -72,17 +72,7 @@ export function resourcesUI(){
     }
 
     for(const r in resources){
-        tippy("#"+r+"-img", {
-            allowHTML: true,
-            theme: "townrise",
-        });
-        /*
-        tippy("#"+r+"-stat", {
-            allowHTML: true,
-            theme: "townrise",
-        });
-        */
-        tippy("#"+r+"-balance-stat", {
+        tippy("#"+r, {
             allowHTML: true,
             theme: "townrise",
         });
@@ -204,11 +194,8 @@ function resourcesStatAndLack(){
         else
             document.getElementById(r+"-stat").classList.remove("lack");
         
-        document.querySelector("#"+r+"-img")._tippy.setContent(`
-            <p><b>${resources[r].name}</b></p>
-        `);
-
-        let balanceContent = `<b>Produção: ${numberF(game[r+"_totalProduction"],"",1)}</b>`;
+        let balanceContent = `<h1>${resources[r].name}</h1>`;
+        balanceContent += `<b>Produção: ${numberF(game[r+"_totalProduction"],"",1)}</b>`;
         for(const p in game[r+"_production"]){
             const prod = numberF(game[r+"_production"][p],"",1);
             balanceContent += `<p>${p}: ${prod}</p>`
@@ -218,7 +205,7 @@ function resourcesStatAndLack(){
             const cons = numberF(-game[r+"_consumption"][c],"",1);
             balanceContent += `<p>${c}: ${cons}</p>`
         }
-        document.querySelector("#"+r+"-balance-stat")._tippy.setContent(balanceContent);
+        document.querySelector("#"+r)._tippy.setContent(balanceContent);
     }    
 }
 
