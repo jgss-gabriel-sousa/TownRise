@@ -1,4 +1,4 @@
-import { game } from "/data/gameData.js"
+import { game } from "../data/gameData.js"
 
 export function resourceChange(type, id, name, value){
     if(type == "consumption"){
