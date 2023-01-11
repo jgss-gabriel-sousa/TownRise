@@ -20,6 +20,4 @@ class Army {
 
 export function combat(){
     const quadrado = new Army(10,5,3);
-    
-    console.log(quadrado.power);
 }

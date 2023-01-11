@@ -193,8 +193,6 @@ function resourcesStatAndLack(){
             document.getElementById(r+"-stat").classList.add("lack");
         else
             document.getElementById(r+"-stat").classList.remove("lack");
-
-            console.log(r)
         
         let balanceContent = `<h1>${resources[r].name}</h1>`;
         balanceContent += `<b>Produção: ${numberF(game[r+"_totalProduction"],"",1)}</b>`;
