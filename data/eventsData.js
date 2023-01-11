@@ -1,4 +1,4 @@
-import { game } from "../data/gameData.js";
+import { game } from "./gameData.js";
 import { rand } from "../scripts/funcs.js";
 
 export const eventsData = {

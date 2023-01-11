@@ -193,6 +193,8 @@ function resourcesStatAndLack(){
             document.getElementById(r+"-stat").classList.add("lack");
         else
             document.getElementById(r+"-stat").classList.remove("lack");
+
+            console.log(r)
         
         let balanceContent = `<h1>${resources[r].name}</h1>`;
         balanceContent += `<b>Produção: ${numberF(game[r+"_totalProduction"],"",1)}</b>`;
@@ -200,7 +202,7 @@ function resourcesStatAndLack(){
             const prod = numberF(game[r+"_production"][p],"",1);
             balanceContent += `<p>${p}: ${prod}</p>`
         }
-        balanceContent += `<hr><b>Consumo: ${numberF(game[r+"_totalConsumption"],"",1)}</b>`;
+        balanceContent += `<hr><b>Consumo: ${numberF(-game[r+"_totalConsumption"],"",1)}</b>`;
         for(const c in game[r+"_consumption"]){
             const cons = numberF(-game[r+"_consumption"][c],"",1);
             balanceContent += `<p>${c}: ${cons}</p>`
