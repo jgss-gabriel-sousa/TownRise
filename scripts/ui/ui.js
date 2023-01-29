@@ -3,6 +3,7 @@ import { popsData } from "../../data/popsData.js"
 import { numberF, numberBalanceFormatted, translateSeason } from "../funcs.js"
 import { game } from "../../data/gameData.js"
 import { modifiersData } from "../../data/modifiersData.js";
+import { buildingsDescriptionUpdate } from "./buildingsUI.js";
 
 export function resourcesUI(){
     const element = document.getElementById("resources");
@@ -119,6 +120,8 @@ export function updateDataInfo(){
 
     resourcesStatAndLack();
     professionsStat();
+
+    buildingsDescriptionUpdate();
 
     modifiersUI();
 

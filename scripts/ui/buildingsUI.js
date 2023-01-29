@@ -30,80 +30,12 @@ export function buildingsBootstrap(){
             }
         }
     }
-    
+
     buildinglisteners();
-    
+
     for(const b in buildingsData){
-        const building = buildingsData[b];
-        let contentHTML = `<div class="building-tippy">`;
-
-        if(building.hasOwnProperty("jobs") && Object.keys(building.jobs).length > 0){
-            contentHTML += `<p>Empregos</p><ul>`;
-            for(const k in building.jobs){
-                contentHTML += `<li>${popsData[k].name+": "}${building.jobs[k]}</li>`;
-            }
-            contentHTML += `</ul>`;
-        }
-
-        if(Object.keys(building.build).length > 0){
-            if(contentHTML != `<div class="building-tippy">`)
-                contentHTML += "<hr>";
-
-            contentHTML += `<p>Construir</p><ul>`;
-            for(const k in building.build){
-                contentHTML += "<li";
-                if(game[k] < building.build[k])
-                    contentHTML += ` class="rlack"`;
-
-                contentHTML += `>${resources[k].name+": "}${building.build[k]}</li>`;
-            }
-            contentHTML += `</ul>`;
-        }
-
-        if(Object.keys(building.maintenance).length > 0){
-            if(contentHTML != `<div class="building-tippy">`)
-                contentHTML += "<hr>";
-
-            contentHTML += `<p>Manutenção</p><ul>`;
-            for(const k in building.maintenance){
-                contentHTML += `<li>${resources[k].name+": "}${building.maintenance[k]}</li>`;
-            }
-            contentHTML += `</ul>`;
-        }
-
-        if(building.hasOwnProperty("winter_needs") && Object.keys(building.winter_needs).length > 0){
-            if(contentHTML != `<div class="building-tippy">`)
-                contentHTML += "<hr>";
-
-            contentHTML += `<p>Manutenção no Inverno</p><ul>`;
-            for(const k in building.winter_needs){
-                contentHTML += `<li>${resources[k].name+": "}${building.winter_needs[k]}</li>`;
-            }
-            contentHTML += `</ul>`;
-        }
-
-        if(Object.keys(building.production).length > 0){
-            if(contentHTML != `<div class="building-tippy">`)
-                contentHTML += "<hr>";
-
-            contentHTML += `<p>Produção</p><ul>`;
-            for(const k in building.production){
-                contentHTML += `<li>${resources[k].name+": "}${building.production[k]}</li>`;
-            }
-            contentHTML += `</ul>`;
-        }
-
-        if(building.description){
-            if(contentHTML != `<div class="building-tippy">`)
-                contentHTML += "<hr>";
-            
-            contentHTML += `${building.description}`;
-        }
-
-        contentHTML += `</div>`;
-
         tippy("#add-"+b, {
-            content: contentHTML,
+            content: buildingDescription(buildingsData[b]),
             maxWidth: 250,
             placement: "right",
             allowHTML: true,
@@ -111,6 +43,83 @@ export function buildingsBootstrap(){
             theme: "townrise",
         });
     }
+}
+
+export function buildingsDescriptionUpdate(){
+    for(const b in buildingsData){
+        document.querySelector("#add-"+b)._tippy.setContent(buildingDescription(buildingsData[b]));
+    }
+}
+
+function buildingDescription(building){
+    let contentHTML = `<div class="building-tippy">`;
+
+    if(building.hasOwnProperty("jobs") && Object.keys(building.jobs).length > 0){
+        contentHTML += `<p>Empregos</p><ul>`;
+        for(const k in building.jobs){
+            contentHTML += `<li>${popsData[k].name+": "}${building.jobs[k]}</li>`;
+        }
+        contentHTML += `</ul>`;
+    }
+
+    if(Object.keys(building.build).length > 0){
+        if(contentHTML != `<div class="building-tippy">`)
+            contentHTML += "<hr>";
+
+        contentHTML += `<p>Construir</p><ul>`;
+        for(const k in building.build){
+            contentHTML += "<li";
+            if(game[k] < building.build[k])
+                contentHTML += ` class="rlack"`;
+
+            contentHTML += `>${resources[k].name+": "}${building.build[k]}</li>`;
+        }
+        contentHTML += `</ul>`;
+    }
+
+    if(Object.keys(building.maintenance).length > 0){
+        if(contentHTML != `<div class="building-tippy">`)
+            contentHTML += "<hr>";
+
+        contentHTML += `<p>Manutenção</p><ul>`;
+        for(const k in building.maintenance){
+            contentHTML += `<li>${resources[k].name+": "}${building.maintenance[k]}</li>`;
+        }
+        contentHTML += `</ul>`;
+    }
+
+    if(building.hasOwnProperty("winter_needs") && Object.keys(building.winter_needs).length > 0){
+        if(contentHTML != `<div class="building-tippy">`)
+            contentHTML += "<hr>";
+
+        contentHTML += `<p>Manutenção no Inverno</p><ul>`;
+        for(const k in building.winter_needs){
+            contentHTML += `<li>${resources[k].name+": "}${building.winter_needs[k]}</li>`;
+        }
+        contentHTML += `</ul>`;
+    }
+
+    if(Object.keys(building.production).length > 0){
+        if(contentHTML != `<div class="building-tippy">`)
+            contentHTML += "<hr>";
+
+        contentHTML += `<p>Produção</p><ul>`;
+        for(const k in building.production){
+            contentHTML += `<li>${resources[k].name+": "}${building.production[k]}</li>`;
+        }
+        contentHTML += `</ul>`;
+    }
+
+    if(building.description){
+        if(contentHTML != `<div class="building-tippy">`)
+            contentHTML += "<hr>";
+        
+        contentHTML += `${building.description}`;
+    }
+
+    contentHTML += `</div>`;
+
+    return contentHTML;
 }
 
 export function destroyBuildingHTML(id, qty){

@@ -118,9 +118,9 @@ async function startSequence(type){
         await selectGameDifficultyUI();
 
     gameStartItems();
+    buildingsBootstrap();
     updateDataInfo();
     popBootstrap();
-    buildingsBootstrap();
     populationStart();
 
     game.gameStarted = true;
