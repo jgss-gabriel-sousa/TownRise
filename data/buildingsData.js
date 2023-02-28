@@ -138,7 +138,9 @@ export const buildingsData = {
         spritePlace: "city",
         description: "",
         jobs: {
+            worker: 3,
             artificer: 2,
+            patrician: 1,
         },
         build: {
             wood: 20,
@@ -161,7 +163,7 @@ export const buildingsData = {
         jobs: {
             worker: 2,
             artificer: 2,
-            patrician: 1,
+            noble: 1,
         },
         build: {
             wood: 20,
@@ -203,6 +205,7 @@ export const buildingsData = {
         jobs: {
             worker: 4,
             artificer: 2,
+            patrician: 1,
         },
         build: {
             wood: 20,
@@ -265,6 +268,7 @@ export const buildingsData = {
         description: "",
         jobs: {
             worker: 2,
+            noble: 1,
         },
         build: {
             wood: 12,

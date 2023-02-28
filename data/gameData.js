@@ -15,6 +15,8 @@ export const game = {
     modifiers:{},
     activeEvents:{},
 
+    popDeaths:{},
+
     impacts: {
         popGrowth: 1,
         popDeath: 1,

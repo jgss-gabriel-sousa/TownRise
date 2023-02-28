@@ -6,6 +6,8 @@ import { eventsData } from "../../data/eventsData.js";
 export function advanceMonth(){
     shuffleArr(eventsData);
     
+    resetPopDeaths();
+    
     if(game.season == "spring"){
         game.season = "summer";
 
@@ -28,5 +30,11 @@ export function advanceMonth(){
 
         document.getElementById("map").classList.remove("map-winter");
         advanceYear();
+    }
+}
+
+function resetPopDeaths(){
+    for(const m in game.popDeaths){
+        game.popDeaths[m] = 0;
     }
 }

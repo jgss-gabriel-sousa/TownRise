@@ -124,6 +124,7 @@ export function updateDataInfo(){
     buildingsDescriptionUpdate();
 
     modifiersUI();
+    popDeathsUI();
 
     //Bars
     const barsElements = ["productivity","happiness","lifeQuality"];
@@ -179,10 +180,82 @@ export function modifiersUI(){
     }
 
     document.querySelectorAll(".modifier-icon").forEach(e => {
-        const elID = e.id.slice(0, -9);
+        const elID = e.id.slice(0, -"-modifier".length);
         
         if(!game.modifiers.hasOwnProperty(elID)){
             deleteModElement(elID);
+        }
+    });
+}
+
+const deathData = {
+    natural: {
+        article: "de ",
+        name: "Morte Natural",
+    },
+    hungry: {
+        article: "de ",
+        name: "Fome",
+    },
+    homeless: {
+        article: "",
+        name: "Sem Abrigo",
+    },
+    cold: {
+        article: "de ",
+        name: "Frio",
+    },
+}
+
+export function popDeathsUI(){
+    function createTippy(id){
+        tippy("#"+id+"-pop-death", {
+            content: "<p>Mortos <b>"+deathData[id].article+deathData[id].name+"</b></p>",
+            allowHTML: true,
+            theme: "townrise",
+            interactive: false,
+        });
+    }
+    function createModElement(id){
+        document.getElementById("pop-deaths").innerHTML += `
+            <div class="container pop-death-icon" id="${id}-pop-death">
+                <img src="./img/icons/pop-deaths/${id}.png">
+                <small>${game.popDeaths[id]}</small>
+            </div>
+        `;
+
+        createTippy(id);
+    }
+    function updateModElement(id){
+        document.querySelector("#"+id+"-pop-death small").innerText = game.popDeaths[id];
+    }
+    function deleteModElement(id){
+        document.getElementById(id+"-pop-death").remove();
+    }
+    //###############################################################
+
+    console.log(game.popDeaths)
+    for(const m in game.popDeaths){
+
+        if(document.getElementById(m+"-pop-death") == null){
+            createModElement(m);
+        }
+        else{
+            updateModElement(m);
+        }
+    }
+
+    for(const m in game.popDeaths){
+        if(document.getElementById(m+"-pop-death")._tippy == undefined)
+            createTippy(m);
+    }
+
+    document.querySelectorAll(".pop-death-icon").forEach(e => {
+        const id = e.id.slice(0, -"-pop-death".length);
+
+        if(!game.popDeaths.hasOwnProperty(id) || game.popDeaths[id] == 0){
+            deleteModElement(id);
+            delete game.popDeaths[id];
         }
     });
 }

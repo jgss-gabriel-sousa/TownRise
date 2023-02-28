@@ -36,6 +36,11 @@
     <title>TownRise</title>
 </head>
 <body>
+    <div id="console">
+        <input type="text" name="" id="">
+        <button class="btn">OK</button>
+        <p></p>
+    </div>
     <div id="main-interface">
         <div id="start-game" class="container menu">
             <h1>TownRise</h1>
@@ -43,7 +48,7 @@
             <input type="button" class="btn btn-active" value="Nova Vila" id="start">
             <input type="button" class="btn btn-active" value="Carregar Vila" id="load">
             <input type="button" class="btn btn-active" value="Opções" id="options">
-            <p>v<span id="game-version">0.17</span>.1 &copy; JGSS</p>
+            <p>v<span id="game-version">0.18</span>&copy; JGSS</p>
         </div>
         <div id="load-game" class="container menu hidden">
             <h1>Carregar Vila</h1>
@@ -62,10 +67,10 @@
             <div class="container" id="time">
                 <div id="game-time">
                     <input type="button" class="btn btn-active hidden" value="Voltar para o Menu" id="restart">
-                    <input type="button" class="time-btn hidden" value="=" id="pause">
-                    <input type="button" class="time-btn hidden" value=">" id="1x">
-                    <input type="button" class="time-btn hidden" value=">>" id="5x">
-                    <input type="button" class="time-btn hidden" value=">>>" id="10x">
+                    <input type="button" class="btn time-btn hidden" value="=" id="pause">
+                    <input type="button" class="btn time-btn hidden" value=">" id="1x">
+                    <input type="button" class="btn time-btn hidden" value=">>" id="5x">
+                    <input type="button" class="btn time-btn hidden" value=">>>" id="10x">
                 </div>
                 <p><span>Dia </span><span id="totalDays-stat">1</span><span> - Ano </span><span id="year-stat">0</span></p>
                 <p><span id="day-weather"><i class="fa-solid fa-sun"></i></span> <span id="day-stat">1</span> - <span id="season">Primavera</span></p>
@@ -88,6 +93,7 @@
         </div>
         <div id="map-section">
             <div id="active-modifiers"></div>
+            <div id="pop-deaths"></div>
             <div class="hidden container grass-spring" id="map">
                 <div class="map-div" id="map-city"></div>
                 <div class="map-div" id="map-farms"></div>
