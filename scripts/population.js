@@ -5,13 +5,11 @@ import { logPush } from "./ui/log.js";
 
 let difficulty;
 
-export function populationStart(){
+export function populationUpdate(){
     if(game.gameDifficulty == "hard")       difficulty = 1;
     if(game.gameDifficulty == "normal")     difficulty = 0.75;
     if(game.gameDifficulty == "easy")       difficulty = 0.5;
-}
-
-export function populationUpdate(){
+    
     popsUpdate(difficulty);
     popGrowth();
     popDeaths();

@@ -3,8 +3,8 @@ import { game } from "../../data/gameData.js";
 
 export function popUpdate(){
     return;
-    if(game.gamePaused) return;
-    if(!game.gameStarted) return;
+    if(game.isPaused) return;
+    if(!game.isStarted) return;
 
     const popCount = document.querySelectorAll(".pop").length;
 
@@ -22,7 +22,7 @@ export function popUpdate(){
     }
 }
 
-export function popBootstrap(){
+export function initPopulation(){
     for(let i = 0; i < game.population; i++){
         addPop(true);
     }

@@ -5,7 +5,7 @@ const NUMBER_OF_SONGS = 7;
 
 export function soundStart(){
     if(!localStorage.getItem("mv-volume"))
-        localStorage.setItem("mv-volume", "0.5");
+        localStorage.setItem("mv-volume", "0.2");
 }
 
 export function soundtrack(){
@@ -19,7 +19,7 @@ export function soundtrack(){
                     clearInterval(tryToPlay);
                 })
                 .catch(error => {
-                    ;
+                    console.error(error);
                 });
         }, 1000);
     }
