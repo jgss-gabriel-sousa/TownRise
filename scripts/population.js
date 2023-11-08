@@ -47,6 +47,12 @@ export function popGrowth(){
             logPush("1 cidadão morreu");
         else                        
             logPush((popDeath-popGrowth)+" cidadãos morreram");
+
+            
+        if(game.popDeaths.hasOwnProperty("natural"))
+            game.popDeaths["natural"] += popDeath;
+        else
+            game.popDeaths["natural"] = popDeath;
     }    
 }
 
