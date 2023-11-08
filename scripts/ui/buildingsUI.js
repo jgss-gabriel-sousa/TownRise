@@ -168,7 +168,7 @@ const buildings = [
     ["businesses", 
         ["bakery","tavern"]],
     ["handicraft", 
-        ["tailorsmith","armory","blacksmith"]],
+        ["tailorsmith","armory","blacksmith","barracks"]],
     ["resources", 
         ["huntingCabin","foundry","lumbermill","mine","deepMine"]],
 ];

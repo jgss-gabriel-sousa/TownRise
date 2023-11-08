@@ -34,6 +34,14 @@ export const popsData = {
             tools: 0.02,
         },
     },
+    soldier:{
+        name: "Soldado",
+        food_consumption: 0.1,
+        consumption: {
+            clothes: 0.01,
+            weapon: 0.01,
+        },
+    },
     artificer:{
         name: "Artífice",
         food_consumption: 0.05,

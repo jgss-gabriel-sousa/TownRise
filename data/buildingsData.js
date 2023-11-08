@@ -393,4 +393,22 @@ export const buildingsData = {
             leather: 0.75
         }
     },
+    barracks: {
+        name: "Quartel",
+        spriteSize: "lg",
+        spritePlace: "city",
+        description: "",
+        jobs: {
+            soldier: 50,
+        },
+        build: {
+            wood: 100,
+            stone: 30,
+        },
+        maintenance: {
+            gold: 5,
+        },
+        production: {
+        }
+    },
 }
