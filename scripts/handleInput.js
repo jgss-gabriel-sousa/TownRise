@@ -20,6 +20,10 @@ window.addEventListener("beforeunload", function (event) {
         event.returnValue = "\o/";
 });
 
+window.onresize = e => {
+    document.querySelector("body").style.height = window.innerHeight-20+"px";
+};
+
 window.onclick = e => {
     //Buildings
     const b = e.target.id.replace(/^add-/, "");
@@ -28,7 +32,7 @@ window.onclick = e => {
     }
     if(game.destroyBuildingCheck){
         if(e.target.parentNode.classList.contains("map-item")){
-            const building = e.target.parentNode.classList[3].substring(4)
+            const building = e.target.parentNode.classList[3].substring(4);
             destroyBuilding(building, 1);
         }
     }

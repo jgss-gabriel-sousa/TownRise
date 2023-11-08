@@ -234,9 +234,7 @@ export function popDeathsUI(){
     }
     //###############################################################
 
-    console.log(game.popDeaths)
     for(const m in game.popDeaths){
-
         if(document.getElementById(m+"-pop-death") == null){
             createModElement(m);
         }
