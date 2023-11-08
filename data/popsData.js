@@ -57,6 +57,7 @@ export const popsData = {
         consumption: {
             ale: 0.05,
             clothes: 0.03,
+            wine: 0.05,
         },
     },
     noble:{
@@ -65,6 +66,7 @@ export const popsData = {
         consumption: {
             ale: 0.1,
             clothes: 0.05,
+            wine: 0.1,
         },
     },
 }

@@ -267,7 +267,7 @@ export const buildingsData = {
         spritePlace: "city",
         description: "",
         jobs: {
-            worker: 2,
+            worker: 4,
             noble: 1,
         },
         build: {
