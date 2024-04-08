@@ -12,20 +12,20 @@ export function soundtrack(){
     if(audio.paused){
         const newSongID = rand(0,NUMBER_OF_SONGS);
         audio = new Audio("./songs/"+newSongID+".mp3");
+        audio.volume = Number(localStorage.getItem("mv-volume"))/4;
         
         const tryToPlay = setInterval(() => {        
             audio.play()
-                .then(() => {
-                    clearInterval(tryToPlay);
-                })
-                .catch(error => {
-                    ;
-                });
+            .then(() => {
+                clearInterval(tryToPlay);
+            })
+            .catch(error => {
+                ;
+            });
+
+            audio.addEventListener('ended', soundtrack);
+
         }, 1000);
     }
-
-    audio.volume = Number(localStorage.getItem("mv-volume"))/4;
-    
-    window.setTimeout(soundtrack, 500);
 }
 
