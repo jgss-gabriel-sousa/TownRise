@@ -5,7 +5,7 @@ const NUMBER_OF_SONGS = 7;
 
 export function soundStart(){
     if(!localStorage.getItem("mv-volume"))
-        localStorage.setItem("mv-volume", "0.2");
+        localStorage.setItem("mv-volume", "0.5");
 }
 
 export function soundtrack(){
@@ -24,6 +24,7 @@ export function soundtrack(){
             });
 
             audio.addEventListener('ended', setTimeout(soundtrack, rand(500,4000)));
+
         }, 1000);
     }
 }

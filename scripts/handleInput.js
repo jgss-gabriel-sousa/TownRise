@@ -1,9 +1,9 @@
-import { checkGameOver, initGameItems } from "./game.js";
+import { checkGameOver, gameStartItems } from "./game.js";
 import { game } from "../data/gameData.js";
 import { deleteGame, loadGame, saveGame } from "./load-save.js";
 import { setGameSpeed, pauseGame } from "./gameTime.js";
 
-import { initPopulation } from "./ui/popUI.js";
+import { popBootstrap } from "./ui/popUI.js";
 import { updateDataInfo } from "./ui/ui.js";
 import { selectGameDifficultyUI, gameOptionsUI } from "./ui/options.js";
 import { buildingsBootstrap, updateMapItemsScale } from "./ui/buildingsUI.js";
@@ -12,6 +12,7 @@ import { jobs } from "./jobs.js";
 import { buildBuilding, destroyBuilding } from "./buildings.js";
 
 import { buildingsData } from "../data/buildingsData.js";
+import { populationStart } from "./population.js";
 
 //Cancel reload of the page
 window.addEventListener("beforeunload", function (event) {
@@ -116,47 +117,29 @@ for(let i = 0; i < document.querySelectorAll(".professions-slider").length; i++)
     });
 }
 
-async function startSequence(type) {
-    if(type == "new-game"){
+async function startSequence(type){
+    if(type == "new-game")
         await selectGameDifficultyUI();
-    }
 
-    initGameItems();
-    initBuildings();
-    initPopulation();
+    gameStartItems();
+    buildingsBootstrap();
     updateDataInfo();
     popBootstrap();
     populationStart();
     updateMapItemsScale();
 
-    game.isStarted = true;
-    game.isPaused = true;
+    game.gameStarted = true;
+    game.gamePaused = true;
 
-    hideElement("start-game");
-    removeElement("game-version");
-    showElement("pause", "btn-active");
-    showElement("buildings-menu", "flex");
-    showElement("1x");
-    showElement("5x");
-    showElement("10x");
-    showElement("left-section", "flex");
-    showElement("info-section", "flex");
-    showElement("map", "flex");
-}
-
-function hideElement(id) {
-    document.getElementById(id).classList.add("hidden");
-}
-
-function removeElement(id) {
-    const element = document.getElementById(id);
-    if (element) {
-        element.parentNode.removeChild(element);
-    }
-}
-
-function showElement(id, display = "block") {
-    const element = document.getElementById(id);
-    element.classList.remove("hidden");
-    element.style.display = display;
+    document.getElementById("start-game").classList.add("hidden");
+    document.getElementById("game-version").remove();
+    document.getElementById("pause").classList.add("btn-active");
+    document.getElementById("buildings-menu").classList.remove("hidden");
+    document.getElementById("pause").classList.remove("hidden");
+    document.getElementById("1x").classList.remove("hidden");
+    document.getElementById("5x").classList.remove("hidden");
+    document.getElementById("10x").classList.remove("hidden");
+    document.getElementById("left-section").style.display = "flex";
+    document.getElementById("info-section").style.display = "flex";
+    document.getElementById("map").style.display = "flex";
 }

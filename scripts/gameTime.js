@@ -16,7 +16,7 @@ export function setGameSpeed(speed){
     }
 
     clearTimeout(game.gameTick);
-    game.isPaused = false;
+    game.gamePaused = false;
     game.gameTick = setTimeout(newTurn, game.gameSpeed);
     speedBtnsClassReset();
     document.getElementById(speed).classList.add("btn-active");
@@ -25,7 +25,7 @@ export function setGameSpeed(speed){
 export function pauseGame(){
     clearTimeout(game.gameTick);
     speedBtnsClassReset();
-    game.isPaused = true;
+    game.gamePaused = true;
     document.getElementById("pause").classList.add("btn-active");
 }
 

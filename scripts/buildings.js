@@ -100,8 +100,8 @@ function generalUpdate(){
 }
 
 export function buildBuilding(id){
-    if(!game.isStarted) return;
-    if(game.isPaused){
+    if(!game.gameStarted) return;
+    if(game.gamePaused){
         pauseError();
         return;
     }

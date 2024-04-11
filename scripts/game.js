@@ -73,7 +73,7 @@ function gameBootstrap(){
 }gameBootstrap();
 
 
-export function initGameItems(){
+export function gameStartItems(){
     if(game.gameDifficulty == "easy"){
         game.lumbermill = 1;
         game.cropField = 2;
@@ -123,6 +123,6 @@ export function newTurn(){
     
     gameTick();
 
-    if(!game.gameOver && !game.isPaused)
+    if(!game.gameOver && !game.gamePaused)
         game.gameTick = window.setTimeout(newTurn, game.gameSpeed);
 }
