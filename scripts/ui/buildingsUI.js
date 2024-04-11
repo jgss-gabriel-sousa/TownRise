@@ -12,7 +12,7 @@ export function buildingHTML(id){
 
     let buildingHTML = `
     <div class="map-item map-item-${building.spriteSize} map-${building.spritePlace} map-${id}">
-        <img src="./img/buildings/${id}.png">
+        <img src="./img/buildings/${id}.png" draggable="false">
     </div>`;
 
     if(building.spritePlace == "city")           city.innerHTML += buildingHTML;
@@ -139,12 +139,12 @@ export function updateMapItemsScale(){
     let mWidth = -Math.round(mapItems * 0.1);
     let mHeight = -Math.round(mapItems * 0.05);
 
-    if(mWidth < -10) mWidth = -10;
-    if(mHeight < -7) mHeight = -7;
+    if(mWidth < -15) mWidth = -15;
+    if(mHeight < -10) mHeight = -10;
     
     //IMG Sizes
-    let modifier = Math.round(mapItems*0.1);
-    if(modifier > 32) modifier = 32;
+    let modifier = Math.round(mapItems*0.15);
+    if(modifier > 48) modifier = 48;
 
     let smSize = 48 - modifier;
     let mdSize = 64 - modifier;
@@ -155,7 +155,7 @@ export function updateMapItemsScale(){
     document.querySelector("#map").style.setProperty("--marginHeight", mHeight+"px");   
     document.querySelector("#map").style.setProperty("--sm_img_size", smSize+"px");   
     document.querySelector("#map").style.setProperty("--md_img_size", mdSize+"px");   
-    document.querySelector("#map").style.setProperty("--lg_img_size", lgSize+"px");   
+    document.querySelector("#map").style.setProperty("--lg_img_size", lgSize+"px");
 }
 
 const buildings = [

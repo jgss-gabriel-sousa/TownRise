@@ -44,7 +44,7 @@ export function resourcesUI(){
 
             html += `
             <div class="resources-btn" id="${r}">
-                <img id="${r}-img" src="./img/icons/${r}.png">
+                <img id="${r}-img" src="./img/icons/${r}.png" draggable="false">
                 <p id="${r}-stat"></p>
                 <small id="${r}-balance-stat">0</small>
             </div>
@@ -84,7 +84,7 @@ export function professionsUI(){
     let html = `
     <table>
         <tr>
-            <td><img src="./img/icons/idle.png"></td>
+            <td><img src="./img/icons/idle.png" draggable="false"></td>
             <td><p>Ocioso:</p></td>
             <td></td>
             <td><p><span id="idle-stat">10</span></p></td>
@@ -96,7 +96,7 @@ export function professionsUI(){
 
         html += `
             <tr>
-                <td><img src="./img/icons/${p}.png"></td>
+                <td><img src="./img/icons/${p}.png" draggable="false"></td>
                 <td><p>${popsData[p].name}:</p></td>
                 <td><input id="${p}-input" class="professions-slider" type="range" value="0" step="1"></td>
                 <td><p><span id="${p}-stat">10</span>/<span id="${p}-jobs-stat">10</span></p></td>
@@ -150,7 +150,7 @@ export function modifiersUI(){
     function createModElement(id){
         document.getElementById("active-modifiers").innerHTML += `
             <div class="container modifier-icon" id="${id}-modifier">
-                <img src="./img/icons/modifiers/${id}.png">
+                <img src="./img/icons/modifiers/${id}.png" draggable="false">
                 <small>${game.modifiers[id]}</small>
             </div>
         `;
@@ -219,7 +219,7 @@ export function popDeathsUI(){
     function createModElement(id){
         document.getElementById("pop-deaths").innerHTML += `
             <div class="container pop-death-icon" id="${id}-pop-death">
-                <img src="./img/icons/pop-deaths/${id}.png">
+                <img src="./img/icons/pop-deaths/${id}.png" draggable="false">
                 <small>${game.popDeaths[id]}</small>
             </div>
         `;

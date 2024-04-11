@@ -6,7 +6,7 @@ import { setGameSpeed, pauseGame } from "./gameTime.js";
 import { popBootstrap } from "./ui/popUI.js";
 import { updateDataInfo } from "./ui/ui.js";
 import { selectGameDifficultyUI, gameOptionsUI } from "./ui/options.js";
-import { buildingsBootstrap } from "./ui/buildingsUI.js";
+import { buildingsBootstrap, updateMapItemsScale } from "./ui/buildingsUI.js";
 
 import { jobs } from "./jobs.js";
 import { buildBuilding, destroyBuilding } from "./buildings.js";
@@ -126,6 +126,7 @@ async function startSequence(type){
     updateDataInfo();
     popBootstrap();
     populationStart();
+    updateMapItemsScale();
 
     game.gameStarted = true;
     game.gamePaused = true;
