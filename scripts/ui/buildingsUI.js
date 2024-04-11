@@ -20,7 +20,7 @@ export function buildingHTML(id){
     if(building.spritePlace == "manufactories")  manufactories.innerHTML += buildingHTML;
 }
 
-export function buildingsBootstrap(){
+export function initBuildings(){
     for(const b in buildingsData){
         const count = document.querySelectorAll("map-"+b).length;
 
@@ -218,6 +218,7 @@ export function buildinglisteners(){
 
     document.getElementById("rmv-building").addEventListener("click", () => {
         if(game.destroyBuildingCheck){
+            //document.querySelector("*").style.cursor = `not-allowed`;
             game.destroyBuildingCheck = false;
             document.getElementById("rmv-building").classList.remove("rmv-active");
         }else{

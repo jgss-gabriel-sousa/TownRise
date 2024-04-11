@@ -1,8 +1,8 @@
 export const game = {
     villageName: "",
     gameTick: 0,
-    gameStarted: false,
-    gamePaused: true,
+    isStarted: false,
+    isPaused: true,
     gameOver: false,
     gameSurrender: false,
     destroyBuildingCheck: false,
