@@ -1,6 +1,6 @@
 import { rand } from "./funcs.js"
 
-var audio = new Audio();
+export let audio = new Audio();
 const NUMBER_OF_SONGS = 7;
 
 export function soundStart(){
@@ -23,7 +23,7 @@ export function soundtrack(){
                 ;
             });
 
-            audio.addEventListener('ended', soundtrack);
+            audio.addEventListener('ended', setTimeout(soundtrack, rand(500,4000)));
 
         }, 1000);
     }

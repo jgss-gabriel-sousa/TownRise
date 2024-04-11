@@ -120,9 +120,10 @@ function popDeaths(){
         
         homelessDeathChance = Math.round(homelessDeathChance);
 
-        let popDeath = rand(0,100) < homelessDeathChance;
+        const popDeathChance = rand(0, 100) < homelessDeathChance;
+        let popDeath = 0;
 
-        if(popDeath){
+        if(popDeathChance){
             popDeath = Math.ceil((rand(0,homelessDeathChance)/100)*homelessPops);
         }
 
