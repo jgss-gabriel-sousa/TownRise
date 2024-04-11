@@ -2,6 +2,7 @@ import { popsUpdate } from "./pops.js";
 import { game } from "../data/gameData.js";
 import { rand } from "./funcs.js";
 import { logPush } from "./ui/log.js";
+import { popDeathsUI } from "./ui/ui.js";
 
 let difficulty;
 
@@ -44,13 +45,19 @@ export function popGrowth(){
             logPush("1 cidadão morreu");
         else                        
             logPush((popDeath-popGrowth)+" cidadãos morreram");
+
+            
+        if(game.popDeaths.hasOwnProperty("natural"))
+            game.popDeaths["natural"] += popDeath;
+        else
+            game.popDeaths["natural"] = popDeath;
     }    
 }
 
 function popDeaths(){
     hungryDeaths();
     homelessDeaths();
-    withoutClothesDeaths();
+    cold();
     //randDeaths();
     
     function hungryDeaths(){
@@ -65,6 +72,11 @@ function popDeaths(){
     
             if(popDeath > 1)        logPush(popDeath+" cidadãos morreram de fome");
             if(popDeath == 1)       logPush(popDeath+" cidadão morreu de fome");
+
+            if(game.popDeaths.hasOwnProperty("hungry"))
+                game.popDeaths["hungry"] += popDeath;
+            else
+                game.popDeaths["hungry"] = popDeath;
     
             if(!game.population)    game.population = 0;
         }
@@ -106,9 +118,10 @@ function popDeaths(){
         
         homelessDeathChance = Math.round(homelessDeathChance);
 
-        let popDeath = rand(0,100) < homelessDeathChance;
+        const popDeathChance = rand(0, 100) < homelessDeathChance;
+        let popDeath = 0;
 
-        if(popDeath){
+        if(popDeathChance){
             popDeath = Math.ceil((rand(0,homelessDeathChance)/100)*homelessPops);
         }
 
@@ -116,9 +129,14 @@ function popDeaths(){
 
         if(popDeath > 1)    logPush(popDeath+" cidadãos morreram sem abrigo");
         if(popDeath == 1)   logPush(popDeath+" cidadão morreu sem abrigo");
+
+        if(game.popDeaths.hasOwnProperty("homeless"))
+            game.popDeaths["homeless"] += popDeath;
+        else
+            game.popDeaths["homeless"] = popDeath;
     }
 
-    function withoutClothesDeaths(){
+    function cold(){
         if(rand(0,5) != 0) return;
 
         let popWithoutClothes = game.population - Math.floor(game.clothes);
@@ -131,6 +149,11 @@ function popDeaths(){
         popDeath = Math.round(popDeath );
 
         if(popDeath < 0) popDeath = 0;
+
+        if(game.popDeaths.hasOwnProperty("cold"))
+            game.popDeaths["cold"] += popDeath;
+        else
+            game.popDeaths["cold"] = popDeath;
 
         game.population -= popDeath;
     }

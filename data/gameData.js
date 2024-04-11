@@ -15,6 +15,8 @@ export const game = {
     modifiers:{},
     activeEvents:{},
 
+    popDeaths:{},
+
     impacts: {
         popGrowth: 1,
         popDeath: 1,
@@ -33,7 +35,6 @@ export const game = {
     food_consumption: 0,
     knowledge: 0,
     popLimit: 0,
-    lifeQuality: 0,
 
     productivity: 0,
     happiness: 0.5,

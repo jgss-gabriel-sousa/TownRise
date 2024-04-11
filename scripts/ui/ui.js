@@ -44,7 +44,7 @@ export function resourcesUI(){
 
             html += `
             <div class="resources-btn" id="${r}">
-                <img id="${r}-img" src="./img/icons/${r}.png">
+                <img id="${r}-img" src="./img/icons/${r}.png" draggable="false">
                 <p id="${r}-stat"></p>
                 <small id="${r}-balance-stat">0</small>
             </div>
@@ -84,7 +84,7 @@ export function professionsUI(){
     let html = `
     <table>
         <tr>
-            <td><img src="./img/icons/idle.png"></td>
+            <td><img src="./img/icons/idle.png" draggable="false"></td>
             <td><p>Ocioso:</p></td>
             <td></td>
             <td><p><span id="idle-stat">10</span></p></td>
@@ -96,7 +96,7 @@ export function professionsUI(){
 
         html += `
             <tr>
-                <td><img src="./img/icons/${p}.png"></td>
+                <td><img src="./img/icons/${p}.png" draggable="false"></td>
                 <td><p>${popsData[p].name}:</p></td>
                 <td><input id="${p}-input" class="professions-slider" type="range" value="0" step="1"></td>
                 <td><p><span id="${p}-stat">10</span>/<span id="${p}-jobs-stat">10</span></p></td>
@@ -124,6 +124,7 @@ export function updateDataInfo(){
     buildingsDescriptionUpdate();
 
     modifiersUI();
+    popDeathsUI();
 
     //Bars
     const barsElements = ["productivity","happiness","lifeQuality"];
@@ -149,7 +150,7 @@ export function modifiersUI(){
     function createModElement(id){
         document.getElementById("active-modifiers").innerHTML += `
             <div class="container modifier-icon" id="${id}-modifier">
-                <img src="./img/icons/modifiers/${id}.png">
+                <img src="./img/icons/modifiers/${id}.png" draggable="false">
                 <small>${game.modifiers[id]}</small>
             </div>
         `;
@@ -179,10 +180,80 @@ export function modifiersUI(){
     }
 
     document.querySelectorAll(".modifier-icon").forEach(e => {
-        const elID = e.id.slice(0, -9);
+        const elID = e.id.slice(0, -"-modifier".length);
         
         if(!game.modifiers.hasOwnProperty(elID)){
             deleteModElement(elID);
+        }
+    });
+}
+
+const deathData = {
+    natural: {
+        article: "de ",
+        name: "Morte Natural",
+    },
+    hungry: {
+        article: "de ",
+        name: "Fome",
+    },
+    homeless: {
+        article: "",
+        name: "Sem Abrigo",
+    },
+    cold: {
+        article: "de ",
+        name: "Frio",
+    },
+}
+
+export function popDeathsUI(){
+    function createTippy(id){
+        tippy("#"+id+"-pop-death", {
+            content: "<p>Mortos <b>"+deathData[id].article+deathData[id].name+"</b></p>",
+            allowHTML: true,
+            theme: "townrise",
+            interactive: false,
+        });
+    }
+    function createModElement(id){
+        document.getElementById("pop-deaths").innerHTML += `
+            <div class="container pop-death-icon" id="${id}-pop-death">
+                <img src="./img/icons/pop-deaths/${id}.png" draggable="false">
+                <small>${game.popDeaths[id]}</small>
+            </div>
+        `;
+
+        createTippy(id);
+    }
+    function updateModElement(id){
+        document.querySelector("#"+id+"-pop-death small").innerText = game.popDeaths[id];
+    }
+    function deleteModElement(id){
+        document.getElementById(id+"-pop-death").remove();
+    }
+    //###############################################################
+
+    for(const m in game.popDeaths){
+        if(document.getElementById(m+"-pop-death") == null){
+            createModElement(m);
+        }
+        else{
+            updateModElement(m);
+        }
+    }
+
+    for(const m in game.popDeaths){
+        if(document.getElementById(m+"-pop-death")._tippy == undefined)
+            createTippy(m);
+    }
+
+    document.querySelectorAll(".pop-death-icon").forEach(e => {
+        const id = e.id.slice(0, -"-pop-death".length);
+
+        if(!game.popDeaths.hasOwnProperty(id) || game.popDeaths[id] == 0){
+            deleteModElement(id);
+            delete game.popDeaths[id];
         }
     });
 }

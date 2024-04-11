@@ -1,6 +1,8 @@
 #map-section {
-    position: relative;
-    width: 100%;
+    width: 57%;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 #map {
@@ -10,18 +12,20 @@
     --md_img_size: 64px;
     --lg_img_size: 72px;
 
+    border: 0;
     height: 100%;
-    width: 100%;
+    min-height: 650px;
     justify-items: center;
     flex-direction: column;
     flex-wrap: wrap;
     align-content: center;
     justify-content: space-evenly;
     align-items: center;
-    border: 1px solid black;
-    background-color: #32a20b;
-    background-image: url("../img/grass.webp");
-    background-repeat: repeat;
+    background-color: transparent;
+    background-image: url("../img/background.webp");
+    background-repeat: space;
+    background-size: cover;
+    background-position-x: center;
     -webkit-transition: 2s -webkit-filter linear;
     -moz-transition: 2s -moz-filter linear;
     -moz-transition: 2s filter linear;
@@ -50,12 +54,22 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+    position: relative;
 }
 .map-div:first-child {
     margin-top: 45px;
 }
+
+#map-city {
+    top: 42%;
+}
+#map-farms {
+    top: 33%;
+}
+#map-manufactories {
+    top: -6%;
+}
+
 
 .map-item {
     filter: drop-shadow(2px 2px 2px #333);

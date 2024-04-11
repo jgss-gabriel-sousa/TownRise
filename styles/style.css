@@ -18,11 +18,36 @@ body {
     background: -webkit-linear-gradient(to right, var(--body-bg-gradient1), var(--body-bg-gradient2));
     background: linear-gradient(to right, var(--body-bg-gradient1), var(--body-bg-gradient2));
     margin: 0;
+    overflow: hidden;
+}
+@media only screen and (max-height: 650px) {
+    body {
+        overflow: overlay;
+    }
 }
 
 #main-interface {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: start;
+    height: 100vh;
+    max-height: 768px;
+}
+
+#console {
+    padding: 0.25em;
+    display: flex;
+    justify-content: center;
+    display: none;
+}
+
+#console input {
+    width: 50%;
+    padding: 1em;
+    margin-right: 1em;
+}
+
+#console button {
+    padding: 1em;
 }
 
 p {
@@ -54,6 +79,7 @@ select {
 
 .data {
     padding: 5px 10px;
+    border: 0;
 }
 
 #infos td:first-child {
@@ -81,6 +107,9 @@ select {
     font-family: Arial, Helvetica, sans-serif;
     border-radius: 0.5em;
     border: 1px solid var(--dark-border);
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 .btn:hover{
@@ -117,13 +146,24 @@ select {
 #left-section{
     flex-direction: column;
     align-items: stretch;
-    width: min-content;
+    background-color: var(--container-bg);
 }
 #left-section div{
     margin-bottom: -1px;
+    border: 0;
+}
+#left-section > div:nth-child(2),
+#left-section > div:nth-child(3) {
+    border-top: 1px solid;
 }
 
-#resources{
+#info-section {
+    flex-direction: column;
+}
+
+#resources {
+    width: calc(25px + 95px * 3);
+    overflow: overlay;
     display: flex;
     flex-wrap: wrap;
     border: 0;
@@ -132,22 +172,23 @@ select {
     justify-content: space-between;
 }
 
-.resources-row{
-    margin-bottom: 0.5em;
+.resources-row {
+    display: flex;
+    flex-direction: column;
     width: 95px;
+    padding: 2px;
 }
-.resources-row p:first-child{
+.resources-row p:first-child {
     font-size: 12px;
     overflow: hidden;
     font-weight: bold;
     text-align: center;
-    background-color: #d3d3d3;
     border-bottom: 1px solid #999;
     padding: 2px;
+    background-color: var(--container-bg);
 }
-.resources-btn{
+.resources-btn {
     display: flex;
-    cursor: normal;
     background-color: #e2e2e2;
     padding: 5px;
     font-size: 12px;
@@ -161,12 +202,6 @@ select {
     height: 20px;
     object-fit: contain;
     filter: drop-shadow(1px 1px 1px black);
-}
-
-#info-section {
-    flex-direction: column;
-    width: 25%;
-    min-width: 300px;
 }
 
 button:hover span {
@@ -185,7 +220,6 @@ button:hover span b {
 
 #buildings-menu{
     flex-direction: row;
-    width: min-content;
     height: min-content;
     padding: 5px;
 }
@@ -240,15 +274,16 @@ button:hover span b {
     padding: 10px;
 }
 
-#active-modifiers {
-    position: absolute;
+#active-modifiers, #pop-deaths {
+    position: absolute;;
     z-index: 999;
     display: flex;
     flex-wrap: wrap;
-    left: 0;
-    top: 0;
 }
-#active-modifiers div{
+#pop-deaths {
+    top: 50px;
+}
+#active-modifiers div, #pop-deaths div{
     width: 40px;
     height: 40px;
     font-weight: bold;
@@ -256,12 +291,12 @@ button:hover span b {
     text-align: center;
     justify-content: center;
 }
-#active-modifiers small{
+#active-modifiers small, #pop-deaths small{
     margin-top: 1px;
     background-color: #b6b6b6;
     border-top: 1px solid #777;
 }
-#active-modifiers img{
+#active-modifiers img, #pop-deaths img{
     width: 24px;
     height: 24px;
     align-self: center;

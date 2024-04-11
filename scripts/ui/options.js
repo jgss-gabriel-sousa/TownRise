@@ -1,4 +1,5 @@
 import { game } from "../../data/gameData.js";
+import { audio } from "../sound.js";
 
 export function gameOptionsUI(){
     const volumeValue = localStorage.getItem("mv-volume");
@@ -22,6 +23,7 @@ export function gameOptionsUI(){
       const volumeEl = document.querySelector("#volume input");
       volumeEl.addEventListener("change", () => {
           localStorage.setItem("mv-volume", volumeEl.value);
+          audio.volume = volumeEl.value;
       });
 }
 

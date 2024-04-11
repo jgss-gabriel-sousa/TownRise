@@ -138,7 +138,9 @@ export const buildingsData = {
         spritePlace: "city",
         description: "",
         jobs: {
+            worker: 3,
             artificer: 2,
+            patrician: 1,
         },
         build: {
             wood: 20,
@@ -161,7 +163,7 @@ export const buildingsData = {
         jobs: {
             worker: 2,
             artificer: 2,
-            patrician: 1,
+            noble: 1,
         },
         build: {
             wood: 20,
@@ -203,6 +205,7 @@ export const buildingsData = {
         jobs: {
             worker: 4,
             artificer: 2,
+            patrician: 1,
         },
         build: {
             wood: 20,
@@ -264,7 +267,8 @@ export const buildingsData = {
         spritePlace: "city",
         description: "",
         jobs: {
-            worker: 2,
+            worker: 4,
+            noble: 1,
         },
         build: {
             wood: 12,
@@ -387,6 +391,24 @@ export const buildingsData = {
         production: {
             meat: 0.5,
             leather: 0.75
+        }
+    },
+    barracks: {
+        name: "Quartel",
+        spriteSize: "lg",
+        spritePlace: "city",
+        description: "",
+        jobs: {
+            soldier: 50,
+        },
+        build: {
+            wood: 100,
+            stone: 30,
+        },
+        maintenance: {
+            gold: 5,
+        },
+        production: {
         }
     },
 }

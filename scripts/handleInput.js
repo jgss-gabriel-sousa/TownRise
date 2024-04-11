@@ -6,7 +6,7 @@ import { setGameSpeed, pauseGame } from "./gameTime.js";
 import { initPopulation } from "./ui/popUI.js";
 import { updateDataInfo } from "./ui/ui.js";
 import { selectGameDifficultyUI, gameOptionsUI } from "./ui/options.js";
-import { initBuildings } from "./ui/buildingsUI.js";
+import { buildingsBootstrap, updateMapItemsScale } from "./ui/buildingsUI.js";
 
 import { jobs } from "./jobs.js";
 import { buildBuilding, destroyBuilding } from "./buildings.js";
@@ -19,6 +19,10 @@ window.addEventListener("beforeunload", function (event) {
         event.returnValue = "\o/";
 });
 
+window.onresize = e => {
+    document.querySelector("body").style.height = window.innerHeight-20+"px";
+};
+
 window.onclick = e => {
     //Buildings
     const b = e.target.id.replace(/^add-/, "");
@@ -27,7 +31,7 @@ window.onclick = e => {
     }
     if(game.destroyBuildingCheck){
         if(e.target.parentNode.classList.contains("map-item")){
-            const building = e.target.parentNode.classList[3].substring(4)
+            const building = e.target.parentNode.classList[3].substring(4);
             destroyBuilding(building, 1);
         }
     }
@@ -121,6 +125,9 @@ async function startSequence(type) {
     initBuildings();
     initPopulation();
     updateDataInfo();
+    popBootstrap();
+    populationStart();
+    updateMapItemsScale();
 
     game.isStarted = true;
     game.isPaused = true;
