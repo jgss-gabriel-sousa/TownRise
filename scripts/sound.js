@@ -4,11 +4,13 @@ export let audio = new Audio();
 const NUMBER_OF_SONGS = 7;
 
 export function soundStart(){
+    window.setTimeout(soundtrack, rand(1500, 5000));
+
     if(!localStorage.getItem("mv-volume"))
         localStorage.setItem("mv-volume", "0.5");
 }
 
-export function soundtrack(){
+function soundtrack(){
     if(audio.paused){
         const newSongID = rand(0,NUMBER_OF_SONGS);
         audio = new Audio("./songs/"+newSongID+".mp3");

@@ -1,5 +1,5 @@
 import { rand, shuffleArr, preloadImage } from "./funcs.js";
-import { soundStart, soundtrack } from "./sound.js";
+import { soundStart } from "./sound.js";
 import { resourcesUI,professionsUI } from "./ui/ui.js";
 import { savedGamesHTML } from "./ui/load-saveUI.js";
 import { newWeather } from "./weather.js";
@@ -12,7 +12,8 @@ import { resources } from "../data/resourcesData.js";
 import { buildingsData } from "../data/buildingsData.js";
 import { popsData } from "../data/popsData.js";
 import { armyData } from "../data/armyData.js";
-import { combat } from "./army.js";
+import { startCombat } from "./combat.js";
+
 
 function gameBootstrap(){
     if(localStorage.getItem("mv-game-version") != document.getElementById("game-version").innerText){
@@ -20,16 +21,50 @@ function gameBootstrap(){
         localStorage.setItem("mv-game-version", document.getElementById("game-version").innerText);
     }
 
+    preloadImages();
+    gameStartValues();
+
+    //#######################################################
+
+    happinessCalc();
+    foodCalc();
+    productivityCalc();
+
+    //#######################################################
+
+    soundStart();
+    resourcesUI();
+    professionsUI();
+    savedGamesHTML();
+    shuffleArr(eventsData);
+
+    setInterval(popUpdate, 100);
+
+    startCombat();
+}gameBootstrap();
+
+
+function preloadImages(){
+    for(const k in buildingsData){
+        preloadImage("./img/buildings/"+k+".png");
+    }
+    for(const k in resources){
+        preloadImage("./img/icons/"+k+".png");
+    }
+    for(const k in eventsData){
+        if(eventsData[k].image)
+            preloadImage("./img/events/"+k+".webp");
+    }
+}
+
+
+function gameStartValues(){
     for(const k in buildingsData){
         game[k] = 0;
-
-        preloadImage("./img/buildings/"+k+".png");
     }
     for(const k in resources){
         game[k] = 0;
         resetResource(k);
-
-        preloadImage("./img/icons/"+k+".png");
     }
     for(const k in popsData){
         game[k] = 0;
@@ -37,10 +72,6 @@ function gameBootstrap(){
     }
     for(const k in armyData){
         game[k] = 0;
-    }
-    for(const k in eventsData){
-        if(eventsData[k].image)
-            preloadImage("./img/events/"+k+".webp");
     }
 
     game.fruit = 50;
@@ -51,26 +82,7 @@ function gameBootstrap(){
     game.ale = 10;
 
     game.idle = 10;
-
-    //#######################################################
-
-    happinessCalc();
-    foodCalc();
-    productivityCalc();
-
-    //#######################################################
-
-    window.setTimeout(soundtrack, rand(1500,5000));
-    soundStart();
-    resourcesUI();
-    professionsUI();
-    savedGamesHTML();
-    shuffleArr(eventsData);
-
-    setInterval(popUpdate, 100);
-
-    combat();
-}gameBootstrap();
+}
 
 
 export function gameStartItems(){
