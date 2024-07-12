@@ -22,7 +22,7 @@ function soundtrack(){
                 clearInterval(tryToPlay);
             })
             .catch(error => {
-                ;
+                console.error(error);
             });
 
             audio.addEventListener('ended', setTimeout(soundtrack, rand(500,4000)));
