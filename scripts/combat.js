@@ -5,7 +5,7 @@ export function startCombat(){
     
     
     Swal.fire({
-        title: `${teamName}`,
+        title: `Combate`,
         html: html,
         width: "75%",
         showCloseButton: true,

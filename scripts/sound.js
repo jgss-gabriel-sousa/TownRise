@@ -20,12 +20,13 @@ function soundtrack(){
             audio.play()
             .then(() => {
                 clearInterval(tryToPlay);
+                
+                if(audio)
+                    audio.addEventListener('ended', setTimeout(soundtrack, rand(500,4000)));
             })
             .catch(error => {
                 console.error(error);
             });
-
-            audio.addEventListener('ended', setTimeout(soundtrack, rand(500,4000)));
 
         }, 1000);
     }
