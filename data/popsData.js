@@ -45,7 +45,7 @@ export const popsData = {
     artificer:{
         name: "Artífice",
         food_consumption: 0.05,
-        consumption: {
+        goods_consumption: {
             ale: 0.03,
             clothes: 0.015,
             tools: 0.02,
@@ -54,7 +54,7 @@ export const popsData = {
     patrician:{
         name: "Patrício",
         food_consumption: 0.1,
-        consumption: {
+        goods_consumption: {
             ale: 0.05,
             clothes: 0.03,
             wine: 0.05,
@@ -63,7 +63,7 @@ export const popsData = {
     noble:{
         name: "Nobre",
         food_consumption: 0.2,
-        consumption: {
+        goods_consumption: {
             ale: 0.1,
             clothes: 0.05,
             wine: 0.1,
