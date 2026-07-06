@@ -20,6 +20,9 @@
     margin: 0;
     font-weight: normal;
 }
+.balance-stats-tippy span {
+    font-size: 12px;
+}
 
 .tippy-box[data-theme~="townrise"] {
     background-color: #00472D;

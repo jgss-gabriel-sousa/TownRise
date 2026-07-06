@@ -40,15 +40,14 @@ export function popGrowth(){
 
     const oldPop = game.population;
     game.population = game.population + popGrowth - popDeath;
-    if(game.population > oldPop && game.population > game.popLimit) game.population = oldPop;
+    //if(game.population > oldPop && game.population > game.popLimit) game.population = oldPop;
 
     if(popDeath > popGrowth){
         if(popDeath-popGrowth == 1) 
             logPush("1 cidadão morreu");
-        else                        
+        else
             logPush((popDeath-popGrowth)+" cidadãos morreram");
 
-            
         if(game.popDeaths.hasOwnProperty("natural"))
             game.popDeaths["natural"] += popDeath;
         else

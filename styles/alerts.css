@@ -1,0 +1,6 @@
+button.swal2-confirm.swal2-styled {
+    background-color: var(--btn-bg);
+}
+.swal2-styled.swal2-confirm {
+    cursor: unset;
+}

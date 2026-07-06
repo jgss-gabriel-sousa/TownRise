@@ -46,7 +46,6 @@ export function resourcesUI(){
             <div class="resources-btn" id="${r}">
                 <img id="${r}-img" src="./img/icons/${r}.png" draggable="false">
                 <p id="${r}-stat"></p>
-                <small id="${r}-balance-stat">0</small>
             </div>
             `
         }
@@ -261,25 +260,30 @@ export function popDeathsUI(){
 function resourcesStatAndLack(){
     for(const r in resources){
         document.getElementById(r+"-stat").innerText = numberF(Math.floor(game[r]),"",0);
-        document.getElementById(r+"-balance-stat").innerText = numberBalanceFormatted(game[r+"_balance"]);
+        //document.getElementById(r+"-balance-stat").innerText = numberBalanceFormatted(game[r+"_balance"]);
 
         if(game[r+"_lack"])
             document.getElementById(r+"-stat").classList.add("lack");
         else
             document.getElementById(r+"-stat").classList.remove("lack");
         
-        let balanceContent = `<h1>${resources[r].name}</h1>`;
-        balanceContent += `<b>Produção: ${numberF(game[r+"_totalProduction"],"",1)}</b>`;
+        let balanceStatsTippyHTML = `<div class="balance-stats-tippy"><h1>${resources[r].name}</h1>`;
+        balanceStatsTippyHTML += `<span><b>Produção: ${numberF(game[r+"_totalProduction"],"",1)}</b></span>`;
         for(const p in game[r+"_production"]){
             const prod = numberF(game[r+"_production"][p],"",1);
-            balanceContent += `<p>${p}: ${prod}</p>`
+            if(prod == 0) continue
+            balanceStatsTippyHTML += `<p>${p}: ${prod}</p>`
         }
-        balanceContent += `<hr><b>Consumo: ${numberF(-game[r+"_totalConsumption"],"",1)}</b>`;
+        balanceStatsTippyHTML += `<br><span><b>Consumo: ${numberF(-game[r+"_totalConsumption"],"",1)}</b></span>`;
         for(const c in game[r+"_consumption"]){
             const cons = numberF(-game[r+"_consumption"][c],"",1);
-            balanceContent += `<p>${c}: ${cons}</p>`
+            if(cons == 0) continue
+            balanceStatsTippyHTML += `<p>${c}: ${cons}</p>`
         }
-        document.querySelector("#"+r)._tippy.setContent(balanceContent);
+        
+        balanceStatsTippyHTML += `<hr><span><b>Balanço: ${numberF(game[r+"_balance"],"",1)}</b></span>`;
+        balanceStatsTippyHTML += "</div>"
+        document.querySelector("#"+r)._tippy.setContent(balanceStatsTippyHTML);
     }    
 }
 

@@ -186,6 +186,7 @@ function hideAllBuildingBtns(){
         }
     }
     document.getElementById("rmv-building").classList.remove("rmv-active");
+    document.body.classList.remove('cursor-destroy');
     game.destroyBuildingCheck = false;
 }
 
@@ -220,9 +221,11 @@ export function buildinglisteners(){
         if(game.destroyBuildingCheck){
             game.destroyBuildingCheck = false;
             document.getElementById("rmv-building").classList.remove("rmv-active");
+            document.body.classList.remove('cursor-destroy');
         }else{
             game.destroyBuildingCheck = true;
             document.getElementById("rmv-building").classList.add("rmv-active");
+            document.body.classList.add('cursor-destroy');
         }
     });
 }

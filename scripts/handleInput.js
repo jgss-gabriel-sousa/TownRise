@@ -26,11 +26,13 @@ window.onresize = e => {
 
 window.onclick = e => {
     //Buildings
-    const b = e.target.id.replace(/^add-/, "");
-    if(buildingsData.hasOwnProperty(b)){
-        buildBuilding(b);
+    const buildingID = e.target.id.replace(/^add-/, "");
+    if(buildingsData.hasOwnProperty(buildingID)){
+        buildBuilding(buildingID);
     }
     if(game.destroyBuildingCheck){
+        document.body.classList.add('cursor-destroy');
+
         if(e.target.parentNode.classList.contains("map-item")){
             const building = e.target.parentNode.classList[3].substring(4);
             destroyBuilding(building, 1);

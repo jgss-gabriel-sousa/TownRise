@@ -40,7 +40,9 @@ function gameBootstrap(){
 
     setInterval(popUpdate, 100);
 
-    startCombat();
+    //startCombat();
+    
+    //startScreen();
 }gameBootstrap();
 
 

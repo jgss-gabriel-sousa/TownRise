@@ -101,10 +101,6 @@ function generalUpdate(){
 
 export function buildBuilding(id){
     if(!game.gameStarted) return;
-    if(game.gamePaused){
-        pauseError();
-        return;
-    }
 
     const building = buildingsData[id];
 

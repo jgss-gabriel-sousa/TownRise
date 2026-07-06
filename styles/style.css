@@ -2,6 +2,7 @@
 
 @import "./colors.css";
 @import "./tippy.css";
+@import "./alerts.css";
 
 /* Elements */
 @import "./volume.css";
@@ -11,6 +12,10 @@
 * {
     cursor: url("../img/cursor.png"), auto;
     font-family: 'Roboto', sans-serif;
+}
+
+body.cursor-destroy * {
+    cursor: url("../img/cursor_destroy.png"), auto;
 }
 
 body {
@@ -175,17 +180,21 @@ select {
 .resources-row {
     display: flex;
     flex-direction: column;
-    width: 95px;
+    width: 65px;
     padding: 2px;
 }
 .resources-row p:first-child {
     font-size: 12px;
+    height: 30px;
     overflow: hidden;
     font-weight: bold;
     text-align: center;
     border-bottom: 1px solid #999;
     padding: 2px;
     background-color: var(--container-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .resources-btn {
     display: flex;
@@ -202,6 +211,9 @@ select {
     height: 20px;
     object-fit: contain;
     filter: drop-shadow(1px 1px 1px black);
+}
+.resources-btn p {
+    width: 2em;
 }
 
 button:hover span {

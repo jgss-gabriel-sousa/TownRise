@@ -12,11 +12,38 @@ export function shuffleArr(array){
 }
 
 export function numberFormatted(number){
-    number = number.toString().replace(".", ",");
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    if(number < 1000){
+        number = number.toString().replace(".", ",");
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+    else{
+        if (number >= 1_000_000_000) {
+            return format(number, 1_000_000_000, "B");
+        }
+        if (number >= 1_000_000) {
+            return format(number, 1_000_000, "M");
+        }
+        if (number >= 1_000) {
+            return format(number, 1_000, "K");
+        }
+
+        return number.toString().replace(".", ",");
+    }
+
+    function format(number, divisor, suffix) {
+        let value = (number / divisor).toFixed(1);
+
+        // remove ",0"
+        if (value.endsWith(".0")) {
+            value = value.slice(0, -2);
+        }
+
+        return value.replace(".", ",") + suffix;
+    }
 }
 
 export function numberF(number,format,precision){
+    if(number == undefined) return NaN
     if(format == "balance") return balance(number,precision);
     
     if(precision == 0)
